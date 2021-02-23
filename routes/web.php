@@ -2,8 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 //==================================================================================index
-Route::get('/', 'frontend\HomeController@index');
-
+Route::get('/', 'frontend\FrontControl@index');
+// ==================================================================================frontend
+Route::prefix('katalog')->group(function(){
+    Route::get('cari-katalog/{cari}','frontend\FrontControl@cariKatalog')->name('cari.katalog');
+});
 //==================================================================================auth
 Auth::routes();
 Route::get('user-login','Auth\PenggunaLoginController@showLoginForm');
