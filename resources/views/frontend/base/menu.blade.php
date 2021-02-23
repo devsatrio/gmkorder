@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <!-- Start MAinmenu Ares -->
-                <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
+                {{-- <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
                     <nav class="mainmenu__nav hidden-xs hidden-sm">
                         <ul class="main__menu">
                             <li class="drop"><a href="index.html">Home</a></li>
@@ -114,14 +114,14 @@
                             </ul>
                         </nav>
                     </div>                          
-                </div>
+                </div> --}}
                 <!-- End MAinmenu Ares -->
-                <div class="col-md-2 col-sm-4 col-xs-3">  
+                <div class="col-md-12 col-sm-4 col-xs-3 float-right">  
                     <ul class="menu-extra">
                         <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
-                        <li><a href="login-register.html"><span class="ti-user"></span></a></li>
+                        {{-- <li><a href="login-register.html"><span class="ti-user"></span></a></li> --}}
                         <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
-                        <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
+                        {{-- <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li> --}}
                     </ul>
                 </div>
             </div>
