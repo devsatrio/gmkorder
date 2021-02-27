@@ -85,7 +85,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Size</label>
                                                 <select name="size[]" class="form-control">
@@ -95,17 +95,24 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">HPP</label>
                                                 <input type="number" class="form-control" value="0" name="hpp[]"
                                                     required>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Harga Jual</label>
                                                 <input type="number" class="form-control" value="0" name="harga_jual[]"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Foto</label>
+                                                <input type="file" class="form-control" accept="image/*" name="gambar_warna[]"
                                                     required>
                                             </div>
                                         </div>
@@ -132,7 +139,7 @@
                                             <label for="exampleInputFile">Gambar Lain</label>
                                             <input type="file" class="form-control" name="gambarlain[]" id="gambarlain"
                                                 accept="image/*" multiple required>
-                                            <span class="text-muted">Maksimal 9 foto</span>
+                                            <span class="text-muted">Maksimal 3 foto</span>
                                         </div>
                                     </div>
                                 </div>
@@ -161,7 +168,7 @@
                 </select>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
                 <label for="exampleInputEmail1">Size</label>
                 <select name="size[]" class="form-control">
@@ -171,16 +178,22 @@
                 </select>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
                 <label for="exampleInputEmail1">HPP</label>
                 <input type="number" class="form-control" value="0" name="hpp[]" required>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
                 <label for="exampleInputEmail1">Harga Jual</label>
                 <input type="number" class="form-control" value="0" name="harga_jual[]" required>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Foto</label>
+                <input type="file" class="form-control" value="0" name="gambar_warna[]" required>
             </div>
         </div>
     </div>
@@ -215,8 +228,8 @@ function delIt(eleId) {
 }
 
 $("#gambarlain").on("change", function() {
-    if ($("#gambarlain")[0].files.length > 9) {
-        alert("You can select only 9 images");
+    if ($("#gambarlain")[0].files.length > 3) {
+        alert("You can select only 3 images");
         $("#gambarlain").val('');
     }
 });

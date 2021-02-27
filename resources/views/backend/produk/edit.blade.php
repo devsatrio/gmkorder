@@ -124,6 +124,7 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
+                                                <th scope="col" class="text-center">Gambar</th>
                                                 <th scope="col">Warna / Motif</th>
                                                 <th scope="col">Size</th>
                                                 <th scope="col">HPP</th>
@@ -135,6 +136,15 @@
                                         <tbody>
                                             @foreach($varian as $var)
                                             <tr>
+                                                <th class="text-center">
+                                                    @if($var->gambar!='')
+                                                    <img src="{{asset('img/gambarproduk/'.$var->gambar)}}" alt=""
+                                                        class="img-thumbnail" style="height:100px;">
+
+                                                    @else
+                                                    -
+                                                    @endif
+                                                </th>
                                                 <th>{{$var->namawarna}}</th>
                                                 <td>{{$var->namasize}}</td>
                                                 <td>{{"Rp ". number_format($var->hpp,0,',','.')}}</td>
@@ -145,9 +155,10 @@
                                                         method="POST">
                                                         @csrf
                                                         <input type="hidden" name="_method" value="delete">
-                                                        
+
                                                         <button type="button" class="btn btn-success btn-sm"
-                                                            data-toggle="modal" data-target="#edit-varian{{$var->id}}"><i
+                                                            data-toggle="modal"
+                                                            data-target="#edit-varian{{$var->id}}"><i
                                                                 class="fas fa-wrench"></i>
                                                         </button>
                                                         <button type="submit" onclick="return confirm('Hapus Varian ?')"
@@ -162,6 +173,9 @@
                                     </table>
                                 </div>
                             </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{url('backend/produk')}}" class="btn btn-danger">Kembali</a>
                         </div>
                     </div>
                     <div class="card card-dark">
@@ -208,6 +222,9 @@
                                 </div>
                                 @endforeach
                             </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{url('backend/produk')}}" class="btn btn-danger">Kembali</a>
                         </div>
                     </div>
                 </div>
@@ -275,6 +292,11 @@
                                         <label for="exampleInputEmail1">Harga Jual</label>
                                         <input type="number" class="form-control" value="0" name="harga_jual" required>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Gambar</label>
+                                        <input type="file" accept="image/*" class="form-control"
+                                            name="gambar_warna" required>
+                                    </div>
                                 </div>
                                 <div class="modal-footer justify-content-between">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -300,7 +322,8 @@
                                         <label for="exampleInputEmail1">Warna / Motif</label>
                                         <select name="warna" class="form-control">
                                             @foreach($warna as $wrn)
-                                            <option value="{{$wrn->id}}" @if($var->warna_id==$wrn->id) selected @endif>{{$wrn->nama}}</option>
+                                            <option value="{{$wrn->id}}" @if($var->warna_id==$wrn->id) selected
+                                                @endif>{{$wrn->nama}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -308,17 +331,30 @@
                                         <label for="exampleInputEmail1">Size</label>
                                         <select name="size" class="form-control">
                                             @foreach($size as $sz)
-                                            <option value="{{$sz->id}}" @if($var->size_id==$sz->id) selected @endif>{{$sz->nama}}</option>
+                                            <option value="{{$sz->id}}" @if($var->size_id==$sz->id) selected
+                                                @endif>{{$sz->nama}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">HPP</label>
-                                        <input type="number" class="form-control" value="{{$var->hpp}}" name="hpp" required>
+                                        <input type="number" class="form-control" value="{{$var->hpp}}" name="hpp"
+                                            required>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Harga Jual</label>
-                                        <input type="number" class="form-control" value="{{$var->harga}}" name="harga_jual" required>
+                                        <input type="number" class="form-control" value="{{$var->harga}}"
+                                            name="harga_jual" required>
+                                    </div>
+                                    @if($var->gambar!='')
+                                    <img src="{{asset('img/gambarproduk/'.$var->gambar)}}" alt="" class="img-thumbnail"
+                                        style="height:100px;">
+
+                                    @endif
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Gambar</label>
+                                        <input type="file" accept="image/*"  class="form-control"
+                                            name="gambar_warna">
                                     </div>
                                 </div>
                                 <div class="modal-footer justify-content-between">

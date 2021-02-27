@@ -88,13 +88,22 @@ class ProdukController extends Controller
 
         $i=0;
         $data_varian = [];
-        foreach ($request->warna as $warna) {
+        foreach ($request->file('gambar_warna') as $photoswarna) {
+
+            $namaexs = $photoswarna->getClientOriginalName();
+            $lower_file_name=strtolower($namaexs);
+            $replace_space=str_replace(' ', '-', $lower_file_name);
+            $namagambar = time().'-'.$replace_space;
+            $destination = public_path('img/gambarproduk');
+            $photoswarna->move($destination,$namagambar);
+           
             $data_varian[] =[
                 'produk_kode'=>$request->kode,
                 'warna_id'=>$request->warna[$i],
                 'size_id'=>$request->size[$i],
                 'hpp'=>$request->hpp[$i],
                 'harga'=>$request->harga_jual[$i],
+                'gambar'=>$namagambar
             ];
         $i++;
         }
@@ -312,6 +321,15 @@ class ProdukController extends Controller
     //=================================================================
     public function addvarian(Request $request)
     {
+        if($request->hasFile('gambar_warna')) {
+            
+            $image = $request->file('gambar_warna');
+            $input['imagename'] = time().'-'.$image->getClientOriginalName();
+
+            $destinationPath = public_path('img/gambarproduk');
+            $image->move($destinationPath, $input['imagename']);
+            $namafile=$input['imagename'];
+        }
         DB::table('produk_varian')
         ->insert([
             'produk_kode'=>$request->kode,
@@ -319,6 +337,7 @@ class ProdukController extends Controller
             'size_id'=>$request->size,
             'hpp'=>$request->hpp,
             'harga'=>$request->harga_jual,
+            'gambar'=>$namafile,
         ]);
         return back()->with('statusvarian','Varian berhasil disimpan');
     }
@@ -350,6 +369,11 @@ class ProdukController extends Controller
         'jumlah_akhir'=>$stoktotal-$datavar->stok,
         'tanggal'=>date('Y-m-d H:i:s')
     ]);
+
+    $dataimage = DB::table('produk_varian')->where('id',$id)->get();
+    foreach($dataimage as $oldimg){
+        File::delete('img/gambarproduk/'.$oldimg->gambar);
+    } 
     DB::table('produk_varian')->where('id',$id)->delete();
     
     return back()->with('statusvarian','Varian berhasil dihapus');
@@ -358,14 +382,36 @@ class ProdukController extends Controller
     //=================================================================
     public function editvarian(Request $request,$id)
     {
-        DB::table('produk_varian')
-        ->where('id',$id)
-        ->update([
-            'warna_id'=>$request->warna,
-            'size_id'=>$request->size,
-            'hpp'=>$request->hpp,
-            'harga'=>$request->harga_jual,
-        ]);
+        if($request->hasFile('gambar_warna')) {
+            $dataimage = DB::table('produk_varian')->where('id',$id)->get();
+            foreach($dataimage as $oldimg){
+                File::delete('img/gambarproduk/'.$oldimg->gambar);
+            }
+
+            $image = $request->file('gambar_warna');
+            $input['imagename'] = time().'-'.$image->getClientOriginalName();
+            $destinationPath = public_path('img/gambarproduk');
+            $image->move($destinationPath, $input['imagename']);
+            $namafile=$input['imagename'];
+            DB::table('produk_varian')
+            ->where('id',$id)
+            ->update([
+                'warna_id'=>$request->warna,
+                'size_id'=>$request->size,
+                'hpp'=>$request->hpp,
+                'harga'=>$request->harga_jual,
+                'gambar'=>$namafile,
+            ]);
+        }else{
+            DB::table('produk_varian')
+            ->where('id',$id)
+            ->update([
+                'warna_id'=>$request->warna,
+                'size_id'=>$request->size,
+                'hpp'=>$request->hpp,
+                'harga'=>$request->harga_jual,
+            ]);
+        }
         return back()->with('statusvarian','Varian berhasil diupdate');
     }
     
