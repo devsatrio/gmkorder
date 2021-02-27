@@ -6,6 +6,7 @@ Route::get('/', 'frontend\FrontControl@index');
 // ==================================================================================frontend
 Route::prefix('katalog')->group(function(){
     Route::get('cari-katalog/{cari}','frontend\FrontControl@cariKatalog')->name('cari.katalog');
+    ROute::get('produk-list/{id}/{ktg}','frontend\FrontControl@listProduk')->name('produk');
 });
 //==================================================================================auth
 Auth::routes();
@@ -57,7 +58,7 @@ Route::prefix('backend')->group(function(){
     Route::put('/produk/edit-varian-produk/{id}','backend\ProdukController@editvarian');
     Route::delete('/produk/hapus-varian/{id}','backend\ProdukController@hapusvarian');
 
-    //penyesuaian stok 
+    //penyesuaian stok
     Route::get('/data-log-stok','backend\PenyesuaianStokController@listdata');
     Route::get('/penyesuaian-stok/import-export','backend\PenyesuaianStokController@importexport');
     Route::get('/penyesuaian-stok/export','backend\PenyesuaianStokController@export');
@@ -76,7 +77,7 @@ Route::prefix('backend')->group(function(){
 
     //setting web
     Route::resource('/setting-web','backend\SettingwebController');
-    
+
     //Transaksi Manual
     Route::get('/transaksi-manual/cari-detail-barang/{id}','backend\TransaksiManualController@caridetailbarang');
     Route::resource('/transaksi-manual','backend\TransaksiManualController');
