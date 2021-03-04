@@ -11,13 +11,5 @@
         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
     }
     });
-    function countC() {
-        var ct="<?php echo CekNotif::countKeranjang() ?>";
-         $('#countC').html(ct);
-         if(ct>0){
-             var totl=$('#ttl').text();
-            $('#basket').attr('style','display:inherit');
-            $('#totalbl').html(totl);
-         }
-        }
+
 </script>

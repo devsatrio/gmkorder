@@ -1,6 +1,6 @@
 <footer class="page-footer dark">
     <div class="container">
-        {{-- <div class="row">
+        <div class="row">
             <div class="col-sm-3">
                 <h5>Get started</h5>
                 <ul>
@@ -33,7 +33,7 @@
                     <li><a href="#">Privacy Policy</a></li>
                 </ul>
             </div>
-        </div> --}}
+        </div>
     </div>
     <div class="footer-copyright">
         <p>© 2021 Copyright Text</p>

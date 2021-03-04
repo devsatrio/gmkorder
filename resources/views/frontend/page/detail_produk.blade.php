@@ -69,12 +69,7 @@
 @push('js_in')
 <script src="{{asset('frontend/assets/js/bootstrap-number-input.js')}}"></script>
     <script>
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000
-        });
+
         function setPilihan(id) {
             var jn=$('#j'+id).val();
             $('#pil').html(jn);
@@ -108,8 +103,10 @@
                                 type: 'success',
                                 title: response.msg
                             });
-                            countC(response.item);
+                            countCt(response.item);
                             $('#totalbl').html("Rp. "+numberFormatComma(response.ttal));
+                            $('#subttl').html("Rp. "+numberFormatComma(response.ttal));
+                            $('#ttl').html("Rp. "+numberFormatComma(response.ttal));
                         }else{
                             Toast.fire({
                                 type: 'warning',
@@ -120,38 +117,37 @@
                 });
             }
         }
-        function countC(nom) {
-            $('#countC').html(nom);
-        }
-        function numberFormatComma(x) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
-        }
-        function hapusItem(key) {
-            $.ajax({
-                url:'/hapus-item/'+key,
-                dataType:'json',
-                type:'get',
-                success:function(response){
-                    if(response==1){
-                        if(response.sts=='1'){
-                            $('#basket').attr('style','display:inherit');
-                            Toast.fire({
-                                type: 'success',
-                                title: response.msg
-                            });
-                            countC(response.item);
-                            $('#totalbl').html("Rp. "+numberFormatComma(response.ttal));
+        // function countC(nom) {
+        //     $('#countC').html(nom);
+        // }
 
-                        }else{
-                            Toast.fire({
-                                type: 'warning',
-                                title: 'Gagal Menghapus Item'
-                            });
-                        }
-                    }
-                }
-            })
-        }
+
+        // function hapusItem(key) {
+        //     $.ajax({
+        //         url:'/hapus-item/'+key,
+        //         dataType:'json',
+        //         type:'get',
+        //         success:function(response){
+
+        //             if(response.sts=='1'){
+        //                 $('#basket').attr('style','display:inherit');
+        //                 Toast.fire({
+        //                     type: 'success',
+        //                     title: response.msg
+        //                 });
+        //                 openBs();
+        //                 countC(response.item);
+        //                 $('#totalbl').html("Rp. "+numberFormatComma(response.ttal))
+        //             }else{
+        //                 Toast.fire({
+        //                     type: 'warning',
+        //                     title: 'Gagal Menghapus Item'
+        //                 });
+        //             }
+
+        //         }
+        //     })
+        // }
         function basketAll() {
             $.ajax({
                  url:'/ambil-basket',

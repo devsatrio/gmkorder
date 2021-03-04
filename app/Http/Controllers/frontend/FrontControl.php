@@ -116,8 +116,11 @@ class FrontControl extends Controller
     public function hapusItem($ky)
     {
         $data=Session::get('cart');
-    //    dd($data[$ky]);
-        Session::forget($data[$ky]);
+    // //    dd($data[$ky]);
+    //     // Session::forget($data[$ky]);
+        unset($data[$ky]);
+        Session::put('cart',$data);
+
         $dcount=Session::get("cart");
         $tl=0;
         foreach($dcount as $key=>$itm){

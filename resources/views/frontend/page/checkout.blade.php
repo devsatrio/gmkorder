@@ -35,7 +35,7 @@
                     <div class="col-md-12 col-lg-4">
                         <div class="summary">
                             <h3>Detail Total</h3>
-                            <h4><span class="text">Subtotal</span><span class="price">Rp. {{number_format($total)}}</span></h4>
+                            <h4><span class="text">Subtotal</span><span class="price" id="subttl">Rp. {{number_format($total)}}</span></h4>
                             {{-- <h4><span class="text">Discount</span><span class="price">$0</span></h4> --}}
                             {{-- <h4><span class="text">Shipping</span><span class="price">$0</span></h4> --}}
                             <h4><span class="text">Total</span><span class="price" id="ttl">Rp. {{number_format($total)}}</span></h4>
