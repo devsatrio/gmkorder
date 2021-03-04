@@ -55,14 +55,14 @@
                     </div>
                 </div>
             </section>
-            <section class="clean-block clean-services dark">
+            {{-- <section class="clean-block clean-services dark">
                 <div class="container">
                     <div class="block-heading">
                         <h2 class="text-info">Promo gmk</h2>
                     </div>
 
                 </div>
-            </section>
+            </section> --}}
         </div>
     </section>
 </main>

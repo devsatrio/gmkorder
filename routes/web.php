@@ -2,12 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 //==================================================================================index
-Route::get('/', 'frontend\FrontControl@index');
+Route::get('/', 'frontend\FrontControl@index')->name('beranda');
 // ==================================================================================frontend
 Route::prefix('katalog')->group(function(){
     Route::get('cari-katalog/{cari}','frontend\FrontControl@cariKatalog')->name('cari.katalog');
-    ROute::get('produk-list/{id}/{ktg}','frontend\FrontControl@listProduk')->name('produk');
+    Route::get('produk-list/{id}/{ktg}','frontend\FrontControl@listProduk')->name('produk');
+    Route::get('load-barang/{id}','frontend\FrontControl@listBarang')->name('loadb');
+    Route::post('simpan-cart','frontend\FrontControl@simpanCart');
+    Route::get('list-cart','frontend\FrontControl@listCart')->name('cart');
 });
+Route::get('ambil-basket','frontend\FrontControl@ambilBasket');
+Route::get('hapus-item/{key}','frontend\FrontControl@hapusItem');
 //==================================================================================auth
 Auth::routes();
 Route::get('user-login','Auth\PenggunaLoginController@showLoginForm');

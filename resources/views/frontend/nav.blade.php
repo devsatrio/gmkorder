@@ -3,9 +3,8 @@
         <div class="collapse navbar-collapse"
             id="navcol-1">
             <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link active" href="catalog-page.html">Katalog</a></li>
+                <li class="nav-item"><a class="nav-link active" href="{{route('beranda')}}">Katalog</a></li>
                 <li class="nav-item"><a class="nav-link" href="service-page.html">Tentang</a></li>
-                <li class="nav-item"><a class="nav-link" href="testimonials.html"><i class="fa fa-shopping-cart"></i> <span class="badge badge-danger">0</span></a> </li>
             </ul>
         </div>
     </div>
