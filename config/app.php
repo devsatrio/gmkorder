@@ -234,6 +234,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Batch' => Mavinoo\Batch\BatchFacade::class,
         'Image' => 'Intervention\Image\Facades\Image',
+        'CekNotif'=>\App\Helper\cekNotif::class,
     ],
 
 ];

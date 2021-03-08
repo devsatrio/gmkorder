@@ -5,3 +5,4 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
     <link rel="stylesheet" href="{{asset('frontend/assets/css/smoothproducts.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/assets/fontawesome/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/assets/swal/sweetalert2.min.css')}}">
