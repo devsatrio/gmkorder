@@ -1,6 +1,8 @@
 <?php
 namespace App\Helper;
 
+use App\models\AdminModel;
+use App\User;
 use Illuminate\Support\Facades\Session;
 
 class cekNotif{
@@ -19,5 +21,10 @@ class cekNotif{
         }
 
         return $count;
+    }
+    public static function getNoTelp()
+    {
+        $data=User::inRandomOrder()->first();
+        return $data;
     }
 }

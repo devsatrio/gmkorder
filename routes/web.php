@@ -13,6 +13,11 @@ Route::prefix('katalog')->group(function(){
 });
 Route::get('ambil-basket','frontend\FrontControl@ambilBasket');
 Route::get('hapus-item/{key}','frontend\FrontControl@hapusItem');
+// simpan belanja
+Route::post('simpan-belanja','frontend\FrontControl@simpanBelanja')->name('belanja');
+// sukses
+Route::get('sukses-page','frontend\FrontControl@suksesPage')->name('sukses');
+// Route::get('gen-fk','frontend\FrontControl@genFK');
 //==================================================================================auth
 Auth::routes();
 Route::get('user-login','Auth\PenggunaLoginController@showLoginForm');

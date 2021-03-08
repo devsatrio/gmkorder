@@ -42,18 +42,18 @@
                             <form class="mt-3">
                                 <div class="form-group">
                                     <label for="">Nama Anda</label>
-                                    <input type="text" class="form-control" placeholder="Isikan Nama Anda">
+                                    <input type="text" id="fnama" class="form-control" placeholder="Isikan Nama Anda">
                                 </div>
                                 <div class="form-group">
                                     <label for="">No Telp</label>
-                                    <input type="number" class="form-control" placeholder="Isikan Nomor Telepon Anda">
+                                    <input type="number" id="ftelp" class="form-control" placeholder="Contoh : 08xx">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Alamat Tujuan Atau Alamat Sendiri</label>
-                                    <input type="text" class="form-control" placeholder="Isikan Alamat Lengkap ">
+                                    <textarea  id="falamat" cols="30" rows="10" class="form-control"></textarea>
                                 </div>
                             </form>
-                            <button class="btn btn-primary btn-block btn-lg" type="button">Beli</button></div>
+                            <button class="btn btn-primary btn-block btn-lg" onclick="checkout()" id="bcheckout" type="button">Beli</button></div>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -37,7 +36,7 @@
                                 <p> Total Belanja <b><span id="totalbl">0</span></b></p>
                             </div>
                             <div class="col-12 col-md-4 col-lg-4">
-                                <button onclick="openBasket()" class="btn btn-success btn-sm">Lanjutkan</button>
+                                <button onclick="openBasket()" class="btn btn-success btn-sm">Lihat Keranjang</button>
                             </div>
                         </div>
                     </div>
@@ -145,6 +144,31 @@
         }
         function numberFormatComma(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        }
+        function checkout() {
+            var nama=$('#fnama').val();
+            var telp=$('#ftelp').val();
+            var alamat=$('#falamat').val();
+            if(nama=='' || telp=='' || alamat==''){
+                Swal.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Harap Dilengkapi Kolom Identitas !',
+                    })
+            }else{
+                $.ajax({
+                    url:'/simpan-belanja',
+                    type:'post',
+                    dataType:'json',
+                    data:{nama:nama,telp:telp,alamat:alamat},
+                    success:function(response){
+                        if(response.sts=='1'){
+                            location.href="<?php route('sukses') ?>";
+                        }
+                    }
+                })
+            }
+
         }
     </script>
    @yield('js')

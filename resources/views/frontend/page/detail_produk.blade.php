@@ -51,6 +51,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label">Jumlah :</label>
                                                     <input id="qty" class="form-control" type="number" value="1" min="1" max="100" />
+
                                                 </div>
                                             </div>
                                         </div>
@@ -117,37 +118,6 @@
                 });
             }
         }
-        // function countC(nom) {
-        //     $('#countC').html(nom);
-        // }
-
-
-        // function hapusItem(key) {
-        //     $.ajax({
-        //         url:'/hapus-item/'+key,
-        //         dataType:'json',
-        //         type:'get',
-        //         success:function(response){
-
-        //             if(response.sts=='1'){
-        //                 $('#basket').attr('style','display:inherit');
-        //                 Toast.fire({
-        //                     type: 'success',
-        //                     title: response.msg
-        //                 });
-        //                 openBs();
-        //                 countC(response.item);
-        //                 $('#totalbl').html("Rp. "+numberFormatComma(response.ttal))
-        //             }else{
-        //                 Toast.fire({
-        //                     type: 'warning',
-        //                     title: 'Gagal Menghapus Item'
-        //                 });
-        //             }
-
-        //         }
-        //     })
-        // }
         function basketAll() {
             $.ajax({
                  url:'/ambil-basket',

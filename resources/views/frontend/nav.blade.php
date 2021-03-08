@@ -5,6 +5,15 @@
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link active" href="{{route('beranda')}}">Katalog</a></li>
                 <li class="nav-item"><a class="nav-link" href="service-page.html">Tentang</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://api.whatsapp.com/send?phone={{CekNotif::getNoTelp()->telp}}&text=%2A%2AASK%2A%2A">Hubungi Kami</a></li>
+                <li class="nav-item float-right">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <input type="text" class="form-control mr-2" placeholder="Cari Keperluanmu Disini !">
+                            <button onclick="cariItem()" type="button" class="btn btn-xs btn-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
+                </li>
             </ul>
         </div>
     </div>
