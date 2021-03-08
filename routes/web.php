@@ -46,6 +46,10 @@ Route::prefix('backend')->group(function(){
     Route::get('/data-kategori-produk','backend\KategoriProdukController@listdata');
     Route::resource('/kategori-produk','backend\KategoriProdukController');
 
+    //vocher produk
+    Route::get('/data-vocher-produk','backend\VoucherController@listdata');
+    Route::resource('/data-vocher','backend\VoucherController');
+
     //import produk
     Route::get('/import-export/produk','backend\ProdukController@importexport');
     Route::post('/import-export/produk/import','backend\ProdukController@importproduk');
