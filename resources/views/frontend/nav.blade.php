@@ -1,10 +1,10 @@
 <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
-    <div class="container"><a class="navbar-brand logo" href="#">GROSIR MURAH KEDIRI</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+    <div class="container"><a class="navbar-brand logo" href="/">{{CekNotif::namaWeb()->nama}}</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse"
             id="navcol-1">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link active" href="{{route('beranda')}}">Katalog</a></li>
-                <li class="nav-item"><a class="nav-link" href="service-page.html">Tentang</a></li>
+                {{-- <li class="nav-item"><a class="nav-link" href="service-page.html">Tentang</a></li> --}}
                 <li class="nav-item"><a class="nav-link" href="https://api.whatsapp.com/send?phone={{CekNotif::getNoTelp()->telp}}&text=%2A%2AASK%2A%2A">Hubungi Kami</a></li>
                 <li class="nav-item float-right">
                     <form class="form-inline">

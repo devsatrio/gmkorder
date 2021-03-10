@@ -2,6 +2,7 @@
 namespace App\Helper;
 
 use App\models\AdminModel;
+use App\models\SettingwebModel;
 use App\User;
 use Illuminate\Support\Facades\Session;
 
@@ -26,5 +27,10 @@ class cekNotif{
     {
         $data=User::inRandomOrder()->first();
         return $data;
+    }
+    public static function namaWeb()
+    {
+        $set=SettingwebModel::first();
+        return $set;
     }
 }
