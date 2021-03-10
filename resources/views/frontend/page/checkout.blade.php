@@ -49,6 +49,11 @@
                                     <input type="number" id="ftelp" class="form-control" placeholder="Contoh : 08xx">
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Pengambilan : </label> <br>
+                                    <input onclick="cekToko()" value="Toko" type="radio" name="radio" id="rtoko" class="input-control"> Toko <br>
+                                    <input onclick="cekKirim()" value="Kirim" type="radio" name="radio" id="rkirim" class="input-control"> Dikirim
+                                </div>
+                                <div id="fkirim" style="display: none" class="form-group">
                                     <label for="">Alamat Tujuan Atau Alamat Sendiri</label>
                                     <textarea  id="falamat" cols="30" rows="10" class="form-control"></textarea>
                                 </div>

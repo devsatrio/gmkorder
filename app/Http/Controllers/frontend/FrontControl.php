@@ -18,7 +18,7 @@ class FrontControl extends Controller
     public function index()
     {
         $kat=KategoriModel::where('status','Aktif')->get();
-        $prod=ProdukModel::where('status','Aktif')->inRandomOrder()->take('10')->get();
+        $prod=ProdukModel::where('status','Aktif')->inRandomOrder()->get();
         $out=[
             'kat'=>$kat,
             'prod'=>$prod,
@@ -143,7 +143,7 @@ class FrontControl extends Controller
         $nama=$request->nama;
         $telp=$request->telp;
         $alamat=$request->alamat;
-
+        $ttl=0;
         $data=Session::get('cart');
         $totalsemua=0;
         $fk=$this->genFK();
@@ -152,7 +152,9 @@ class FrontControl extends Controller
             $idvar=$v['id'];
             $qty=$v['qty'];
             $hg=$v['harga'];
-            $ttl=$qty*$hg;
+            $ttl=$v['total'];
+            $totalsemua=$totalsemua+$v['total'];
+
 
             // simpan ke detail trx
             DetailTransaksiModel::create([
@@ -180,6 +182,10 @@ class FrontControl extends Controller
         ];
         // session pindah ke wa
         Session::put('cwa',$data);
+        // session detail pembeli
+        Session::put('pembeli',$nama);
+        Session::put('telp',$telp);
+        Session::put('alamat',$alamat);
         Session::forget('cart');
         Session::put('fk',$fk);
         return response()->json($print);
