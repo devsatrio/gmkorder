@@ -102,6 +102,7 @@ class ProdukController extends Controller
                 'warna_id'=>$request->warna[$i],
                 'size_id'=>$request->size[$i],
                 'hpp'=>$request->hpp[$i],
+                'diskon'=>$request->diskon[$i],
                 'harga'=>$request->harga_jual[$i],
                 'gambar'=>$namagambar
             ];
@@ -336,6 +337,7 @@ class ProdukController extends Controller
             'warna_id'=>$request->warna,
             'size_id'=>$request->size,
             'hpp'=>$request->hpp,
+            'diskon'=>$request->diskon,
             'harga'=>$request->harga_jual,
             'gambar'=>$namafile,
         ]);
@@ -399,6 +401,7 @@ class ProdukController extends Controller
                 'warna_id'=>$request->warna,
                 'size_id'=>$request->size,
                 'hpp'=>$request->hpp,
+                'diskon'=>$request->diskon,
                 'harga'=>$request->harga_jual,
                 'gambar'=>$namafile,
             ]);
@@ -409,6 +412,7 @@ class ProdukController extends Controller
                 'warna_id'=>$request->warna,
                 'size_id'=>$request->size,
                 'hpp'=>$request->hpp,
+                'diskon'=>$request->diskon,
                 'harga'=>$request->harga_jual,
             ]);
         }

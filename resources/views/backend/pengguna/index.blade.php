@@ -51,6 +51,7 @@
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Username</th>
+                                            <th>Alamat</th>
                                             <th>Telp</th>
                                             <th>Email</th>
                                             <th class="text-center">Aksi</th>
@@ -64,6 +65,7 @@
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Username</th>
+                                            <th>Alamat</th>
                                             <th>Telp</th>
                                             <th>Email</th>
                                             <th class="text-center">Aksi</th>
