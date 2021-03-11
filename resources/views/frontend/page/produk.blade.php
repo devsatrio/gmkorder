@@ -23,9 +23,9 @@
                             </a>
                         </div>
                     @endforeach
-                    <div class="col-12 col-md-12 col-lg-12 text-center">
+                    {{-- <div class="col-12 col-md-12 col-lg-12 text-center">
                         <div><button class="btn btn-outline-primary btn-sm" type="button"> <span style="display: none" class="spinner-border spinner-border-sm" id="loading" role="status" aria-hidden="true"></span> Tampilkan Lebih Banyak</button></div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>

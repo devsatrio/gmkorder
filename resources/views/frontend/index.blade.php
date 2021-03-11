@@ -148,12 +148,18 @@
         function checkout() {
             var nama=$('#fnama').val();
             var telp=$('#ftelp').val();
-            var alamat=$('#falamat').val();
-            if(nama=='' || telp=='' || alamat==''){
+            var ctoko=$('#rtoko:checked').val();
+            var alamat="-";
+            if(ctoko=="Toko"){
+                alamat="ambil di toko";
+            }else{
+                alamat=$('#falamat').val();
+            }
+            if(nama=='' || telp==''){
                 Swal.fire({
                         type: 'error',
                         title: 'Oops...',
-                        text: 'Harap Dilengkapi Kolom Identitas !',
+                        text: 'Harap Lengkapi  Identitas Anda !',
                     })
             }else{
                 $.ajax({
@@ -163,12 +169,24 @@
                     data:{nama:nama,telp:telp,alamat:alamat},
                     success:function(response){
                         if(response.sts=='1'){
-                            location.href="<?php route('sukses') ?>";
+                            window.open('<?php echo route("sukses") ?>','_blank');
+                            $('#modalbasket').modal('toggle');
+                            location.reload();
                         }
                     }
                 })
             }
 
+        }
+        function cekToko() {
+            $('#rtoko').prop(':checked',true);
+            $('#rkirim').prop(':checked',false);
+            $('#fkirim').attr('style','display:none');
+        }
+        function cekKirim() {
+            $('#rtoko').prop(':checked',false);
+            $('#rkirim').prop(':checked',true);
+            $('#fkirim').attr('style','display:inherit');
         }
     </script>
    @yield('js')
