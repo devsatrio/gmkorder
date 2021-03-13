@@ -109,5 +109,11 @@ Route::prefix('backend')->group(function(){
     Route::get('/list-transaksi','backend\TransaksiController@index');
     Route::get('/data-list-transaksi','backend\TransaksiController@listdata');
     Route::get('/list-transaksi/get-detail/{kode}','backend\TransaksiController@getdetail');
+
+    //List Order
+    Route::get('/list-order','backend\OrderController@index');
+    Route::get('/data-list-order','backend\OrderController@listdata');
+    Route::post('/data-list-order/cancel-trx/{kode}','backend\OrderController@canceltrx');
+    Route::post('/data-list-order/acc-trx/{kode}','backend\OrderController@acctrx');
     
 });

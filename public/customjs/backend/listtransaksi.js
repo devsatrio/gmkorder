@@ -20,6 +20,7 @@ $(function () {
                 render: function (data, type, row) {
                     return 'Rp.'+rupiah(row['total'])
                 },
+                "data":'total',
                 "className": 'text-right',
             },
             {
