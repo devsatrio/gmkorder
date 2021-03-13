@@ -7,6 +7,7 @@ use App\models\DetailTransaksiModel;
 use App\models\KategoriModel;
 use App\models\ProdukModel;
 use App\models\ProdukVarianModel;
+use App\models\SliderModel;
 use App\models\TransaksiModel;
 use App\models\TrxUmumModel;
 use Illuminate\Http\Request;
@@ -17,11 +18,15 @@ class FrontControl extends Controller
 {
     public function index()
     {
+        // kategori
         $kat=KategoriModel::where('status','Aktif')->get();
+        // slider
+        $slide=SliderModel::where('status','aktif')->inRandomOrder()->get();
         $prod=ProdukModel::where('status','Aktif')->inRandomOrder()->get();
         $out=[
             'kat'=>$kat,
             'prod'=>$prod,
+            'slide'=>$slide
         ];
 
         return view('frontend.page.index',$out);
@@ -167,6 +172,11 @@ class FrontControl extends Controller
             ]);
         }
         // simpan ke trx
+        if($alamat='ambil di toko'){
+            $jns='Toko';
+        }else{
+            $jns='Kirim';
+        }
         $simpan=TrxUmumModel::create([
             'faktur'=>$fk,
             'tgl'=>$tgl,
@@ -176,6 +186,7 @@ class FrontControl extends Controller
             'subtotal'=>$totalsemua,
             'diskon'=>'0',
             'total'=>$totalsemua,
+            'jns_ambil'=>$jns,
         ]);
         $print=[
             'sts'=>'1',
@@ -212,5 +223,20 @@ class FrontControl extends Controller
     {
         // Session::flush();
         return view('frontend.page.sukses_page');
+    }
+    public function cariProduk(Request $request)
+    {
+        // $data=[];
+        // $ket=[];
+        $cari=$request->cproduk;
+        $prod=ProdukModel::where('nama','like','%'.$cari.'%')->get();
+        // $kat=KategoriModel::where('id',$id)->first();
+        $print=[
+            'prod'=>$prod,
+            // 'kat'=>$kat,
+            'ket'=>$cari,
+            // 'data'=>$data,
+        ];
+        return view('frontend.page.umum_produk',$print);
     }
 }
