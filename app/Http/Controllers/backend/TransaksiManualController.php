@@ -93,6 +93,12 @@ class TransaksiManualController extends Controller
         ->where('produk_varian.id',$request->produk)
         ->first();
 
+        if($request->diskon!='' || $request->diskon!=0){
+            $harga = $request->harga - ($request->harga*$request->diskon/100);
+        }else{
+            $harga = $request->harga;
+        }
+
         DB::table('thumb_transaksi_manual')
         ->insert([
             'user_id'=>Auth::user()->id,
@@ -101,8 +107,9 @@ class TransaksiManualController extends Controller
             'nama'=>$barang->nama,
             'varian'=>$barang->namawarna." - ".$barang->namasize,
             'harga'=>$request->harga,
+            'diskon'=>$request->diskon,
             'jumlah'=>$request->jumlah,
-            'subtotal'=>$request->jumlah*$request->harga,
+            'subtotal'=>$request->jumlah*$harga,
         ]);
     }
     
@@ -154,6 +161,7 @@ class TransaksiManualController extends Controller
         //kurangi stok
         $updatestok=[];
         $datanya=[];
+        $datalog=[];
         foreach($getdetailproduk as $produk){
             $updatestok[] = [
                 'id' => $produk->produk_id,
@@ -165,8 +173,20 @@ class TransaksiManualController extends Controller
                 'produk_id'=>$produk->produk_id,
                 'jumlah'=>$produk->jumlah,
                 'harga'=>$produk->harga,
+                'diskon'=>$produk->diskon,
                 'subtotal'=>$produk->subtotal,
                 'tgl'=>date('Y-m-d'),
+            ];
+            $dataproduk = DB::table('produk_varian')->where('id',$produk->produk_id)->first();
+            $datalog[] =[
+                'kode_produk'=>$produk->produk_kode,
+                'user_id'=>Auth::user()->id,
+                'status'=>'Menjual Via Offline',
+                'aksi'=>'Mengurangi',
+                'deskripsi'=>'Menjual produk '.$produk->nama.' ('.$produk->produk_kode.') - '.$produk->varian,
+                'jumlah'=>$produk->jumlah,
+                'jumlah_akhir'=>$dataproduk->stok - $produk->jumlah,
+                'tanggal'=>date('Y-m-d H:i:s')
             ];
         }
 
@@ -174,6 +194,7 @@ class TransaksiManualController extends Controller
         $userInstance = new ProdukVarianModel;
         Batch::update($userInstance, $updatestok, $index);
         DB::table('thumb_detail_transaksi')->insert($datanya);
+        DB::table('stok_log')->insert($datalog);
         DB::table('trx_umum')
         ->insert([
             'faktur'=>$request->resi,

@@ -64,6 +64,7 @@ $(function () {
           return {
             results : $.map(data, function (item){
               $("#stok").val(item.stok);
+              $("#diskon").val(item.diskon);
               $("#harga").val(item.harga);
               $("#harga").focus();
             })          
@@ -202,12 +203,14 @@ $(function () {
                   'produk':$('#produk').val(),
                   'stok':$('#stok').val(),
                   'harga':$('#harga').val(),
+                  'diskon':$('#diskon').val(),
                   'jumlah':$('#jumlah').val(),
               },
               success: function () {
                   $('#produk').val('');
                   $('#stok').val('');
                   $('#harga').val('');
+                  $('#diskon').val('');
                   $('#jumlah').val('');
                   $("#produk").val(null).trigger('change');
                   getproduk();
@@ -292,6 +295,7 @@ $(function () {
             rows = rows + '<td>' +value.nama+'</td>';
             rows = rows + '<td>'+value.varian+'</td>';
             rows = rows + '<td class="text-left"> Rp. ' +rupiah(value.harga)+'</td>';
+            rows = rows + '<td>'+value.diskon+' %</td>';
             rows = rows + '<td>'+value.jumlah+' Pcs </td>';
             rows = rows + '<td class="text-left"> Rp. ' +rupiah(value.subtotal)+'</td>';
             rows = rows + '<td><button type="button" onclick="hapusproduk('+value.id+')" class="btn btn-dark btn-sm"><i class="fas fa-trash"></i></button></td>';

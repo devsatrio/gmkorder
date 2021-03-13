@@ -40,7 +40,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">No. Transaksi</label>
-                                    <input type="text" class="form-control" name="resi" id="resi" value="{{$kode}}" readonly>
+                                    <input type="text" class="form-control" name="resi" id="resi" value="{{$kode}}"
+                                        readonly>
                                     <input type="hidden" name="admin" value="{{Auth::user()->id}}" id="admin">
                                     <input type="hidden" name="statusadmin" value="{{Auth::user()->level}}"
                                         id="statusadmin">
@@ -85,6 +86,17 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-6 mb-2">
+                                <label>Diskon</label>
+                                <div class="nk-int-st">
+                                    <div class="input-group mb-3">
+                                        <input type="number" readonly class="form-control" name="diskon" id="diskon">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
                                 <label>Stok</label>
                                 <div class="nk-int-st">
                                     <input type="number" readonly class="form-control" name="stok" id="stok">
@@ -122,6 +134,7 @@
                                         <th>Produk</th>
                                         <th>Varian</th>
                                         <th>Harga</th>
+                                        <th>Diskon</th>
                                         <th class="text-center">Qty</th>
                                         <th>Subtotal</th>
                                         <th class="text-center">#</th>
@@ -132,7 +145,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="4"><b>Total</b></td>
+                                        <td colspan="5"><b>Total</b></td>
                                         <td class="text-center"><b><span id="totalpcs"></span></b></td>
                                         <td><b><span id="total"></span></b></td>
                                         <td></td>
@@ -148,7 +161,8 @@
                                     <div class="form-group">
                                         <label>Metode Pengiriman</label>
                                         <div class="nk-int-st">
-                                            <select name="metode" id="metode" onchange="gantimetode()" class="form-control">
+                                            <select name="metode" id="metode" onchange="gantimetode()"
+                                                class="form-control">
                                                 <option value="Toko">Ambil Di Toko</option>
                                                 <option value="Kirim">Kirim Paket</option>
                                             </select>

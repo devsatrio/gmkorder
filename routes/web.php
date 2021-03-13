@@ -104,4 +104,10 @@ Route::prefix('backend')->group(function(){
     Route::get('/transaksi-manual/caridetail-pelanggan/{id}','backend\TransaksiManualController@caridetailpelanggan');
     Route::get('/transaksi-manual/cari-detail-vocher/{id}','backend\TransaksiManualController@caridetailvocher');
     Route::get('/transaksi-manual/cari-detail-barang/{id}','backend\TransaksiManualController@caridetailbarang');
+
+    //List Transaksi
+    Route::get('/list-transaksi','backend\TransaksiController@index');
+    Route::get('/data-list-transaksi','backend\TransaksiController@listdata');
+    Route::get('/list-transaksi/get-detail/{kode}','backend\TransaksiController@getdetail');
+    
 });

@@ -36,7 +36,7 @@
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li><a href="{{url('backend/transaksi-manual')}}" class="dropdown-item">Transaksi Manual </a></li>
                         <li class="dropdown-divider"></li>
-                        <li><a href="#" class="dropdown-item">List Transaksi</a></li>
+                        <li><a href="{{url('backend/list-transaksi')}}" class="dropdown-item">List Transaksi</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
