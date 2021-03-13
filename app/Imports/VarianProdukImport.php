@@ -24,6 +24,7 @@ class VarianProdukImport implements ToModel, WithHeadingRow,WithValidation
             'warna_id'=>$row['warna_id'],
             'size_id'=>$row['size_id'],
             'hpp'=>$row['hpp'],
+            'diskon'=>$row['diskon'],
             'harga'=>$row['harga'],
         ]);
     }
@@ -35,6 +36,7 @@ class VarianProdukImport implements ToModel, WithHeadingRow,WithValidation
             'warna_id' => 'required|numeric',
             'size_id' => 'required|numeric',
             'hpp' => 'required|numeric',
+            'diskon' => 'required|numeric',
             'harga' => 'required|numeric',
         ];
     }

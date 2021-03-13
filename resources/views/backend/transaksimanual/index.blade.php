@@ -31,8 +31,7 @@
                 @endif
             </div>
         </div>
-        <form method="POST" class="row pl-4 pr-4" enctype="multipart/form-data" onsubmit="return validform()"
-            action="{{url('transaksi-manual')}}">
+        <div class="row pl-4 pr-4">
             <div class="col-md-5">
                 <div class="card card-outline card-dark" id="panelnya">
                     @csrf
@@ -42,7 +41,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">No. Transaksi</label>
                                     <input type="text" class="form-control" name="resi" id="resi" value="{{$kode}}"
-                                        readonly autofocus>
+                                        readonly>
                                     <input type="hidden" name="admin" value="{{Auth::user()->id}}" id="admin">
                                     <input type="hidden" name="statusadmin" value="{{Auth::user()->level}}"
                                         id="statusadmin">
@@ -60,47 +59,59 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="exampleInputEmail1">Pelanggan</label>
-                                <select name="produk" class="form-control select2">
+                                <select name="pelanggan" id="caripelanggan" class="form-control select2">
                                     @foreach($pelanggan as $plg)
                                     <option value="{{$plg->id}}">{{$plg->nama}}</option>
                                     @endforeach
                                 </select>
 
-                                <button class="btn btn-dark btn-sm" id="add-pelanggan" type="button">
+                                <button class="btn btn-dark btn-sm mt-2" id="add-pelanggan" type="button">
                                     <i class="fa fa-user-plus" aria-hidden="true"></i> Tambah Pelanggan
                                 </button>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label>Produk</label>
                                 <div class="nk-int-st">
                                     <select name="produk" id="produk" class="form-control select2">
                                         @foreach($barang as $brg)
-                                        <option value="{{$brg->id}}">{{$brg->kode}} - {{$brg->nama}}</option>
+                                        <option value="{{$brg->id}}">{{$brg->produk_kode}} - {{$brg->nama}} ||
+                                            {{$brg->namawarna}} || {{$brg->namasize}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 mb-2">
+                                <label>Diskon</label>
+                                <div class="nk-int-st">
+                                    <div class="input-group mb-3">
+                                        <input type="number" readonly class="form-control" name="diskon" id="diskon">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
                                 <label>Stok</label>
                                 <div class="nk-int-st">
                                     <input type="number" readonly class="form-control" name="stok" id="stok">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row mt-3">
+                            <div class="col-md-6 mb-2">
+                                <label>Harga</label>
+                                <div class="nk-int-st">
+                                    <input type="number" class="form-control" name="harga" id="harga">
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <label>Jumlah</label>
                                 <div class="nk-int-st">
                                     <input type="number" min="0" class="form-control" id="jumlah" name="jumlah">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Harga</label>
-                                <div class="nk-int-st">
-                                    <input type="number" class="form-control" name="harga" id="harga">
                                 </div>
                             </div>
                         </div>
@@ -116,7 +127,6 @@
                 <div class="card card-outline card-dark" id="paneldua">
                     <div class="card-body">
                         <div class="table-responsive">
-
                             <table class="table table-hover text-nowrap">
                                 <thead>
                                     <tr>
@@ -124,6 +134,7 @@
                                         <th>Produk</th>
                                         <th>Varian</th>
                                         <th>Harga</th>
+                                        <th>Diskon</th>
                                         <th class="text-center">Qty</th>
                                         <th>Subtotal</th>
                                         <th class="text-center">#</th>
@@ -134,14 +145,119 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="6"><b>Total</b></td>
-                                        <td class="text-center"><span id="totalpcs"></span></td>
-                                        <td class="text-right"><span id="total"></span></td>
+                                        <td colspan="5"><b>Total</b></td>
+                                        <td class="text-center"><b><span id="totalpcs"></span></b></td>
+                                        <td><b><span id="total"></span></b></td>
                                         <td></td>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="hidden" name="subtotal" id="subtotal">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label>Metode Pengiriman</label>
+                                        <div class="nk-int-st">
+                                            <select name="metode" id="metode" onchange="gantimetode()"
+                                                class="form-control">
+                                                <option value="Toko">Ambil Di Toko</option>
+                                                <option value="Kirim">Kirim Paket</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="formkirim" style="display:none;">
+                                        <div class="form-group">
+                                            <label>Kurir</label>
+                                            <div class="nk-int-st">
+                                                <input type="text" class="form-control" name="kurir" id="kurir">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telp Penerima</label>
+                                            <div class="nk-int-st">
+                                                <input type="text" class="form-control" name="telppenerima"
+                                                    id="telppenerima">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Nama Penerima</label>
+                                            <div class="nk-int-st">
+                                                <input type="text" class="form-control" name="namapenerima"
+                                                    id="namapenerima">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Alamat Penerima</label>
+                                            <div class="nk-int-st">
+                                                <textarea name="alamat" id="alamat" cols="5"
+                                                    class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Keterangan</label>
+                                        <div class="nk-int-st">
+                                            <textarea name="alamat" id="keterangan" cols="5"
+                                                class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Potongan</label>
+                                    <div class="nk-int-st">
+                                        <input type="number" class="form-control" onchange="hitungtotal()"
+                                            name="potongan" id="potongan">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ongkir</label>
+                                    <div class="nk-int-st">
+                                        <input type="number" class="form-control" onchange="hitungtotal()" name="ongkir"
+                                            id="ongkir">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Subtotal</label>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <h5><b><span id="tampilsubtotal">RP. 0</span></b></h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Potongan</label>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <h5><b><span id="tampilpotongan">RP. 0</span></b></h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Ongkir</label>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <h5><b><span id="tampilongkir">RP. 0</span></b></h5>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Total</label>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <h3><b><span id="totalakhir">RP. 0</span></b></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-lg btn-danger" type="button" onclick="history.go(-1)">Kembali</button>
@@ -149,7 +265,42 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addpelanggan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Tambah Pelanggan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="email">Username</label>
+                    <input type="text" class="form-control" id="usernamepelanggan">
+                </div>
+                <div class="form-group">
+                    <label for="email">Nama</label>
+                    <input type="text" class="form-control" id="namapelanggan">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Alamat</label>
+                    <input type="text" class="form-control" id="alamatpelanggan">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">No.Telp</label>
+                    <input type="text" class="form-control" id="telppelanggan">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" id="simpanpelanggan" class="btn btn-dark">Save changes</button>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

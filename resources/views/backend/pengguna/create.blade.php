@@ -80,6 +80,14 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputFile">Alamat</label>
+                                            <textarea name="alamat" class="form-control" col="5">{{ old('alamat') }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Password</label>

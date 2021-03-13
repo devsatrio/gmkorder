@@ -1,5 +1,4 @@
 @extends('layouts/base')
-
 @section('content')
 <div class="content-wrapper">
     <div class="content-header">
@@ -41,8 +40,8 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="tab-content" id="custom-tabs-two-tabContent">
-                                                <div class="tab-pane fade active show" id="custom-tabs-two-home" role="tabpanel"
-                                                    aria-labelledby="custom-tabs-two-home-tab">
+                                                <div class="tab-pane fade active show" id="custom-tabs-two-home"
+                                                    role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
                                                     <h3><b>Cara Import</b></h3>
                                                     <ol class="pl-4">
                                                         <li>Download Data kategori dengan tekan link <b>Export Data
@@ -54,7 +53,8 @@
                                                         <li>Isi semua data di template import sesuai ketentuan.</li>
                                                         <li>Upload template import yang telah di isi di inputan
                                                             <b>Import File
-                                                                Excel</b></li>
+                                                                Excel</b>
+                                                        </li>
                                                         <li>Klik <b>simpan</b> untuk menyimpan data</li>
                                                     </ol>
                                                     <h5><b>Ketentuan Pengisian Data</b></h5>
@@ -82,8 +82,8 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <div class="tab-pane fade" id="custom-tabs-two-profile"
-                                                    role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
+                                                <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
+                                                    aria-labelledby="custom-tabs-two-profile-tab">
                                                     Mauris tincidunt mi at erat gravida, eget tristique urna bibendum.
                                                     Mauris pharetra purus ut ligula tempor, et vulputate metus
                                                     facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -163,7 +163,6 @@
                                                     class="fa fa-file"></i> Export Data Warna Produk</a><br>
                                             <a href="{{url('/backend/import-export/produk-size/export')}}"><i
                                                     class="fa fa-file"></i> Export Data Size Produk</a>
-
                                         </div>
                                         <button type="submit" id="submitexport"
                                             class="btn btn-dark float-right ml-2">Simpan</button>
@@ -173,7 +172,6 @@
                         </div>
                         <div class="card-footer">
                             <button type="reset" onclick="history.go(-1)" class="btn btn-danger">Kembali</button>
-
                             <a href="{{url('/backend/import-export/produk/export')}}"
                                 class="btn btn-dark float-right"><i class="fa fa-download"></i> Export Produk</a>
                         </div>

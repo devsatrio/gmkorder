@@ -95,6 +95,21 @@ Route::prefix('backend')->group(function(){
     Route::resource('/setting-web','backend\SettingwebController');
 
     //Transaksi Manual
+    Route::get('/transaksi-manual','backend\TransaksiManualController@index');
+    Route::get('/transaksi-manual/get-data-produk','backend\TransaksiManualController@getdataproduk');
+    Route::post('/transaksi-manual/add-new-pengguna','backend\TransaksiManualController@addpengguna');
+    Route::post('/transaksi-manual/simpan-transaksi','backend\TransaksiManualController@simpantransaksi');
+    Route::post('/transaksi-manual/add-detail-produk','backend\TransaksiManualController@adddetailproduk');
+    Route::get('/transaksi-manual/caripelanggan','backend\TransaksiManualController@caripelanggan');
+    Route::get('/transaksi-manual/cari-produk','backend\TransaksiManualController@cariproduk');
+    Route::delete('/transaksi-manual/hapusproduk/{id}','backend\TransaksiManualController@hapusproduk');
+    Route::get('/transaksi-manual/caridetail-pelanggan/{id}','backend\TransaksiManualController@caridetailpelanggan');
+    Route::get('/transaksi-manual/cari-detail-vocher/{id}','backend\TransaksiManualController@caridetailvocher');
     Route::get('/transaksi-manual/cari-detail-barang/{id}','backend\TransaksiManualController@caridetailbarang');
-    Route::resource('/transaksi-manual','backend\TransaksiManualController');
+
+    //List Transaksi
+    Route::get('/list-transaksi','backend\TransaksiController@index');
+    Route::get('/data-list-transaksi','backend\TransaksiController@listdata');
+    Route::get('/list-transaksi/get-detail/{kode}','backend\TransaksiController@getdetail');
+    
 });

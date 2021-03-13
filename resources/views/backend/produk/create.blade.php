@@ -75,7 +75,7 @@
                                 <hr>
                                 <div id="varianlist">
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Warna / Motif</label>
                                                 <select name="warna[]" class="form-control">
@@ -109,11 +109,18 @@
                                                     required>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Diskon (%)</label>
+                                                <input type="number" class="form-control" value="0" max="99" name="diskon[]"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Foto</label>
-                                                <input type="file" class="form-control" accept="image/*" name="gambar_warna[]"
-                                                    required>
+                                                <input type="file" class="form-control" accept="image/*"
+                                                    name="gambar_warna[]" required>
                                             </div>
                                         </div>
                                     </div>
@@ -158,7 +165,7 @@
 <div id="newvarianlist" style="display:none">
     <hr>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
                 <label for="exampleInputEmail1">Warna / Motif</label>
                 <select name="warna[]" class="form-control">
@@ -190,7 +197,13 @@
                 <input type="number" class="form-control" value="0" name="harga_jual[]" required>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Diskon (%)</label>
+                <input type="number" class="form-control" value="0"  max="99" name="diskon[]" required>
+            </div>
+        </div>
+        <div class="col-md-2">
             <div class="form-group">
                 <label for="exampleInputEmail1">Foto</label>
                 <input type="file" class="form-control" value="0" name="gambar_warna[]" required>

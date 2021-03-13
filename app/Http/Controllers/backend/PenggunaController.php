@@ -54,6 +54,7 @@ class PenggunaController extends Controller
             'username'=>$request->username,
             'email'=>$request->email,
             'telp'=>$request->telp,
+            'alamat'=>$request->alamat,
             'gambar'=>$finalname,
             'password'=>Hash::make($request->password),
         ]);
@@ -118,6 +119,7 @@ class PenggunaController extends Controller
                     'username'=>$request->username,
                     'email'=>$request->email,
                     'telp'=>$request->telp,
+                    'alamat'=>$request->alamat,
                     'gambar'=>$finalname,
                 ]);
             }else{
@@ -128,6 +130,7 @@ class PenggunaController extends Controller
                     'username'=>$request->username,
                     'email'=>$request->email,
                     'telp'=>$request->telp,
+                    'alamat'=>$request->alamat,
                     'gambar'=>$finalname,
                     'password'=>Hash::make($request->password),
                 ]);
@@ -141,6 +144,7 @@ class PenggunaController extends Controller
                     'username'=>$request->username,
                     'email'=>$request->email,
                     'telp'=>$request->telp,
+                    'alamat'=>$request->alamat,
                 ]);
             }else{
                 DB::table('pengguna')
@@ -150,6 +154,7 @@ class PenggunaController extends Controller
                     'username'=>$request->username,
                     'email'=>$request->email,
                     'telp'=>$request->telp,
+                    'alamat'=>$request->alamat,
                     'password'=>Hash::make($request->password),
                 ]);
             }

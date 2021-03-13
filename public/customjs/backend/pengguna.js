@@ -13,6 +13,7 @@ $(function () {
             },
             { data: 'nama', name: 'nama' },
             { data: 'username', name: 'username' },
+            { data: 'alamat', name: 'alamat' },
             { data: 'telp', name: 'telp' },
             { data: 'email', name: 'email' },
             {

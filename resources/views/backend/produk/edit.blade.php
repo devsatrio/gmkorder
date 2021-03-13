@@ -129,6 +129,7 @@
                                                 <th scope="col">Size</th>
                                                 <th scope="col">HPP</th>
                                                 <th scope="col">Harga Jual</th>
+                                                <th scope="col">Diskon</th>
                                                 <th scope="col">Stok</th>
                                                 <th class="text-center">Aksi</th>
                                             </tr>
@@ -149,13 +150,13 @@
                                                 <td>{{$var->namasize}}</td>
                                                 <td>{{"Rp ". number_format($var->hpp,0,',','.')}}</td>
                                                 <td>{{"Rp ". number_format($var->harga,0,',','.')}}</td>
+                                                <td>{{$var->diskon}} %</td>
                                                 <td>{{$var->stok}} Pcs</td>
                                                 <td class="text-center">
                                                     <form action="{{url('backend/produk/hapus-varian/'.$var->id)}}"
                                                         method="POST">
                                                         @csrf
                                                         <input type="hidden" name="_method" value="delete">
-
                                                         <button type="button" class="btn btn-success btn-sm"
                                                             data-toggle="modal"
                                                             data-target="#edit-varian{{$var->id}}"><i
@@ -165,7 +166,6 @@
                                                             class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
                                                         </button>
                                                     </form>
-
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -293,6 +293,10 @@
                                         <input type="number" class="form-control" value="0" name="harga_jual" required>
                                     </div>
                                     <div class="form-group">
+                                        <label for="exampleInputEmail1">Diskon</label>
+                                        <input type="number" class="form-control" value="0" name="diskon" max="99" required>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="exampleInputEmail1">Gambar</label>
                                         <input type="file" accept="image/*" class="form-control"
                                             name="gambar_warna" required>
@@ -345,6 +349,11 @@
                                         <label for="exampleInputEmail1">Harga Jual</label>
                                         <input type="number" class="form-control" value="{{$var->harga}}"
                                             name="harga_jual" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Diskon</label>
+                                        <input type="number" class="form-control" value="{{$var->diskon}}"
+                                            name="diskon" max="99" required>
                                     </div>
                                     @if($var->gambar!='')
                                     <img src="{{asset('img/gambarproduk/'.$var->gambar)}}" alt="" class="img-thumbnail"
