@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>@yield('title','Katalog - GROSIR MURAH KEDIRI')</title>
+    <title>@yield('title',CekNotif::namaWeb()->nama)</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('frontend.css')
     <style>
@@ -44,10 +44,15 @@
             </div>
         </div>
     </div>
-
    <div class="modal fade" id="modalbasket">
        <div class="modal-dialog modal-xl">
            <div class="modal-content">
+               <div class="modal-header">
+                <div class="modal-tittle">
+                    <p>Rincian Belanja</p>
+                </div>
+                   <button class="close" data-dismiss="modal">&times;</button>
+               </div>
                <div class="modal-body">
                     <div id="loadbasket">
                         @include('frontend.page.checkout')

@@ -26,11 +26,14 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         if($request->hasFile('gambar')) {
-            
+
             $image = $request->file('gambar');
             $input['imagename'] = time().'-'.$image->getClientOriginalName();
-         
+
             $destinationPath = public_path('images/slider/thumbnail');
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 666, true);
+            }
             //$destinationPath = base_path('../klikdesa/images/slider/thumbnail');
             $img = Image::make($image->getRealPath());
             $img->resize(150,null, function ($constraint) {
@@ -40,7 +43,7 @@ class SliderController extends Controller
             $destinationPath = public_path('images/slider');
             //$destinationPath = base_path('../klikdesa/images/slider');
             $image->move($destinationPath, $input['imagename']);
-       
+
         }
         SliderModel::insert([
             'judul'=>$request->judul,
@@ -51,7 +54,7 @@ class SliderController extends Controller
             'status'=>$request->status,
         ]);
         return redirect('backend/slider')->with('status','Sukses menyimpan data');
-        
+
     }
 
     //=================================================================
@@ -94,7 +97,7 @@ class SliderController extends Controller
                 'link_text'=>$request->link_text,
                 'status'=>$request->status,
             ]);
-            
+
         }
         return redirect('backend/slider')->with('status','Sukses memperbarui data');
     }

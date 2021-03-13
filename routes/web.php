@@ -18,6 +18,8 @@ Route::post('simpan-belanja','frontend\FrontControl@simpanBelanja')->name('belan
 // sukses
 Route::get('sukses-page','frontend\FrontControl@suksesPage')->name('sukses');
 // Route::get('gen-fk','frontend\FrontControl@genFK');
+// cari produk
+Route::get('cari-produk','frontend\FrontControl@cariProduk')->name('cari-produk');
 //==================================================================================auth
 Auth::routes();
 Route::get('user-login','Auth\PenggunaLoginController@showLoginForm');
