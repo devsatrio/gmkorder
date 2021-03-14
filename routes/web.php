@@ -33,6 +33,8 @@ Route::get('/profil-saya', 'frontend\HomeController@profilsaya')->name('profil-s
 //==================================================================================backend
 Route::prefix('backend')->group(function(){
     Route::get('/dashboard', 'backend\HomeController@index')->name('dashboard');
+    Route::get('cek-transaksi-baru','backend\HomeController@cektransaksi');
+    Route::get('bersih-notif','backend\HomeController@bersihnotif');
     Route::get('/edit-profile', 'backend\HomeController@editprofile')->name('editprofile');
     Route::post('/edit-profile/{id}', 'backend\HomeController@aksieditprofile');
 

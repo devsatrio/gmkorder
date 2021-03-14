@@ -27,14 +27,16 @@
                         <li><a href="{{url('backend/warna')}}" class="dropdown-item">Warna / Motif</a></li>
                         <li><a href="{{url('backend/size')}}" class="dropdown-item">Size</a></li>
                         <li><a href="{{url('backend/produk')}}" class="dropdown-item">Produk</a></li>
-                        <li><a href="{{url('backend/penyesuaian-stok')}}" class="dropdown-item">Penyesuaian Stok</a></li>
+                        <li><a href="{{url('backend/penyesuaian-stok')}}" class="dropdown-item">Penyesuaian Stok</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         class="nav-link dropdown-toggle">Transaksi</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        <li><a href="{{url('backend/transaksi-manual')}}" class="dropdown-item">Transaksi Manual </a></li>
+                        <li><a href="{{url('backend/transaksi-manual')}}" class="dropdown-item">Transaksi Manual </a>
+                        </li>
                         <li class="dropdown-divider"></li>
                         <li><a href="{{url('backend/list-order')}}" class="dropdown-item">List Order</a></li>
                         <li class="dropdown-divider"></li>
@@ -49,113 +51,50 @@
 
         <!-- Right navbar links -->
         <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-            <!-- Messages Dropdown Menu -->
+
             <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="fas fa-comments"></i>
-                    <span class="badge badge-danger navbar-badge">3</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <!-- <img src="../../dist/img/user1-128x128.jpg" alt="User Avatar"
-                                class="img-size-50 mr-3 img-circle"> -->
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Brad Diesel
-                                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">Call me whenever you can...</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <!-- <img src="../../dist/img/user8-128x128.jpg" alt="User Avatar"
-                                class="img-size-50 img-circle mr-3"> -->
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    John Pierce
-                                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">I got your message bro</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <!-- <img src="../../dist/img/user3-128x128.jpg" alt="User Avatar"
-                                class="img-size-50 img-circle mr-3"> -->
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Nora Silvester
-                                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">The subject goes here</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                </div>
-            </li>
-            <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
+                <a class="nav-link" data-toggle="dropdown" href="#" id="btnbell">
                     <i class="far fa-bell"></i>
-                    <span class="badge badge-warning navbar-badge">15</span>
+                    <span class="badge badge-warning navbar-badge" id="tandanotif" style="display:none;">0</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-header">15 Notifications</span>
+                    <span class="dropdown-header">Order Terbaru</span>
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope mr-2"></i> 4 new messages
-                        <span class="float-right text-muted text-sm">3 mins</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-users mr-2"></i> 8 friend requests
-                        <span class="float-right text-muted text-sm">12 hours</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-file mr-2"></i> 3 new reports
-                        <span class="float-right text-muted text-sm">2 days</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-user"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="{{route('editprofile')}}" class="dropdown-item">
-                            Edit Profile
+                    <div id="listnotif">
+                        @php
+                        $notif = DB::table('trx_umum')->where('sts','belum')->orderby('id','desc')->limit(10)->get();
+                        @endphp
+                        @foreach($notif as $not)
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-shopping-cart mr-2"></i> {{$not->nama}} Membuat Order Baru
+                            <br><span class="text-muted text-sm">{{$not->created_at}}</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"
-                            class="dropdown-item">
-                            Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+                        @endforeach
                     </div>
-                </li>
+                    <div class="dropdown-divider"></div>
+                    <a href="{{url('backend/list-order')}}" class="dropdown-item dropdown-footer">Lihat Semua Order</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-user"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <a href="{{route('editprofile')}}" class="dropdown-item">
+                        Edit Profile
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"
+                        class="dropdown-item">
+                        Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
                         class="fas fa-th-large"></i></a>

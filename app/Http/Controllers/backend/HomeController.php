@@ -8,6 +8,7 @@ use App\User;
 use File;
 use Auth;
 use Hash;
+use DB;
 
 class HomeController extends Controller
 {
@@ -21,6 +22,22 @@ class HomeController extends Controller
     public function index()
     {
         return view('backend.dashboard.index');
+    }
+
+    //==================================================================
+    public function cektransaksi(){
+        $datanotif = DB::table('trx_umum')->where('sts_notif','n')->orderby('id','desc')->get();
+        $datanew = DB::table('trx_umum')->where('sts','belum')->orderby('id','desc')->limit(10)->get();
+        $data=[
+            'datanotif'=>$datanotif,
+            'datanew'=>$datanew,
+        ];
+        return response()->json($data);
+    }
+
+    //==================================================================
+    public function bersihnotif(){
+        $data = DB::table('trx_umum')->where('sts_notif','n')->update(['sts_notif'=>'y']);
     }
 
     //==================================================================
