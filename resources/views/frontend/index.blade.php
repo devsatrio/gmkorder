@@ -154,44 +154,113 @@
             var nama=$('#fnama').val();
             var telp=$('#ftelp').val();
             var ctoko=$('#rtoko:checked').val();
+            var ckirim=$('#rkirim:checked').val();
+            var cdrop=$('#rdrop:checked').val();
+            var pn="-";
+            var pal="-";
+            var ptlp="-";
             var alamat="-";
+
             if(ctoko=="Toko"){
                 alamat="ambil di toko";
+            }else if(cdrop=="Drop"){
+                pn=$('#fpenerima').val();
+                pal=$('#falamatPenerima').val();
+                ptlp=$('#ftelpPenerima').val();
             }else{
                 alamat=$('#falamat').val();
             }
-            if(nama=='' || telp==''){
-                Swal.fire({
+            if(ctoko=='Toko'){
+                if(nama=='' || telp==''){
+                    Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Harap Lengkapi  Identitas Anda !',
+                        })
+                }else{
+                    $.ajax({
+                        url:'/simpan-belanja',
+                        type:'post',
+                        dataType:'json',
+                        data:{nama:nama,telp:telp,alamat:alamat,pn:pn,pal:pal,ptlp:ptlp},
+                        success:function(response){
+                            if(response.sts=='1'){
+                                window.open('<?php echo route("sukses") ?>','_blank');
+                                $('#modalbasket').modal('toggle');
+                                location.reload();
+                            }
+                        }
+                    })
+                }
+            }else if(ckirim=="Kirim"){
+                if(alamat==''){
+                    Swal.fire({
                         type: 'error',
                         title: 'Oops...',
-                        text: 'Harap Lengkapi  Identitas Anda !',
+                        text: 'Harap Lengkapi  Alamat Anda !',
                     })
-            }else{
-                $.ajax({
-                    url:'/simpan-belanja',
-                    type:'post',
-                    dataType:'json',
-                    data:{nama:nama,telp:telp,alamat:alamat},
-                    success:function(response){
-                        if(response.sts=='1'){
-                            window.open('<?php echo route("sukses") ?>','_blank');
-                            $('#modalbasket').modal('toggle');
-                            location.reload();
+                }else{
+                    $.ajax({
+                        url:'/simpan-belanja',
+                        type:'post',
+                        dataType:'json',
+                        data:{nama:nama,telp:telp,alamat:alamat,pn:pn,pal:pal,ptlp:ptlp},
+                        success:function(response){
+                            if(response.sts=='1'){
+                                window.open('<?php echo route("sukses") ?>','_blank');
+                                $('#modalbasket').modal('toggle');
+                                location.reload();
+                            }
                         }
-                    }
-                })
+                    })
+                }
+            }else if(cdrop=='Drop'){
+                if(pn==''||pal==''||ptlp==''){
+                    Swal.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Harap Lengkapi  Nama, Alamat , Telp Dropship Anda !',
+                    })
+                }else{
+                    alamat='Dropship';
+                    $.ajax({
+                        url:'/simpan-belanja',
+                        type:'post',
+                        dataType:'json',
+                        data:{nama:nama,telp:telp,alamat:alamat,pn:pn,pal:pal,ptlp:ptlp},
+                        success:function(response){
+                            if(response.sts=='1'){
+                                window.open('<?php echo route("sukses") ?>','_blank');
+                                $('#modalbasket').modal('toggle');
+                                location.reload();
+                            }
+                        }
+                    })
+                }
             }
 
         }
         function cekToko() {
             $('#rtoko').prop(':checked',true);
             $('#rkirim').prop(':checked',false);
+            $('#rdrop').prop(':checked',false);
             $('#fkirim').attr('style','display:none');
+            $('#fdropship').attr('style','display:none');
         }
         function cekKirim() {
             $('#rtoko').prop(':checked',false);
             $('#rkirim').prop(':checked',true);
+            $('#rdrop').prop(':checked',false);
             $('#fkirim').attr('style','display:inherit');
+            $('#fdropship').attr('style','display:none');
+        }
+        function cekDrop() {
+            $('#rtoko').prop(':checked',false);
+            $('#rkirim').prop(':checked',false);
+            $('#rdrop').prop(':checked',true);
+            $('#fkirim').attr('style','display:none');
+            $('#fdropship').attr('style','display:inherit');
+
         }
     </script>
    @yield('js')

@@ -32,10 +32,19 @@
                                             <div class="col-md-2 col-lg-2 col-2">
                                                 <form class="inline">
                                                     <div class="form-group">
+                                                        @php
+                                                            // if($item->diskon != '0'){
+                                                                // $hgd=($item->harga)-($item->harga*$item->diskon)/100;
+                                                            // }else{
+                                                                // $hgd=$item->harga;
+                                                            // }
+
+                                                        @endphp
                                                         <button type="button" onclick="setPilihan('{{$item->id}}')" class="btn btn-outline-info btn-sm">{!!$item->warna.' </br> '. $item->size!!}</button>
                                                         <input type="hidden" id="j{{$item->id}}" value="{!!$item->warna.' - '. $item->size!!}">
-                                                        <input type="hidden" id="h{{$item->id}}" value="{{number_format($item->harga)}}">
+                                                        <input type="hidden" id="h{{$item->id}}" value="{{$item->harga}}">
                                                         <input type="hidden" id="s{{$item->id}}" value="{!!$item->stok!!}">
+                                                        <input type="hidden" id="p{{$item->id}}" value="{!!$item->diskon!!}">
                                                         <input type="hidden" id="i{{$item->id}}" value="{!!$item->id!!}">
                                                     </div>
                                                 </form>
@@ -43,7 +52,10 @@
                                         @endforeach
                                     </div>
                                     <div class="price">
-                                        <h3>Harga : Rp. <span id="hr">0</span></h3>
+
+                                        <h3>Harga : Rp. <span id="hr">0</span> <span id="hd"></span></h3>
+
+                                        <h3>Diskon  : <span id="ds">0</span></h3>
                                         <h3>Stok  : <span id="st">0</span></h3>
                                         <input type="hidden" id="idp">
                                         <div class="row">
@@ -75,11 +87,25 @@
             var jn=$('#j'+id).val();
             $('#pil').html(jn);
             var hr=$('#h'+id).val();
-            $('#hr').html(hr);
+
+
             var st=$('#s'+id).val();
             $('#st').html(st);
             var idp=$('#i'+id).val();
             $('#idp').val(idp);
+
+            var ds=$('#p'+id).val();
+            $('#ds').html(ds+'%');
+
+            var hd=(hr)-(hr*ds/100);
+
+            if(ds !='0'){
+                $('#hr').html('<strike>'+numberFormatComma(hr)+'</strike>');
+                $('#hd').html(numberFormatComma(hd));
+            }else{
+                $('#hr').html(numberFormatComma(hr));
+                $('#hd').html('');
+            }
         }
         // input qty
         $('#qty').bootstrapNumber();

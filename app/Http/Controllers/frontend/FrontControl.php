@@ -23,10 +23,20 @@ class FrontControl extends Controller
         // slider
         $slide=SliderModel::where('status','aktif')->inRandomOrder()->get();
         $prod=ProdukModel::where('status','Aktif')->inRandomOrder()->get();
+        $promo=ProdukVarianModel::
+                leftjoin('produk','produk.kode','=','produk_varian.produk_kode')
+                ->leftjoin('warna','warna.id','=','produk_varian.warna_id')
+                ->leftjoin('size','size.id','=','produk_varian.size_id')
+                ->select(DB::raw('warna.nama as warna,size.nama as size,produk.nama as produk,produk_varian.id as idv ,produk_varian.*'))
+                ->where('diskon','!=','0')
+                ->where('stok','!=','0')
+                ->get();
         $out=[
             'kat'=>$kat,
             'prod'=>$prod,
-            'slide'=>$slide
+            'slide'=>$slide,
+            'promo'=>$promo
+
         ];
 
         return view('frontend.page.index',$out);
@@ -55,6 +65,7 @@ class FrontControl extends Controller
         $data=ProdukVarianModel::leftjoin('warna','warna.id','=','produk_varian.warna_id')
             ->leftjoin('size','size.id','=','produk_varian.size_id')
             ->select(DB::raw('warna.nama as warna,size.nama as size,produk_varian.*'))
+            ->where('stok','!=','0')
             ->where('produk_kode',$id)->get();
         $ket=ProdukModel::where('kode',$id)->get();
         $print=[
@@ -75,6 +86,11 @@ class FrontControl extends Controller
         ->select(DB::raw('warna.nama as warna,size.nama as size,produk_varian.*'))
         ->where('produk_varian.id',$id)->first();
         $cart=Session::get("cart");
+        if($data->diskon != '0'){
+            $tll=($data->harga*$qty)-($data->harga*$qty*$data->diskon/100);
+        }else{
+            $tll=($data->harga*$qty);
+        }
         if($cart==null){
             $cart=array(
                 "id"=>$id,
@@ -82,8 +98,9 @@ class FrontControl extends Controller
                 "gambar"=>$data->gambar,
                 "varian"=>$data->warna .' - ' .$data->size,
                 "qty"=>$qty,
+                'diskon'=>$data->diskon,
                 "harga"=>$data->harga,
-                "total"=>$data->harga * $qty,
+                "total"=>$tll,
             );
             Session::put('cart',[$cart]);
         }else{
@@ -93,8 +110,9 @@ class FrontControl extends Controller
                 "gambar"=>$data->gambar,
                 "varian"=>$data->warna .' - ' .$data->size,
                 "qty"=>$qty,
+                'diskon'=>$data->diskon,
                 "harga"=>$data->harga,
-                "total"=>$data->harga * $qty,
+                "total"=>$tll,
             );
             // $cart=array_push($cart,$ncart);
             Session::push('cart',$ncart);
@@ -148,9 +166,15 @@ class FrontControl extends Controller
         $nama=$request->nama;
         $telp=$request->telp;
         $alamat=$request->alamat;
+        // drop
+        $ndrop=$request->pn;
+        $aldrop=$request->pal;
+        $teldrop=$request->ptlp;
         $ttl=0;
         $data=Session::get('cart');
         $totalsemua=0;
+        $subt=0;
+        $tpot=0;
         $fk=$this->genFK();
         $tgl=date('Y-m-d');
         foreach ($data as $key => $v) {
@@ -158,8 +182,10 @@ class FrontControl extends Controller
             $qty=$v['qty'];
             $hg=$v['harga'];
             $ttl=$v['total'];
+            $ds=$v['diskon'];
             $totalsemua=$totalsemua+$v['total'];
-
+            $subt=$subt+$hg*$qty;
+            $tpot=$tpot+($hg*$qty*$ds/100);
 
             // simpan ke detail trx
             DetailTransaksiModel::create([
@@ -167,6 +193,7 @@ class FrontControl extends Controller
                 'produk_id'=>$idvar,
                 'jumlah'=>$qty,
                 'harga'=>$hg,
+                'diskon'=>$ds,
                 'subtotal'=>$ttl,
                 'tgl'=>$tgl,
             ]);
@@ -183,10 +210,13 @@ class FrontControl extends Controller
             'nama'=>$nama,
             'telp'=>$telp,
             'alamat'=>$alamat,
-            'subtotal'=>$totalsemua,
-            'diskon'=>'0',
+            'subtotal'=>$subt,
+            'diskon'=>$tpot,
             'total'=>$totalsemua,
             'jns_ambil'=>$jns,
+            'nama_penerima'=>$ndrop,
+            'alamat_penerima'=>$aldrop,
+            'telp_penerima'=>$teldrop,
         ]);
         $print=[
             'sts'=>'1',

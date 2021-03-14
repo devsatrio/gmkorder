@@ -9,10 +9,12 @@
                 <li class="nav-item float-right">
                     <form class="form-inline" method="GET" action="{{route('cari-produk')}}">
                         @csrf
-                        <div class="form-group">
-                            <input type="text" name="cproduk" class="form-control mr-2" placeholder="Cari Keperluanmu Disini !">
-                            <button  type="submit" class="btn btn-xs btn-primary"><i class="fa fa-search"></i></button>
-                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" name="cproduk" class="form-control" placeholder="Cari Keperluanmu Disini !">
+                            <div class="input-group-append">
+                                <button  type="submit" class="btn btn-xs btn-primary"><i class="fa fa-search"></i></button>
+                            </div>
+                          </div>
                     </form>
                 </li>
             </ul>

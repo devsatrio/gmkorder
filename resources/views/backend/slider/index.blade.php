@@ -145,13 +145,19 @@
 
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Status</label>
                                 <select name="status" class="form-control">
                                     <option value="Aktif">Aktif</option>
                                     <option value="Non Aktif">Non Aktif</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="">Tandai Sebagai Slider Utama</label> <br>
+                                <input type="checkbox" class="input-control" value="active" name="active" id=""> Aktifkan
                             </div>
                         </div>
                     </div>
@@ -226,7 +232,7 @@
                                 <input type="text" name="link_text" value="{{$row->link_text}}" class="form-control">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Status</label>
                                 <select name="status" class="form-control">
@@ -234,6 +240,16 @@
                                     <option value="Non Aktif" @if($row->status=='Non Aktif') selected @endif>Non Aktif
                                     </option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="">Tandai Sebagai Slider Utama</label> <br>
+                                @if ($row->selected=='active')
+                                <input type="checkbox" checked class="input-control" value="active" name="active" id=""> Aktifkan
+                                @else
+                                <input type="checkbox" class="input-control" value="active" name="active" id=""> Aktifkan
+                                @endif
                             </div>
                         </div>
                     </div>

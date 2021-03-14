@@ -21,7 +21,7 @@
                                         </div>
                                         <div class="col-4 col-md-4 ">{{$item['prod'].' - '.$item['varian']}}</div>
                                         <div class="col-2 col-md-2 "><input readonly type="number" id="number" class="form-control quantity-input" value="{{$item['qty']}}"></div>
-                                        <div class="col-2 col-md-2"><span>Rp. {{number_format($item['harga'])}}</span></div>
+                                        <div class="col-2 col-md-2"><span>Rp. {{number_format($item['total'])}}</span></div>
                                         <div class="col-2 col-md-2"><span><a href="#" onclick="hapusItem('{{$key}}')"><i class="fa fa-trash fa-sm"></i></a></span></div>
                                     </div>
                                 </div>
@@ -34,21 +34,6 @@
                     </div>
                     <div class="col-md-12 col-lg-4">
                         <div class="row no-gutters">
-                            <div class="col-12">
-                                <div class="items">
-
-                                        <form class="form-inline">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Masukan Kode Voucher" >
-                                                    <div class="input-group-append">
-                                                      <button class="btn btn-outline-primary" type="button" id="button-addon2"><span class="fa fa-check"></span> Apply</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                </div>
-                            </div>
                             <div class="col-12">
                                 <div class="summary">
                                     <h3>Detail Total</h3>
@@ -68,11 +53,26 @@
                                         <div class="form-group">
                                             <label for="">Pengambilan : </label> <br>
                                             <input onclick="cekToko()" value="Toko" type="radio" name="radio" id="rtoko" class="input-control"> Toko <br>
-                                            <input onclick="cekKirim()" value="Kirim" type="radio" name="radio" id="rkirim" class="input-control"> Dikirim
+                                            <input onclick="cekKirim()" value="Kirim" type="radio" name="radio" id="rkirim" class="input-control"> Dikirim <br>
+                                            <input onclick="cekDrop()" value="Drop" type="radio" name="radio" id="rdrop" class="input-control"> Dropship
                                         </div>
                                         <div id="fkirim" style="display: none" class="form-group">
                                             <label for="">Alamat Tujuan Atau Alamat Sendiri</label>
-                                            <textarea  id="falamat" cols="30" rows="10" class="form-control"></textarea>
+                                            <textarea  id="falamat" cols="30" rows="5" class="form-control"></textarea>
+                                        </div>
+                                        <div id="fdropship" style="display: none" >
+                                            <div class="form-group">
+                                                <label for="">Nama Penerima</label>
+                                                <input type="text" class="form-control" id="fpenerima">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">No Telp Penerima</label>
+                                                <input type="number" id="ftelpPenerima" class="form-control" placeholder="Contoh : 08xx">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Alamat Tujuan Atau Alamat Sendiri</label>
+                                                <textarea  id="falamatPenerima" cols="30" rows="5" class="form-control"></textarea>
+                                            </div>
                                         </div>
                                     </form>
                                     <button class="btn btn-primary btn-block btn-lg" onclick="checkout()" id="bcheckout" type="button">Beli</button>

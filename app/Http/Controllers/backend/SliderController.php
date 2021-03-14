@@ -52,6 +52,7 @@ class SliderController extends Controller
             'link_text'=>$request->link_text,
             'gambar'=>$input['imagename'],
             'status'=>$request->status,
+            'selected'=>$request->active,
         ]);
         return redirect('backend/slider')->with('status','Sukses menyimpan data');
 
@@ -87,6 +88,7 @@ class SliderController extends Controller
                 'link_text'=>$request->link_text,
                 'gambar'=>$input['imagename'],
                 'status'=>$request->status,
+                'selected'=>$request->active,
             ]);
         }else{
             SliderModel::where('id',$id)
@@ -96,6 +98,7 @@ class SliderController extends Controller
                 'link'=>$request->link,
                 'link_text'=>$request->link_text,
                 'status'=>$request->status,
+                'selected'=>$request->active,
             ]);
 
         }

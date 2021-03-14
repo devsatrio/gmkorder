@@ -248,7 +248,8 @@ CREATE TABLE `slider` (
   `link` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `link_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `gambar` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `selected` enum('active','') DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
