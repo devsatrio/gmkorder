@@ -12,6 +12,7 @@
 @yield('customcss')
 <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<audio id="notifsound" src="{{asset('notif.mp3')}}" muted></audio>
 </head>
 <body class="hold-transition layout-top-nav">
 <div class="wrapper">
@@ -36,6 +37,7 @@
 <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 @stack('customjs')
 <script src="{{asset('assets/dist/js/adminlte.js')}}"></script>
+<script src="{{asset('customjs/backend/notiforder.js')}}"></script>
 @stack('customscripts')
 </body>
 </html>

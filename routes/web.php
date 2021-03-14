@@ -33,6 +33,8 @@ Route::get('/profil-saya', 'frontend\HomeController@profilsaya')->name('profil-s
 //==================================================================================backend
 Route::prefix('backend')->group(function(){
     Route::get('/dashboard', 'backend\HomeController@index')->name('dashboard');
+    Route::get('cek-transaksi-baru','backend\HomeController@cektransaksi');
+    Route::get('bersih-notif','backend\HomeController@bersihnotif');
     Route::get('/edit-profile', 'backend\HomeController@editprofile')->name('editprofile');
     Route::post('/edit-profile/{id}', 'backend\HomeController@aksieditprofile');
 
@@ -111,5 +113,11 @@ Route::prefix('backend')->group(function(){
     Route::get('/list-transaksi','backend\TransaksiController@index');
     Route::get('/data-list-transaksi','backend\TransaksiController@listdata');
     Route::get('/list-transaksi/get-detail/{kode}','backend\TransaksiController@getdetail');
+
+    //List Order
+    Route::get('/list-order','backend\OrderController@index');
+    Route::get('/data-list-order','backend\OrderController@listdata');
+    Route::post('/data-list-order/cancel-trx/{kode}','backend\OrderController@canceltrx');
+    Route::post('/data-list-order/acc-trx/{kode}','backend\OrderController@acctrx');
     
 });

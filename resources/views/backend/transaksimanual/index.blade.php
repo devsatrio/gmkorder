@@ -303,6 +303,60 @@
         </div>
     </div>
 </div>
+
+
+<div id="hidden_div" style="display:none;">
+    <table width="100%">
+        <tr>
+            <td width="100%">
+                <span style="font-size:10px;">Grosir Murah Kediri</span><br>
+                <hr style="border-top: 1px dashed;">
+                <span style="font-size:10px;">{{date('Y/m/d')}}</span><br>
+                <span style="font-size:10px;">{{$kode}}</span>
+                <hr style="border-top: 1px dashed;">
+                <table width="100%">
+                    <tr>
+                        <td><span style="font-size:10px;">Nama</span></td>
+                        <td><span style="font-size:10px;">qty</span></td>
+                        <td><span style="font-size:10px;">Harga</span></td>
+                        <td><span style="font-size:10px;">Diskon</span></td>
+                        <td><span style="font-size:10px;">Subtotal</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <hr style="border-top: 1px dashed;">
+                        </td>
+                    </tr>
+                    <tbody id="cetaktabel">
+                    </tbody>
+                    <tr>
+                        <td colspan="6">
+                            <hr style="border-top: 1px dashed;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-size:10px;">Subtotal</span></td>
+                        <td><span style="font-size:10px;" colspan="5" id="notasubtotal"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-size:10px;">Potongan/Diskon</span></td>
+                        <td><span style="font-size:10px;" colspan="5" id="notapotongan"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-size:10px;">Ongkir</span></td>
+                        <td><span style="font-size:10px;" colspan="5" id="notaongkir"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-size:10px;">Total</span></td>
+                        <td><span style="font-size:10px;" colspan="5" id="notatotal"></span></td>
+                    </tr>
+                </table>
+                <hr style="border-top: 1px dashed;">
+                <span style="font-size:10px;">Terima kasih atas kunjungan anda <br> Barang yang telah di beli tidak bisa di tukar atau dikembalikan</span>
+            </td>
+        </tr>
+    </table>
+</div>
 @endsection
 @push('customjs')
 <script src="{{asset('assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>

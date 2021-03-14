@@ -8,7 +8,7 @@ use DataTables;
 use Auth;
 use DB;
 
-class TransaksiController extends Controller
+class OrderController extends Controller
 {
     public function __construct()
     {
@@ -18,43 +18,24 @@ class TransaksiController extends Controller
     //=================================================================
     public function index()
     {
-        return view('backend.transaksi.index');
+        return view('backend.order.index');
     }
 
     //=================================================================
     public function listdata(){
-        return Datatables::of(DB::table('trx_umum')->where('sts','!=','belum')->orderby('id','desc')->get())->make(true);
+        return Datatables::of(DB::table('trx_umum')->where('sts','belum')->orderby('id','desc')->get())->make(true);
     }
 
     //=================================================================
-    public function getdetail($kode)
+    public function canceltrx(Request $request, $kode)
     {
-        $datatrx = DB::table('trx_umum')
-        ->select(DB::raw('trx_umum.*,users.username'))
-        ->leftjoin('users','users.id','=','trx_umum.admin_acc')
-        ->where('trx_umum.id',$kode)
-        ->get();
-
-        foreach($datatrx as $dt){
-            $detail = DB::table('thumb_detail_transaksi')
-            ->select(DB::raw('thumb_detail_transaksi.*,produk_varian.warna_id,produk_varian.size_id,produk_varian.produk_kode,produk.nama as namaproduk,warna.nama as namawarna,size.nama as namasize'))
-            ->leftjoin('produk_varian','produk_varian.id','=','thumb_detail_transaksi.produk_id')
-            ->leftjoin('produk','produk.kode','=','produk_kode')
-            ->leftjoin('warna','warna.id','=','warna_id')
-            ->leftjoin('size','size.id','=','size_id')
-            ->where('thumb_detail_transaksi.kode_transaksi',$dt->faktur)
-            ->get();
-        }
-        $data=[
-            'trx'=>$datatrx,
-            'detail'=>$detail,
-        ];
-        return response()->json($data);
+        DB::table('trx_umum')->where('id',$kode)->update(['sts'=>'cancel']);
     }
 
-    public function create()
+    //=================================================================
+    public function acctrx(Request $request, $kode)
     {
-        //
+        DB::table('trx_umum')->where('id',$kode)->update(['sts'=>'sudah']);
     }
 
     /**
