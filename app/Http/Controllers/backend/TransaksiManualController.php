@@ -28,6 +28,7 @@ class TransaksiManualController extends Controller
         ->leftjoin('produk','produk.kode','=','produk_varian.produk_kode')
         ->leftjoin('warna','warna.id','=','produk_varian.warna_id')
         ->leftjoin('size','size.id','=','produk_varian.size_id')
+        ->where('status','Aktif')
         ->orderby('produk_varian.id','desc')
         ->get();
         $pelanggan = DB::table('pengguna')->orderby('id','desc')->get();

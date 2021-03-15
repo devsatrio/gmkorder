@@ -116,6 +116,7 @@ Route::prefix('backend')->group(function(){
 
     //List Order
     Route::get('/list-order','backend\OrderController@index');
+    Route::get('/transaki-online/{kode}','backend\OrderController@edittrx');
     Route::get('/data-list-order','backend\OrderController@listdata');
     Route::post('/data-list-order/cancel-trx/{kode}','backend\OrderController@canceltrx');
     Route::post('/data-list-order/acc-trx/{kode}','backend\OrderController@acctrx');

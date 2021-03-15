@@ -18,14 +18,14 @@ $(function () {
             { data: 'kurir', name: 'kurir' },
             {
                 render: function (data, type, row) {
-                    return 'Rp.'+rupiah(row['total'])
+                    return 'Rp.' + rupiah(row['total'])
                 },
-                "data":'total',
+                "data": 'total',
                 "className": 'text-right',
             },
             {
                 render: function (data, type, row) {
-                    return '<button class="btn btn-sm btn-secondary" onclick="lihatdetail(' + row['id'] + ')"><i class="fa fa-eye"></i></button> <button class="btn btn-sm btn-success" onclick="acctrx(' + row['id'] + ')"><i class="fa fa-check"></i></button> <button class="btn btn-sm btn-danger" onclick="cancel(' + row['id'] + ')"><i class="fa fa-ban"></i></button>'
+                    return '<button class="btn btn-sm btn-secondary" onclick="lihatdetail(' + row['id'] + ')"><i class="fa fa-eye"></i></button> <a href="transaki-online/'+row['id']+'"><button class="btn btn-sm btn-primary" type="button"><i class="fa fa-wrench"></i></button></a> <button class="btn btn-sm btn-success" onclick="acctrx(' + row['id'] + ')"><i class="fa fa-check"></i></button> <button class="btn btn-sm btn-danger" onclick="cancel(' + row['id'] + ')"><i class="fa fa-ban"></i></button>'
                 },
                 "className": 'text-center',
                 "orderable": false,
@@ -38,7 +38,8 @@ $(function () {
 
 });
 
-function lihatdetail(kode){
+//===============================================================================================
+function lihatdetail(kode) {
     $('#modaltransaksi').modal('toggle');
     $('#loadingdetail').show();
     $('#tampildetail').hide();
@@ -47,12 +48,12 @@ function lihatdetail(kode){
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-      });
-      $.ajax({
-          type: 'GET',
-          url: '/backend/list-transaksi/get-detail/'+kode,
-          success: function (data) {
-            $.each(data['trx'], function(key, value) {
+    });
+    $.ajax({
+        type: 'GET',
+        url: '/backend/list-transaksi/get-detail/' + kode,
+        success: function (data) {
+            $.each(data['trx'], function (key, value) {
                 $('#tampilkode').html(value.faktur);
                 $('#tampiltgl').html(value.tgl);
                 $('#tampilnamapembeli').html(value.nama);
@@ -65,26 +66,26 @@ function lihatdetail(kode){
                 $('#tampilmetode').html(value.jns_ambil);
                 $('#tampilkurir').html(value.kurir);
                 $('#tampilketerangan').html(value.keterangan);
-                $('#tampilsubtotal').html('Rp. '+rupiah(value.subtotal));
-                $('#tampilongkir').html('Rp. '+rupiah(value.ongkir));
-                $('#tampilpotongan').html('Rp. '+rupiah(value.diskon));
-                $('#tampiltotal').html('Rp. '+rupiah(value.total));
+                $('#tampilsubtotal').html('Rp. ' + rupiah(value.subtotal));
+                $('#tampilongkir').html('Rp. ' + rupiah(value.ongkir));
+                $('#tampilpotongan').html('Rp. ' + rupiah(value.diskon));
+                $('#tampiltotal').html('Rp. ' + rupiah(value.total));
             });
-            var rows ='';
-            $.each(data['detail'],function(key, value){
-              rows = rows + '<tr>';
-              rows = rows + '<td>' +value.jumlah+' Pcs</td>';
-              rows = rows + '<td>' +value.namaproduk+' ( '+ value.namawarna+' - '+ value.namasize+')</td>';
-              rows = rows + '<td>'+value.diskon+' %</td>';
-              rows = rows + '<td class="text-left"> Rp. ' +rupiah(value.harga)+'</td>';
-              rows = rows + '<td class="text-left"> Rp. ' +rupiah(value.subtotal)+'</td>';
-              rows = rows + '</tr>';
+            var rows = '';
+            $.each(data['detail'], function (key, value) {
+                rows = rows + '<tr>';
+                rows = rows + '<td>' + value.jumlah + ' Pcs</td>';
+                rows = rows + '<td>' + value.namaproduk + ' ( ' + value.namawarna + ' - ' + value.namasize + ')</td>';
+                rows = rows + '<td>' + value.diskon + ' %</td>';
+                rows = rows + '<td class="text-left"> Rp. ' + rupiah(value.harga) + '</td>';
+                rows = rows + '<td class="text-left"> Rp. ' + rupiah(value.subtotal) + '</td>';
+                rows = rows + '</tr>';
             });
             $('#tubuhdetailtrx').html(rows);
             $('#loadingdetail').hide();
             $('#tampildetail').show();
-          }
-      });
+        }
+    });
 }
 window.lihatdetail = lihatdetail;
 
@@ -131,6 +132,7 @@ function cancel(kode) {
     })
 }
 window.cancel = cancel;
+
 //===============================================================================================
 function acctrx(kode) {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -160,13 +162,13 @@ function acctrx(kode) {
             }).then((result) => {
                 if (result.value) {
                     $.ajaxSetup({
-                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
-                      });
-                      $.ajax({
-                          type: 'GET',
-                          url: '/backend/list-transaksi/get-detail/'+kode,
-                          success: function (data) {
-                            $.each(data['trx'], function(key, value) {
+                        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+                    });
+                    $.ajax({
+                        type: 'GET',
+                        url: '/backend/list-transaksi/get-detail/' + kode,
+                        success: function (data) {
+                            $.each(data['trx'], function (key, value) {
                                 $('#notafaktur').html(value.faktur);
                                 $('#notatgl').html(value.tgl);
                                 $('#notasubtotal').html('Rp. ' + rupiah(value.subtotal));
@@ -174,15 +176,15 @@ function acctrx(kode) {
                                 $('#notaongkir').html('Rp. ' + rupiah(value.ongkir));
                                 $('#notatotal').html('Rp. ' + rupiah(value.total));
                             });
-                            var rows ='';
-                            $.each(data['detail'],function(key, value){
-                              rows = rows + '<tr style="font-size:10px;">';
-                              rows = rows + '<td>' +value.namaproduk+' ( '+ value.namawarna+' - '+ value.namasize+')</td>';
-                              rows = rows + '<td>' +value.jumlah+' Pcs</td>';
-                              rows = rows + '<td>'+value.diskon+' %</td>';
-                              rows = rows + '<td class="text-left"> Rp. ' +rupiah(value.harga)+'</td>';
-                              rows = rows + '<td class="text-left"> Rp. ' +rupiah(value.subtotal)+'</td>';
-                              rows = rows + '</tr>';
+                            var rows = '';
+                            $.each(data['detail'], function (key, value) {
+                                rows = rows + '<tr style="font-size:10px;">';
+                                rows = rows + '<td>' + value.namaproduk + ' ( ' + value.namawarna + ' - ' + value.namasize + ')</td>';
+                                rows = rows + '<td>' + value.jumlah + ' Pcs</td>';
+                                rows = rows + '<td>' + value.diskon + ' %</td>';
+                                rows = rows + '<td class="text-left"> Rp. ' + rupiah(value.harga) + '</td>';
+                                rows = rows + '<td class="text-left"> Rp. ' + rupiah(value.subtotal) + '</td>';
+                                rows = rows + '</tr>';
                             });
                             $('#cetaktabel').html(rows);
 
@@ -191,10 +193,10 @@ function acctrx(kode) {
                             newWin.document.open();
                             newWin.document.write('<html><body onload="window.print();window.close()">' + divToPrint.innerHTML + '</body></html>');
                             newWin.document.close();
-                          }
-                      });
+                        }
+                    });
 
-                      $.ajax({
+                    $.ajax({
                         type: 'POST',
                         url: '/backend/data-list-order/acc-trx/' + kode,
                         data: {
@@ -209,7 +211,7 @@ function acctrx(kode) {
                             $('#list-data').DataTable().ajax.reload();
                         }
                     });
-                }else{
+                } else {
                     $.ajax({
                         type: 'POST',
                         url: '/backend/data-list-order/acc-trx/' + kode,
@@ -231,21 +233,20 @@ function acctrx(kode) {
     })
 }
 window.acctrx = acctrx;
+
 //===============================================================================================
-
-
-function rupiah(bilangan){
-    if(bilangan=='' || bilangan==null){
-        bilangan=0;
+function rupiah(bilangan) {
+    if (bilangan == '' || bilangan == null) {
+        bilangan = 0;
     }
     var number_string = bilangan.toString(),
-    sisa    = number_string.length % 3,
-    rupiah  = number_string.substr(0, sisa),
-    ribuan  = number_string.substr(sisa).match(/\d{3}/gi);
-    
+        sisa = number_string.length % 3,
+        rupiah = number_string.substr(0, sisa),
+        ribuan = number_string.substr(sisa).match(/\d{3}/gi);
+
     if (ribuan) {
         separator = sisa ? '.' : '';
         rupiah += separator + ribuan.join('.');
     }
     return rupiah;
-  }
+}

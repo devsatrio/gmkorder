@@ -52,64 +52,73 @@ class TransaksiController extends Controller
         return response()->json($data);
     }
 
-    public function create()
+    //==================================================================
+    public function simpantransaksi(Request $request,$kode)
     {
-        //
-    }
+        $datapelanggan = DB::table('pengguna')->where('id',$request->pembeli)->first();
+        $getdetailproduk = DB::table('thumb_transaksi_manual')->where('user_id',Auth::user()->id)->get();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        //kurangi stok
+        $updatestok=[];
+        $datanya=[];
+        $datalog=[];
+        foreach($getdetailproduk as $produk){
+            $updatestok[] = [
+                'id' => $produk->produk_id,
+                'stok' =>['-', $produk->jumlah],
+            ];
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+            $datanya[]=[
+                'kode_transaksi'=>$request->resi,
+                'produk_id'=>$produk->produk_id,
+                'jumlah'=>$produk->jumlah,
+                'harga'=>$produk->harga,
+                'diskon'=>$produk->diskon,
+                'subtotal'=>$produk->subtotal,
+                'tgl'=>date('Y-m-d'),
+            ];
+            $dataproduk = DB::table('produk_varian')->where('id',$produk->produk_id)->first();
+            $datalog[] =[
+                'kode_produk'=>$produk->produk_kode,
+                'user_id'=>Auth::user()->id,
+                'status'=>'Menjual Via Offline',
+                'aksi'=>'Mengurangi',
+                'deskripsi'=>'Menjual produk '.$produk->nama.' ('.$produk->produk_kode.') - '.$produk->varian,
+                'jumlah'=>$produk->jumlah,
+                'jumlah_akhir'=>$dataproduk->stok - $produk->jumlah,
+                'tanggal'=>date('Y-m-d H:i:s')
+            ];
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $index = 'id';
+        $userInstance = new ProdukVarianModel;
+        Batch::update($userInstance, $updatestok, $index);
+        DB::table('thumb_detail_transaksi')->insert($datanya);
+        DB::table('stok_log')->insert($datalog);
+        DB::table('trx_umum')
+        ->where('id',$kode)
+        ->update([
+            'faktur'=>$request->resi,
+            'tgl'=>date('Y-m-d'),
+            'id_pengguna'=>$request->pembeli,
+            'nama'=>$datapelanggan->nama,
+            'telp'=>$datapelanggan->telp,
+            'alamat'=>$datapelanggan->alamat,
+            'jns_ambil'=>$request->metode,
+            'subtotal'=>$request->subtotal,
+            'ongkir'=>$request->ongkir,
+            'diskon'=>$request->potongan,
+            'total'=>$request->subtotal+$request->ongkir-$request->potongan,
+            'sts'=>'sudah',
+            'kurir'=>$request->kurir,
+            'nama_penerima'=>$request->namapenerima,
+            'alamat_penerima'=>$request->alamat,
+            'telp_penerima'=>$request->telppenerima,
+            'keterangan'=>$request->keterangan,
+            'admin_acc'=>Auth::user()->id,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+        ]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   
 }
