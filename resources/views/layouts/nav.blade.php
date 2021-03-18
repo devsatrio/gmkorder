@@ -43,8 +43,15 @@
                         <li><a href="{{url('backend/list-transaksi')}}" class="dropdown-item">List Transaksi</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Contact</a>
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        class="nav-link dropdown-toggle">Settings</a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li><a href="{{url('backend/slider')}}" class="dropdown-item">Slider</a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li><a href="{{url('backend/setting-web')}}" class="dropdown-item">Setting Web</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -97,7 +104,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
-                        class="fas fa-th-large"></i></a>
+                        class="far fa-file"></i></a>
             </li>
         </ul>
     </div>

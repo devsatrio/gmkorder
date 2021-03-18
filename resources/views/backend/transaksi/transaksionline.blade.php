@@ -43,6 +43,7 @@
                                     <label for="exampleInputEmail1">No. Transaksi</label>
                                     <input type="text" class="form-control" name="resi" id="resi" value="{{$datanya->faktur}}"
                                         readonly>
+                                    <input type="hidden" name="kodetrx" value="{{$datanya->id}}" id="kodetrx">
                                     <input type="hidden" name="admin" value="{{Auth::user()->id}}" id="admin">
                                     <input type="hidden" name="statusadmin" value="{{Auth::user()->level}}"
                                         id="statusadmin">
@@ -61,7 +62,7 @@
                             <div class="col-md-12">
                                 <label for="exampleInputEmail1">Pelanggan</label>
                                 <input type="text" class="form-control" name="pelanggan"
-                                        value="{{$datanya->nama}}" readonly>
+                                        value="{{$datanya->nama}}" id="caripelanggan" readonly>
                             </div>
                         </div>
                         <hr>

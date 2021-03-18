@@ -12,25 +12,7 @@ const swalWithBootstrapButtons = Swal.mixin({
     $(".select2").val(null).trigger('change');
   
     //===============================================================================================
-    $('#caripelanggan').select2({
-      placeholder: 'Cari Nama Pelanggan',
-      ajax: {
-        url: '/backend/transaksi-manual/caripelanggan',
-        dataType: 'json',
-        delay: 250,
-        processResults: function (data) {
-          return {
-            results: $.map(data, function (item) {
-              return {
-                id: item.id,
-                text: item.nama
-              }
-            })
-          }
-        },
-        cache: true
-      }
-    });
+    
   
     //===============================================================================================
     $('#produk').select2({
@@ -97,25 +79,7 @@ const swalWithBootstrapButtons = Swal.mixin({
     });
   
     //===============================================================================================
-    $('#caripelanggan').on('select2:select', function (e) {
-      $('#panelnya').loading('toggle');
-      var kode = $(this).val();
-      $.ajax({
-        type: 'GET',
-        url: '/backend/transaksi-manual/caridetail-pelanggan/' + kode,
-        success: function (data) {
-          return {
-            results: $.map(data, function (item) {
-              $("#namapenerima").val(item.nama);
-              $("#telppenerima").val(item.telp);
-              $("#alamat").html(item.alamat);
-            })
-          }
-        }, complete: function () {
-          $('#panelnya').loading('stop');
-        }
-      });
-    });
+ 
   
     //===============================================================================================
     $('#add-pelanggan').click(function (e) {
@@ -140,9 +104,10 @@ const swalWithBootstrapButtons = Swal.mixin({
         });
         $.ajax({
           type: 'POST',
-          url: '/backend/transaksi-manual/simpan-transaksi',
+          url: '/backend/transaksi-online/simpan-transaksi',
           data: {
             '_token': $('input[name=_token]').val(),
+            'kodetrx': $('#kodetrx').val(),
             'resi': $('#resi').val(),
             'pembeli': $('#caripelanggan').val(),
             'vocher': $('#vocher').val(),
@@ -162,7 +127,7 @@ const swalWithBootstrapButtons = Swal.mixin({
             newWin.document.open();
             newWin.document.write('<html><body onload="window.print();window.close()">' + divToPrint.innerHTML + '</body></html>');
             newWin.document.close();
-            location.reload();
+            window.location = "/backend/list-order";
           },
           complete: function () {
             $('#paneldua').loading('stop');

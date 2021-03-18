@@ -4,6 +4,8 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\models\ProdukVarianModel;
+use Batch;
 use DataTables;
 use Auth;
 use DB;
@@ -14,7 +16,72 @@ class OrderController extends Controller
     {
         $this->middleware('auth');
     }
+    //==================================================================
+    public function simpantransaksi(Request $request)
+    {
+        $getdetailproduk = DB::table('thumb_transaksi_manual')->where('user_id',Auth::user()->id)->get();
 
+        //kurangi stok
+        $updatestok=[];
+        $datanya=[];
+        $datalog=[];
+        foreach($getdetailproduk as $produk){
+            $updatestok[] = [
+                'id' => $produk->produk_id,
+                'stok' =>['-', $produk->jumlah],
+            ];
+
+            $datanya[]=[
+                'kode_transaksi'=>$request->resi,
+                'produk_id'=>$produk->produk_id,
+                'jumlah'=>$produk->jumlah,
+                'harga'=>$produk->harga,
+                'diskon'=>$produk->diskon,
+                'subtotal'=>$produk->subtotal,
+                'tgl'=>date('Y-m-d'),
+            ];
+            $dataproduk = DB::table('produk_varian')->where('id',$produk->produk_id)->first();
+            $datalog[] =[
+                'kode_produk'=>$produk->produk_kode,
+                'user_id'=>Auth::user()->id,
+                'status'=>'Menjual Via Online',
+                'aksi'=>'Mengurangi',
+                'deskripsi'=>'Menjual produk '.$produk->nama.' ('.$produk->produk_kode.') - '.$produk->varian,
+                'jumlah'=>$produk->jumlah,
+                'jumlah_akhir'=>$dataproduk->stok - $produk->jumlah,
+                'tanggal'=>date('Y-m-d H:i:s')
+            ];
+        }
+
+        $index = 'id';
+        $userInstance = new ProdukVarianModel;
+        Batch::update($userInstance, $updatestok, $index);
+        DB::table('thumb_detail_transaksi')->where('kode_transaksi',$request->resi)->delete();
+        DB::table('thumb_detail_transaksi')->insert($datanya);
+        DB::table('stok_log')->insert($datalog);
+        DB::table('trx_umum')
+        ->where('id',$request->kodetrx)
+        ->update([
+            'faktur'=>$request->resi,
+            'tgl'=>date('Y-m-d'),
+            'id_pengguna'=>$request->pembeli,
+            'nama'=>$request->pembeli,
+            'jns_ambil'=>$request->metode,
+            'subtotal'=>$request->subtotal,
+            'ongkir'=>$request->ongkir,
+            'diskon'=>$request->potongan,
+            'total'=>$request->subtotal+$request->ongkir-$request->potongan,
+            'sts'=>'sudah',
+            'kurir'=>$request->kurir,
+            'nama_penerima'=>$request->namapenerima,
+            'alamat_penerima'=>$request->alamat,
+            'telp_penerima'=>$request->telppenerima,
+            'keterangan'=>$request->keterangan,
+            'admin_acc'=>Auth::user()->id,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+        ]);
+    }
     //=================================================================
     public function index()
     {
@@ -35,7 +102,12 @@ class OrderController extends Controller
     //=================================================================
     public function acctrx(Request $request, $kode)
     {
-        DB::table('trx_umum')->where('id',$kode)->update(['sts'=>'sudah']);
+        DB::table('trx_umum')
+        ->where('id',$kode)
+        ->update([
+            'sts'=>'sudah',
+            'admin_acc'=>Auth::user()->id,
+        ]);
     }
 
     //=================================================================

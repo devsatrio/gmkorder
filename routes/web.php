@@ -120,5 +120,17 @@ Route::prefix('backend')->group(function(){
     Route::get('/data-list-order','backend\OrderController@listdata');
     Route::post('/data-list-order/cancel-trx/{kode}','backend\OrderController@canceltrx');
     Route::post('/data-list-order/acc-trx/{kode}','backend\OrderController@acctrx');
-    
+    Route::post('/transaksi-online/simpan-transaksi','backend\OrderController@simpantransaksi');
+   
+     //Laporan
+     Route::get('/laporan-transaksi','backend\LaporanController@index');
+     Route::get('/laporan-transaksi/tampil','backend\LaporanController@tampiltransaksi');
+     Route::get('/laporan-detail-transaksi','backend\LaporanController@caridetailtransaksi');
+     Route::get('/laporan-detail-transaksi/tampil','backend\LaporanController@tampildetailtransaksi');
+     Route::get('/laporan-penjualan-perbarang','backend\LaporanController@caripenjualanbarang');
+     Route::get('/laporan-penjualan-perbarang/tampil','backend\LaporanController@tampilpenjualanbarang');
+     Route::get('/laporan-detail-penjualan-perbarang','backend\LaporanController@caridetailpenjualanbarang');
+     Route::get('/laporan-detail-penjualan-perbarang/tampil','backend\LaporanController@tampildetailpenjualanbarang');
+     Route::get('/laporan-transaksi-peradmin','backend\LaporanController@caritransaksiperadmin');
+     Route::get('/laporan-transaksi-peradmin/tampil','backend\LaporanController@tampiltransaksiperadmin');
 });
