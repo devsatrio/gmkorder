@@ -121,30 +121,34 @@
           $('.qty').bootstrapNumber();
           function simpanPromo(id,prod) {
             var qty=$('#qty'+id).val();
-            $.ajax({
-                url:'/katalog/simpan-cart/',
-                dataType:'json',
-                type:'post',
-                data:{id:id,qty:qty,prod:prod},
-                success:function(response){
-                    if(response.sts=='1'){
-                        $('#basket').attr('style','display:inherit');
-                        Toast.fire({
-                            type: 'success',
-                            title: response.msg
-                        });
-                        countCt(response.item);
-                        $('#totalbl').html("Rp. "+numberFormatComma(response.ttal));
-                        $('#subttl').html("Rp. "+numberFormatComma(response.ttal));
-                        $('#ttl').html("Rp. "+numberFormatComma(response.ttal));
-                    }else{
-                        Toast.fire({
-                            type: 'warning',
-                            title: 'Gagal Menambah Item'
-                        });
+            if(qty==''||qty<1){
+
+            }else{
+                $.ajax({
+                    url:'/katalog/simpan-cart/',
+                    dataType:'json',
+                    type:'post',
+                    data:{id:id,qty:qty,prod:prod},
+                    success:function(response){
+                        if(response.sts=='1'){
+                            $('#basket').attr('style','display:inherit');
+                            Toast.fire({
+                                type: 'success',
+                                title: response.msg
+                            });
+                            countCt(response.item);
+                            $('#totalbl').html("Rp. "+numberFormatComma(response.ttal));
+                            $('#subttl').html("Rp. "+numberFormatComma(response.ttal));
+                            $('#ttl').html("Rp. "+numberFormatComma(response.ttal));
+                        }else{
+                            Toast.fire({
+                                type: 'warning',
+                                title: 'Gagal Menambah Item'
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }
           }
     </script>
 @endpush

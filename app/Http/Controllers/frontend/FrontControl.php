@@ -30,6 +30,7 @@ class FrontControl extends Controller
                 ->select(DB::raw('warna.nama as warna,size.nama as size,produk.nama as produk,produk_varian.id as idv ,produk_varian.*'))
                 ->where('diskon','!=','0')
                 ->where('stok','!=','0')
+                ->where('status','Aktif')
                 ->get();
         $out=[
             'kat'=>$kat,
@@ -49,7 +50,7 @@ class FrontControl extends Controller
     {
         $data=[];
         $ket=[];
-        $prod=ProdukModel::where('kategori_produk',$id)->get();
+        $prod=ProdukModel::where('kategori_produk',$id)->where('status','Aktif')->get();
         $kat=KategoriModel::where('id',$id)->first();
         $print=[
             'prod'=>$prod,
@@ -66,6 +67,7 @@ class FrontControl extends Controller
             ->leftjoin('size','size.id','=','produk_varian.size_id')
             ->select(DB::raw('warna.nama as warna,size.nama as size,produk_varian.*'))
             ->where('stok','!=','0')
+            // ->where('status','Aktif')
             ->where('produk_kode',$id)->get();
         $ket=ProdukModel::where('kode',$id)->get();
         $print=[
@@ -259,7 +261,7 @@ class FrontControl extends Controller
         // $data=[];
         // $ket=[];
         $cari=$request->cproduk;
-        $prod=ProdukModel::where('nama','like','%'.$cari.'%')->get();
+        $prod=ProdukModel::where('nama','like','%'.$cari.'%')->where('status','Aktif')->get();
         // $kat=KategoriModel::where('id',$id)->first();
         $print=[
             'prod'=>$prod,
