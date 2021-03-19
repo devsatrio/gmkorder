@@ -10,14 +10,36 @@ use App\models\ProdukVarianModel;
 use App\models\SliderModel;
 use App\models\TransaksiModel;
 use App\models\TrxUmumModel;
+use App\models\VisitorModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class FrontControl extends Controller
 {
-    public function index()
+    public function getvisitor($request){  
+        $u_agent = $_SERVER['HTTP_USER_AGENT'];
+        $platform = 'Unknown';
+        if (preg_match('/linux/i', $u_agent)) {
+                $platform = 'linux';
+            } elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
+                $platform = 'mac';
+            } elseif (preg_match('/windows|win32/i', $u_agent)) {
+                $platform = 'windows';
+            }
+            $user_ip=$request->ip();
+            $tgl = date('Y-m-d');
+            $data = VisitorModel::firstOrNew(['ip' => $user_ip,'date'=>$tgl]);
+                $data->ip = $user_ip;
+                $data->date = $tgl;
+                $data->time = date('h:i:s');
+                $data->os = $platform;
+                $data->save();
+    }
+    
+    public function index(Request $request)
     {
+        $this->getvisitor($request);
         // kategori
         $kat=KategoriModel::where('status','Aktif')->get();
         // slider
@@ -46,8 +68,9 @@ class FrontControl extends Controller
     {
 
     }
-    public function listProduk($id)
+    public function listProduk(Request $request,$id)
     {
+        $this->getvisitor($request);
         $data=[];
         $ket=[];
         $prod=ProdukModel::where('kategori_produk',$id)->where('status','Aktif')->get();
@@ -60,8 +83,9 @@ class FrontControl extends Controller
         ];
         return view('frontend.page.produk',$print);
     }
-    public function listBarang($id)
+    public function listBarang(Request $request,$id)
     {
+        $this->getvisitor($request);
         // dd($id);
         $data=ProdukVarianModel::leftjoin('warna','warna.id','=','produk_varian.warna_id')
             ->leftjoin('size','size.id','=','produk_varian.size_id')

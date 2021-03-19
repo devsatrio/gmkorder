@@ -25,6 +25,7 @@ class HomeController extends Controller
         $jumlahproduk = DB::table('produk')->count();
         $jumlahtransaksi = DB::table('trx_umum')->where('sts','sudah')->count();
         $datenow = date('Y-m-d');
+        
         $jumlahnya ="";
         $tglnya ="";
         for ($i=6; $i >= 0; $i--) { 
@@ -33,6 +34,7 @@ class HomeController extends Controller
             $jumlahnya = $jumlahnya.''.$trxgrafik.',';
             $tglnya =$tglnya."'".$olddate."',";
         }
+
         $dataperkategori = DB::table('thumb_detail_transaksi')
         ->select(DB::raw('thumb_detail_transaksi.*,sum(thumb_detail_transaksi.jumlah) as totaljumlah,produk_varian.produk_kode,produk.kategori_produk,kategori_produk.nama as label'))
         ->leftjoin('produk_varian','produk_varian.id','=','thumb_detail_transaksi.produk_id')
@@ -49,7 +51,17 @@ class HomeController extends Controller
             $kategorinya =$kategorinya."'".$dtakat->label."',";
             $color = $color."'#".substr(md5(rand()), 0, 6)."',";
         }
-        return view('backend.dashboard.index',compact('jumlahpengguna','jumlahproduk','jumlahtransaksi','jumlahnya','tglnya','jumlahnyadua','kategorinya','color'));
+
+        $jumlahpengunjung ="";
+        $tglpengunjung ="";
+        for ($i=6; $i >= 0; $i--) { 
+            $olddate = date('Y-m-d',(strtotime ( '-'.$i.' day' , strtotime ( $datenow))));
+            $pengunjung = DB::table('visitor')->where('date',$olddate)->count();
+            $jumlahpengunjung = $jumlahpengunjung.''.$pengunjung.',';
+            $tglpengunjung =$tglpengunjung."'".$olddate."',";
+        }
+
+        return view('backend.dashboard.index',compact('tglpengunjung','jumlahpengunjung','jumlahpengguna','jumlahproduk','jumlahtransaksi','jumlahnya','tglnya','jumlahnyadua','kategorinya','color'));
     }
 
     //==================================================================

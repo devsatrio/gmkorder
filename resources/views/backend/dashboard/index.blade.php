@@ -121,7 +121,7 @@
                             <canvas id="pieChart"
                                 style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 306px;"
                                 width="612" height="500" class="chartjs-render-monitor mb-4"></canvas>
-                                <p>Jumlah Produk Terjual Per kategori Di Bulan <br> <b>{{date('m')}} ({{date('M')}})</b></p>
+                            <p>Jumlah Produk Terjual Per kategori Di Bulan <br> <b>{{date('m')}} ({{date('M')}})</b></p>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -162,6 +162,65 @@
 <script>
 $(function() {
     'use strict'
+    var ticksStyle = {
+        fontColor: '#495057',
+        fontStyle: 'bold'
+    }
+
+    var mode = 'index'
+    var intersect = true
+
+    var $visitorsChart = $('#visitors-chart');
+    var visitorsChart = new Chart($visitorsChart, {
+        data: {
+            labels: [<?php echo $tglpengunjung; ?>],
+            datasets: [{
+                    type: 'line',
+                    data: [<?php echo $jumlahpengunjung; ?>],
+                    backgroundColor: 'transparent',
+                    borderColor: '#007bff',
+                    pointBorderColor: '#007bff',
+                    pointBackgroundColor: '#007bff',
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            tooltips: {
+                mode: mode,
+                intersect: intersect
+            },
+            hover: {
+                mode: mode,
+                intersect: intersect
+            },
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    // display: false,
+                    gridLines: {
+                        display: true,
+                        lineWidth: '4px',
+                        color: 'rgba(0, 0, 0, .2)',
+                        zeroLineColor: 'transparent'
+                    },
+                    ticks: $.extend({
+                        beginAtZero: true,
+                    }, ticksStyle)
+                }],
+                xAxes: [{
+                    display: true,
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: ticksStyle
+                }]
+            }
+        }
+    })
     var pieData = {
         labels: [<?php echo $kategorinya; ?>],
         datasets: [{
@@ -179,14 +238,6 @@ $(function() {
         data: pieData,
         options: pieOptions
     })
-
-    var ticksStyle = {
-        fontColor: '#495057',
-        fontStyle: 'bold'
-    }
-
-    var mode = 'index'
-    var intersect = true
 
     var $salesChart = $('#sales-chart')
     var salesChart = new Chart($salesChart, {

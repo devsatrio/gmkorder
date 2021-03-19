@@ -53,7 +53,10 @@ class TransaksiManualController extends Controller
     //==================================================================
     public function caridetailbarang($kode)
     {
-        $barang = DB::table('produk_varian')->where('id',$kode)->get();
+        $barang = DB::table('produk_varian')
+        ->select(DB::raw('produk_varian.*,produk.status'))
+        ->leftjoin('produk','produk.kode','=','produk_varian.produk_kode')
+        ->where([['id',$kode],['stok','>',1],['status','=','Aktif']])->get();
         return response()->json($barang);
     }
 
