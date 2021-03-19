@@ -151,6 +151,7 @@
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
         }
         function checkout() {
+            var jns="";
             var nama=$('#fnama').val();
             var telp=$('#ftelp').val();
             var ctoko=$('#rtoko:checked').val();
@@ -163,12 +164,15 @@
 
             if(ctoko=="Toko"){
                 alamat="ambil di toko";
+                jns="Toko";
             }else if(cdrop=="Drop"){
                 pn=$('#fpenerima').val();
                 pal=$('#falamatPenerima').val();
                 ptlp=$('#ftelpPenerima').val();
+                jns="Kirim";
             }else{
                 alamat=$('#falamat').val();
+                jns="Kirim";
             }
             if(ctoko=='Toko'){
                 if(nama=='' || telp==''){
@@ -182,7 +186,7 @@
                         url:'/simpan-belanja',
                         type:'post',
                         dataType:'json',
-                        data:{nama:nama,telp:telp,alamat:alamat,pn:pn,pal:pal,ptlp:ptlp},
+                        data:{nama:nama,telp:telp,alamat:alamat,pn:pn,pal:pal,ptlp:ptlp,jns:jns},
                         success:function(response){
                             if(response.sts=='1'){
                                 window.open('<?php echo route("sukses") ?>','_blank');
@@ -204,7 +208,7 @@
                         url:'/simpan-belanja',
                         type:'post',
                         dataType:'json',
-                        data:{nama:nama,telp:telp,alamat:alamat,pn:pn,pal:pal,ptlp:ptlp},
+                        data:{nama:nama,telp:telp,alamat:alamat,pn:pn,pal:pal,ptlp:ptlp,jns:jns},
                         success:function(response){
                             if(response.sts=='1'){
                                 window.open('<?php echo route("sukses") ?>','_blank');
@@ -227,7 +231,7 @@
                         url:'/simpan-belanja',
                         type:'post',
                         dataType:'json',
-                        data:{nama:nama,telp:telp,alamat:alamat,pn:pn,pal:pal,ptlp:ptlp},
+                        data:{nama:nama,telp:telp,alamat:alamat,pn:pn,pal:pal,ptlp:ptlp,jns:jns},
                         success:function(response){
                             if(response.sts=='1'){
                                 window.open('<?php echo route("sukses") ?>','_blank');

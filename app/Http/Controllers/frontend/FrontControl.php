@@ -168,6 +168,7 @@ class FrontControl extends Controller
         $nama=$request->nama;
         $telp=$request->telp;
         $alamat=$request->alamat;
+        $jnsambil=$request->jns;
         // drop
         $ndrop=$request->pn;
         $aldrop=$request->pal;
@@ -200,12 +201,12 @@ class FrontControl extends Controller
                 'tgl'=>$tgl,
             ]);
         }
-        // simpan ke trx
-        if($alamat='ambil di toko'){
-            $jns='Toko';
-        }else{
-            $jns='Kirim';
-        }
+        // // simpan ke trx
+        // if($alamat='ambil di toko'){
+        //     $jns='Toko';
+        // }else{
+        //     $jns='Kirim';
+        // }
         $simpan=TrxUmumModel::create([
             'faktur'=>$fk,
             'tgl'=>$tgl,
@@ -215,7 +216,7 @@ class FrontControl extends Controller
             'subtotal'=>$subt,
             'diskon'=>$tpot,
             'total'=>$totalsemua,
-            'jns_ambil'=>$jns,
+            'jns_ambil'=>$jnsambil,
             'nama_penerima'=>$ndrop,
             'alamat_penerima'=>$aldrop,
             'telp_penerima'=>$teldrop,
