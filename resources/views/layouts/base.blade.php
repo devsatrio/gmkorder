@@ -27,9 +27,12 @@
   
   <aside class="control-sidebar control-sidebar-dark" style="height:100%;">
     <div class="p-3">
-      <h5>Menu Lainnya</h5>
-      <a href="{{url('backend/slider')}}" class="mt-3"><i class="fa fa-image"></i> Slider</a><br>
-      <a href="{{url('backend/setting-web')}}" class="mt-3"><i class="fa fa-cog"></i> Setting Web</a>
+      <h5>Daftar Laporan</h5>
+      <a href="{{url('backend/laporan-transaksi')}}" class="mt-3"><i class="fa fa-file"></i> Laporan Transaksi</a><br>
+      <a href="{{url('backend/laporan-detail-transaksi')}}" class="mt-3"><i class="fa fa-file"></i> Laporan Detail Transaksi</a><br>
+      <a href="{{url('backend/laporan-transaksi-peradmin')}}" class="mt-3"><i class="fa fa-file"></i> Laporan Transaksi Per Admin</a><br>
+      <a href="{{url('backend/laporan-penjualan-perbarang')}}" class="mt-3"><i class="fa fa-file"></i> Laporan Per Barang</a><br>
+      <a href="{{url('backend/laporan-detail-penjualan-perbarang')}}" class="mt-3"><i class="fa fa-file"></i> Laporan Detail Per Barang</a><br>
     </div>
   </aside>
 </div>
