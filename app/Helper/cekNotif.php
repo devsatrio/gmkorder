@@ -25,7 +25,7 @@ class cekNotif{
     }
     public static function getNoTelp()
     {
-        $data=User::inRandomOrder()->first();
+        $data=User::inRandomOrder()->where('status_cs','Aktif')->first();
         return $data;
     }
     public static function namaWeb()
