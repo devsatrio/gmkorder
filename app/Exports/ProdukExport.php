@@ -11,7 +11,7 @@ class ProdukExport implements FromCollection, ShouldAutoSize, WithHeadings
     public function collection()
     {
         $export =DB::table('produk')
-        ->select(DB::raw('id,kode,nama,deskripsi,stok,hpp,harga_jual,status'))
+        ->select(DB::raw('id,kode,nama,deskripsi,status'))
         ->orderby('id','desc')
         ->get();
         return $export;
@@ -23,9 +23,6 @@ class ProdukExport implements FromCollection, ShouldAutoSize, WithHeadings
             'kode',
             'nama',
             'deskripsi',
-            'stok',
-            'hpp',
-            'harga jual',
             'status',
         ];
     }

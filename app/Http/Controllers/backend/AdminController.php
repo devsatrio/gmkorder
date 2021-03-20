@@ -49,17 +49,12 @@ class AdminController extends Controller
             'email'=>$request->email,
             'telp'=>$request->telp,
             'level'=>$request->level,
+            'status_cs'=>$request->status_cs,
             'gambar'=>$finalname,
             'password'=>Hash::make($request->password),
         ]);
         
         return redirect('backend/admin')->with('status','Sukses menyimpan data');
-    }
-
-    //=================================================================
-    public function show($id)
-    {
-        //
     }
 
     //=================================================================
@@ -90,6 +85,7 @@ class AdminController extends Controller
                     'email'=>$request->email,
                     'telp'=>$request->telp,
                     'level'=>$request->level,
+                    'status_cs'=>$request->status_cs,
                     'gambar'=>$finalname,
                 ]);
             }else{
@@ -100,6 +96,7 @@ class AdminController extends Controller
                     'email'=>$request->email,
                     'telp'=>$request->telp,
                     'level'=>$request->level,
+                    'status_cs'=>$request->status_cs,
                     'gambar'=>$finalname,
                     'password'=>Hash::make($request->password),
                 ]);
@@ -113,6 +110,7 @@ class AdminController extends Controller
                     'email'=>$request->email,
                     'telp'=>$request->telp,
                     'level'=>$request->level,
+                    'status_cs'=>$request->status_cs,
                 ]);
             }else{
                 User::find($id)
@@ -122,6 +120,7 @@ class AdminController extends Controller
                     'email'=>$request->email,
                     'telp'=>$request->telp,
                     'level'=>$request->level,
+                    'status_cs'=>$request->status_cs,
                     'password'=>Hash::make($request->password),
                 ]);
             }

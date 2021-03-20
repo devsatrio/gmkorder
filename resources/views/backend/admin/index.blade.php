@@ -53,6 +53,7 @@
                                             <th>Username</th>
                                             <th>Telp</th>
                                             <th>Level</th>
+                                            <th>Status CS</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>

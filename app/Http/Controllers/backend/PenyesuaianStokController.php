@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\StokProdukExport;
+use App\Exports\ProdukVarianExport;
 use App\Imports\StokProdukImport;
 use Session;
 use DataTables;
@@ -75,6 +76,7 @@ class PenyesuaianStokController extends Controller
                 'aksi'=>'Menambahkan',
                 'deskripsi'=>'Mengedit stok produk barang '.$dataproduk->produk_kode.' - '.$dataproduk->namaproduk.' warna '.$dataproduk->namawarna.' size '.$dataproduk->namasize,
                 'jumlah'=>$request->jumlah,
+                'keterangan'=>$request->keterangan,
                 'jumlah_akhir'=>$newstock,
                 'tanggal'=>date('Y-m-d H:i:s')
             ]);
@@ -89,6 +91,7 @@ class PenyesuaianStokController extends Controller
                 'aksi'=>'Mengurangi',
                 'deskripsi'=>'Mengedit stok produk barang '.$dataproduk->produk_kode.' - '.$dataproduk->namaproduk.' warna '.$dataproduk->namawarna.' size '.$dataproduk->namasize,
                 'jumlah'=>$request->jumlah,
+                'keterangan'=>$request->keterangan,
                 'jumlah_akhir'=>$newstock,
                 'tanggal'=>date('Y-m-d H:i:s')
             ]);
@@ -125,37 +128,10 @@ class PenyesuaianStokController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    //=================================================================
+    public function exportprodukvarian()
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $namafile = "Data_Produk_varian.xls";   
+        return Excel::download(new ProdukVarianExport(),$namafile);
     }
 }
