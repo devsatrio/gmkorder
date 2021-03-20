@@ -111,6 +111,7 @@
         $('#qty').bootstrapNumber();
 
         function simpan() {
+            loadingf();
             var id=$('#idp').val();
             var jn=$('#j'+id).val();
             if(id<=0){
@@ -134,6 +135,7 @@
                             $('#totalbl').html("Rp. "+numberFormatComma(response.ttal));
                             $('#subttl').html("Rp. "+numberFormatComma(response.ttal));
                             $('#ttl').html("Rp. "+numberFormatComma(response.ttal));
+                            stoploadingf();
                         }else{
                             Toast.fire({
                                 type: 'warning',

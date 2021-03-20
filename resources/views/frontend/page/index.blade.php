@@ -124,6 +124,7 @@
             if(qty==''||qty<1){
 
             }else{
+                loadingf();
                 $.ajax({
                     url:'/katalog/simpan-cart/',
                     dataType:'json',
@@ -140,6 +141,7 @@
                             $('#totalbl').html("Rp. "+numberFormatComma(response.ttal));
                             $('#subttl').html("Rp. "+numberFormatComma(response.ttal));
                             $('#ttl').html("Rp. "+numberFormatComma(response.ttal));
+                            stoploadingf();
                         }else{
                             Toast.fire({
                                 type: 'warning',

@@ -19,7 +19,7 @@
     @stack('css_in')
 </head>
 
-<body>
+<body id="loadData">
     @include('frontend.nav')
     @yield('content')
     <div class="row fixed-bottom" id="basket" style="display: none">
@@ -70,6 +70,13 @@
         // Session::flush();
     @endphp
      <script>
+         $(document).ready(function(){
+            loadingawal();
+            $(window).on('load', function () {
+                // $(".loader").remove();
+               sloadingawal();
+            });
+        })
          countC();
            const Toast = Swal.mixin({
             toast: true,
@@ -77,6 +84,8 @@
             showConfirmButton: false,
             timer: 3000
         });
+
+        //
          function openBasket() {
              $.ajax({
                  url:'/ambil-basket',
@@ -90,6 +99,7 @@
 
          }
         function hapusItem(key) {
+            loadingf();
             $.ajax({
                 url:'/hapus-item/'+key,
                 dataType:'json',
@@ -105,7 +115,7 @@
                         $('#totalbl').html("Rp. "+numberFormatComma(response.ttal));
                         countCt(response.item);
                         openBs();
-
+                        stoploadingf();
                     }else{
                         Toast.fire({
                             type: 'warning',
@@ -151,6 +161,7 @@
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
         }
         function checkout() {
+            loadingf();
             var jns="";
             var nama=$('#fnama').val();
             var telp=$('#ftelp').val();
