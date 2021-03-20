@@ -1,11 +1,14 @@
 <nav class="main-header navbar navbar-expand-md navbar-dark navbar-dark">
     <div class="container">
+        @php
+        $datawebsetting = DB::table('web_setting')->orderby('id','desc')->limit(1)->get();
+        @endphp
+        @foreach($datawebsetting as $dws)
         <a href="{{url('backend/dashboard')}}" class="navbar-brand">
-            <!-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-             style="opacity: .8"> -->
-            <span class="brand-text font-weight-light">GMK-ORDER</span>
+            <img src="{{asset('images/setting/'.$dws->logo)}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">{{$dws->nama}}</span>
         </a>
-
+        @endforeach
         <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

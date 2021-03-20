@@ -21,7 +21,47 @@ class HomeController extends Controller
     //=================================================================
     public function index()
     {
-        return view('backend.dashboard.index');
+        $jumlahpengguna = DB::table('pengguna')->count();
+        $jumlahproduk = DB::table('produk')->count();
+        $jumlahtransaksi = DB::table('trx_umum')->where('sts','sudah')->count();
+        $datenow = date('Y-m-d');
+        
+        $jumlahnya ="";
+        $tglnya ="";
+        for ($i=6; $i >= 0; $i--) { 
+            $olddate = date('Y-m-d',(strtotime ( '-'.$i.' day' , strtotime ( $datenow))));
+            $trxgrafik = DB::table('trx_umum')->where([['tgl',$olddate],['sts','sudah']])->count();
+            $jumlahnya = $jumlahnya.''.$trxgrafik.',';
+            $tglnya =$tglnya."'".$olddate."',";
+        }
+
+        $dataperkategori = DB::table('thumb_detail_transaksi')
+        ->select(DB::raw('thumb_detail_transaksi.*,sum(thumb_detail_transaksi.jumlah) as totaljumlah,produk_varian.produk_kode,produk.kategori_produk,kategori_produk.nama as label'))
+        ->leftjoin('produk_varian','produk_varian.id','=','thumb_detail_transaksi.produk_id')
+        ->leftjoin('produk','produk.kode','=','produk_kode')
+        ->leftjoin('kategori_produk','kategori_produk.id','=','produk.kategori_produk')
+        ->groupby('produk.kategori_produk')
+        ->whereMonth('thumb_detail_transaksi.tgl', date('m'))
+        ->get();
+        $jumlahnyadua ="";
+        $kategorinya ="";
+        $color = "";
+        foreach($dataperkategori as $dtakat){
+            $jumlahnyadua = $jumlahnyadua.''.$dtakat->totaljumlah.',';
+            $kategorinya =$kategorinya."'".$dtakat->label."',";
+            $color = $color."'#".substr(md5(rand()), 0, 6)."',";
+        }
+
+        $jumlahpengunjung ="";
+        $tglpengunjung ="";
+        for ($i=6; $i >= 0; $i--) { 
+            $olddate = date('Y-m-d',(strtotime ( '-'.$i.' day' , strtotime ( $datenow))));
+            $pengunjung = DB::table('visitor')->where('date',$olddate)->count();
+            $jumlahpengunjung = $jumlahpengunjung.''.$pengunjung.',';
+            $tglpengunjung =$tglpengunjung."'".$olddate."',";
+        }
+
+        return view('backend.dashboard.index',compact('tglpengunjung','jumlahpengunjung','jumlahpengguna','jumlahproduk','jumlahtransaksi','jumlahnya','tglnya','jumlahnyadua','kategorinya','color'));
     }
 
     //==================================================================

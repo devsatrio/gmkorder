@@ -20,6 +20,7 @@ $(function () {
             { data: 'jumlah_akhir', name: 'jumlah_akhir'  ,
             "className": 'text-right',},
             { data: 'tanggal', name: 'tanggal' },
+            { data: 'keterangan', name: 'keterangan' },
             
         ],
         pageLength: 50,

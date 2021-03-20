@@ -27,14 +27,14 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link active" id="custom-tabs-two-home-tab"
                                                         data-toggle="pill" href="#custom-tabs-two-home" role="tab"
-                                                        aria-controls="custom-tabs-two-home"
-                                                        aria-selected="false">Produk</a>
+                                                        aria-controls="custom-tabs-two-home" aria-selected="false">Cara
+                                                        Import Produk</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" id="custom-tabs-two-profile-tab"
                                                         data-toggle="pill" href="#custom-tabs-two-profile" role="tab"
                                                         aria-controls="custom-tabs-two-profile"
-                                                        aria-selected="true">Varian Produk</a>
+                                                        aria-selected="true">Cara Import Varian Produk</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -49,11 +49,11 @@
                                                                 Produk</b></li>
                                                         <li>Download template import dengan menekan link <b>Download
                                                                 Template
-                                                                Import</b> </li>
+                                                                Import Produk</b> </li>
                                                         <li>Isi semua data di template import sesuai ketentuan.</li>
                                                         <li>Upload template import yang telah di isi di inputan
                                                             <b>Import File
-                                                                Excel</b>
+                                                                Produk Excel</b>
                                                         </li>
                                                         <li>Klik <b>simpan</b> untuk menyimpan data</li>
                                                     </ol>
@@ -70,12 +70,7 @@
                                                         <li><b>Deskripsi</b> harus di isi dan jangan menggunakan karater
                                                             spesial
                                                             selain string</li>
-                                                        <li><b>HPP</b> harus di isi menggunakan angka tanpa titik, koma
-                                                            dan karakter
-                                                            lain (contoh : 25000)</li>
-                                                        <li><b>harga_jual</b> harus di isi menggunakan angka tanpa
-                                                            titik, koma dan
-                                                            karakter lain (contoh : 25000)</li>
+
                                                         <li><b>status</b> harus di isi dan memilih salah satu opsi
                                                             status yaitu :
                                                             <b>Aktif</b>, <b>Non Aktif</b>, <b>Habis</b>
@@ -84,14 +79,40 @@
                                                 </div>
                                                 <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
                                                     aria-labelledby="custom-tabs-two-profile-tab">
-                                                    Mauris tincidunt mi at erat gravida, eget tristique urna bibendum.
-                                                    Mauris pharetra purus ut ligula tempor, et vulputate metus
-                                                    facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-                                                    posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus
-                                                    interdum, nisl ligula placerat mi, quis posuere purus ligula eu
-                                                    lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere
-                                                    nec nunc. Nunc euismod pellentesque diam.
+                                                    <h3><b>Cara Import</b></h3>
+                                                    <ol class="pl-4">
+                                                        <li>Download Data Warna & Size dengan tekan link <b>Export Data
+                                                                Warna Produk</b> & <b>Export Data Size Produk</b></li>
+                                                        <li>Download template import dengan menekan link <b>Download
+                                                                Template
+                                                                Import Varian Produk</b> </li>
+                                                        <li>Isi semua data di template import sesuai ketentuan.</li>
+                                                        <li>Upload template import yang telah di isi di inputan
+                                                            <b>Import File
+                                                                Varian Produk Excel</b>
+                                                        </li>
+                                                        <li>Klik <b>simpan</b> untuk menyimpan data</li>
+                                                    </ol>
+                                                    <h5><b>Ketentuan Pengisian Data</b></h5>
+                                                    <ul class="pl-4">
+                                                        <li><b>kode_produk</b> isikan sesuai dengan kode produk yang
+                                                            akan di tambah variannya</li>
+                                                        <li><b>warna_id</b> harus di isi dan sesuai dengan id
+                                                            warana yang berasal dari file <b>Export Data Warna
+                                                                Produk</b></li>
+                                                        <li><b>size_id</b> harus di isi dan sesuai dengan id
+                                                            warana yang berasal dari file <b>Export Data Size Produk</b>
+                                                        </li>
+                                                        <li><b>hpp</b> harus di isi menggunakan angka tanpa titik, koma
+                                                            dan karakter
+                                                            lain (contoh : 25000)</li>
+                                                        <li><b>diskon</b> harus diisi presentase diskon antaran 0 sampai
+                                                            99</li>
+                                                        <li><b>harga_jual</b> harus di isi menggunakan angka tanpa
+                                                            titik, koma dan
+                                                            karakter lain (contoh : 25000)</li>
+
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>

@@ -13,7 +13,7 @@
         <div class="container">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1 class="m-0 text-dark"> Laporan Transaksi</h1>
+                    <h1 class="m-0 text-dark"> Laporan Detail Per barang</h1>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
                 <div class="col-lg-12">
                     <div class="card card-dark">
                         <div class="card-header">
-                            <h3 class="card-title">Laporan Laporan Transaksi {{$_GET['finaltgl']}}</h3>
+                            <h3 class="card-title">Laporan Detail Per barang {{$_GET['finaltgl']}}</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-default btn-sm" id="printtable"><i
                                         class="fas fa-print"></i>
@@ -58,9 +58,11 @@
                                         @endphp
                                         <tr class="table-primary">
                                             <td>{{$i++}}</td>
-                                            <td colspan="2">{{$row->namaproduk}} ({{$row->namawarna}} - {{$row->namasize}})</td>
+                                            <td colspan="2">{{$row->namaproduk}} ({{$row->namawarna}} -
+                                                {{$row->namasize}})</td>
                                             <td>{{$row->jumlahtotal}} Pcs</td>
-                                            <td colspan="3" class="text-right">{{"Rp ". number_format($row->grandtotal,0,',','.')}}
+                                            <td colspan="3" class="text-right">
+                                                {{"Rp ". number_format($row->grandtotal,0,',','.')}}
                                             </td>
                                         </tr>
                                         @php
@@ -102,6 +104,61 @@
         </div>
     </div>
 </div>
+<div id="cetaktabel" style="display:none;">
+    <table border="1" style="border-collapse: collapse;border: 1px solid black;" width="100%">
+        <thead>
+            <tr style="border: 1px solid black;">
+                <th style="border: 1px solid black;">No</th>
+                <th style="border: 1px solid black;" colspan="2">Barang</th>
+                <th style="border: 1px solid black;">Jumlah Terjual</th>
+                <th style="border: 1px solid black;" colspan="4" align="center">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php
+            $i=1;
+            $total=0;
+            @endphp
+            @foreach($data as $row)
+            @php
+            $total += $row->grandtotal;
+            @endphp
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;">{{$i++}}</td>
+                <td style="border: 1px solid black;" colspan="2">{{$row->namaproduk}} ({{$row->namawarna}} - {{$row->namasize}})</td>
+                <td style="border: 1px solid black;">{{$row->jumlahtotal}} Pcs</td>
+                <td style="border: 1px solid black;" colspan="3" align="right">{{"Rp ". number_format($row->grandtotal,0,',','.')}}
+                </td>
+            </tr>
+            @php
+            $newtgl = explode('|',$_GET['finaltgl']);
+            $datadetail = DB::table('thumb_detail_transaksi')
+            ->whereBetween('tgl', array($newtgl[0], $newtgl[1]))
+            ->where('produk_id',$row->produk_id)
+            ->get();
+            @endphp
+            @foreach($datadetail as $dtl)
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;"></td>
+                <td style="border: 1px solid black;">{{$dtl->kode_transaksi}}</td>
+                <td style="border: 1px solid black;">{{$dtl->tgl}}</td>
+                <td style="border: 1px solid black;">{{$dtl->jumlah}} Pcs</td>
+                <td style="border: 1px solid black;">
+                    {{"Rp ". number_format($dtl->harga,0,',','.')}}</td>
+                <td style="border: 1px solid black;">{{$dtl->diskon}} %</td>
+                <td style="border: 1px solid black;" align="right">
+                    {{"Rp ". number_format($dtl->subtotal,0,',','.')}}</td>
+            </tr>
+            @endforeach
+            @endforeach
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;" colspan="6"><b>Total</b></td>
+                <td style="border: 1px solid black;" align="right"><b>{{"Rp ". number_format($total,0,',','.')}}</b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 @endsection
 
 @push('customjs')
@@ -114,7 +171,7 @@ $(document).ready(function() {
     $("#exportexcel").click(function() {
         $('#list-data').tableExport({
             format: 'xls',
-            filename: 'Laporan Transaksi',
+            filename: 'Laporan Detail Per Barang',
         });
     });
     $("#printtable").click(function() {

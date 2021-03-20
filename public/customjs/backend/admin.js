@@ -15,6 +15,7 @@ $(function () {
             { data: 'username', name: 'username' },
             { data: 'telp', name: 'telp' },
             { data: 'level', name: 'level' },
+            { data: 'status_cs', name: 'status_cs' },
             {
                 render: function (data, type, row) {
                     return '<a href="/backend/admin/' + row['id'] + '/edit" class="btn btn-success"><i class="fa fa-wrench"></i></a> <button class="btn btn-danger" onclick="hapusdata(' + row['id'] + ')"><i class="fa fa-trash"></i></button>'

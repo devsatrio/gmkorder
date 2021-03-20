@@ -24,7 +24,7 @@
                 <div class="col-lg-12">
                     <div class="card card-dark">
                         <div class="card-header">
-                            <h3 class="card-title">Laporan Laporan Transaksi {{$_GET['finaltgl']}}</h3>
+                            <h3 class="card-title">Laporan Transaksi {{$_GET['finaltgl']}}</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-default btn-sm" id="printtable"><i
                                         class="fas fa-print"></i>

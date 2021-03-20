@@ -24,7 +24,7 @@
                 <div class="col-lg-12">
                     <div class="card card-dark">
                         <div class="card-header">
-                            <h3 class="card-title">Laporan Laporan Transaksi Per Admin {{$_GET['finaltgl']}}</h3>
+                            <h3 class="card-title">Laporan Transaksi Per Admin ({{$dataadmin->username}}) {{$_GET['finaltgl']}}</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-default btn-sm" id="printtable"><i
                                         class="fas fa-print"></i>
@@ -93,10 +93,11 @@
     </div>
 </div>
 <div id="cetaktabel" style="display:none;">
-    <h5>Laporan Transaksi {{$_GET['finaltgl']}}</h5>
+    <h5>Laporan Transaksi Per Admin ({{$dataadmin->username}}) {{$_GET['finaltgl']}}</h5>
     <table border="1" style="border-collapse: collapse;border: 1px solid black;">
         <thead>
             <tr style="border: 1px solid black;">
+            
                 <th style="border: 1px solid black;">No</th>
                 <th style="border: 1px solid black;">Faktur</th>
                 <th style="border: 1px solid black;">Tanggal</th>
@@ -152,7 +153,7 @@ $(document).ready(function() {
     $("#exportexcel").click(function() {
         $('#list-data').tableExport({
             format: 'xls',
-            filename: 'Laporan Transaksi',
+            filename: 'Laporan Transaksi Per admin',
         });
     });
     $("#printtable").click(function() {

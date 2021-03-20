@@ -117,7 +117,8 @@ class LaporanController extends Controller
         ->where('sts','sudah')
         ->where('admin_acc',$request->user)
         ->get();
-        return view('backend.laporan.viewtransaksiperadmin',compact('data'));
+        $dataadmin = DB::table('users')->where('id',$request->user)->first();
+        return view('backend.laporan.viewtransaksiperadmin',compact('data','dataadmin'));
     }
     /**
      * Store a newly created resource in storage.

@@ -23,7 +23,7 @@ class StokProdukImport implements ToCollection, WithHeadingRow, WithValidation
         $value=[];
         $datalog=[];
         foreach ($collection as $row){
-            $kproduk = $row['id_varian_produk'];
+            $kproduk = $row['kode_produk'];
             $barang = DB::table('produk_varian')
             ->select(DB::raw('produk_varian.*, produk.nama as namaproduk, size.nama as namasize, warna.nama as namawarna'))
             ->leftjoin('produk','produk.kode','=','produk_varian.produk_kode')
@@ -34,7 +34,7 @@ class StokProdukImport implements ToCollection, WithHeadingRow, WithValidation
             ->first();
             if($row['aksi']=='Tambah'){
                 $value[] = [
-                    'id' => $row['id_varian_produk'],
+                    'id' => $row['kode_produk'],
                     'stok' => $barang->stok + $row['jumlah'],
                 ];
                 $datalog[] =[
@@ -43,13 +43,14 @@ class StokProdukImport implements ToCollection, WithHeadingRow, WithValidation
                     'status'=>'Import Penyesuaian Stok',
                     'aksi'=>'Menambahkan',
                     'deskripsi'=>'Mengedit stok produk',
+                    'keterangan'=>$row['deskripsi'],
                     'jumlah'=>$row['jumlah'],
                     'jumlah_akhir'=>$barang->stok + $row['jumlah'],
                     'tanggal'=>date('Y-m-d H:i:s')
                 ];
             }else{
                 $value[] = [
-                    'id' => $row['id_varian_produk'],
+                    'id' => $row['kode_produk'],
                     'stok' => $barang->stok - $row['jumlah'],
                 ];
                 $datalog[] =[
@@ -58,6 +59,7 @@ class StokProdukImport implements ToCollection, WithHeadingRow, WithValidation
                     'status'=>'Import Penyesuaian Stok',
                     'aksi'=>'Mengurangi',
                     'deskripsi'=>'Mengedit stok produk',
+                    'keterangan'=>$row['deskripsi'],
                     'jumlah'=>$row['jumlah'],
                     'jumlah_akhir'=>$barang->stok - $row['jumlah'],
                     'tanggal'=>date('Y-m-d H:i:s')
@@ -73,7 +75,7 @@ class StokProdukImport implements ToCollection, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
-            'id_varian_produk' => 'required|numeric',
+            'kode_produk' => 'required|numeric',
             'jumlah' => 'required|numeric',
             'aksi' => 'required|in:Tambah,Kurangi',
             'deskripsi' => 'required|string',

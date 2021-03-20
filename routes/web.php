@@ -78,6 +78,7 @@ Route::prefix('backend')->group(function(){
 
     //penyesuaian stok
     Route::get('/data-log-stok','backend\PenyesuaianStokController@listdata');
+    Route::get('/export-varian-produk','backend\PenyesuaianStokController@exportprodukvarian');
     Route::get('/penyesuaian-stok/import-export','backend\PenyesuaianStokController@importexport');
     Route::get('/penyesuaian-stok/export','backend\PenyesuaianStokController@export');
     Route::post('/penyesuaian-stok/produk/export','backend\PenyesuaianStokController@import');

@@ -28,13 +28,29 @@
 
                                         <h3><b>Cara Import</b></h3>
                                         <ol class="pl-4">
-                                            <li>Download Data kategori dengan tekan link <b>Export Data Kategori
-                                                    Produk</b></li>
+                                            <li>Download Data Varian Produk dengan tekan link <b>Export Data
+                                                    Produk Varian</b></li>
+                                            <li>Download template import dengan menekan link <b>Download
+                                                    Template
+                                                    Import</b> </li>
+                                            <li>Isi semua data di template import sesuai ketentuan.</li>
+                                            <li>Upload template import yang telah di isi di inputan
+                                                <b>Import File Excel</b>
+                                            </li>
+                                            <li>Klik <b>simpan</b> untuk menyimpan data</li>
                                         </ol>
                                         <h5><b>Ketentuan Pengisian Data</b></h5>
                                         <ul class="pl-4">
-                                            <li><b>Kode</b> harus diisi dan unik / berbeda dari kode produk lain</li>
-                                            
+                                            <li><b>kode_produk</b> isikan id produk varian yang akan di edit stok nya
+                                            </li>
+                                            <li><b>aksi</b> harus di isi dan memilih salah satu opsi
+                                                status yaitu :
+                                                <b>Tambah</b>, <b>Kurangi</b>
+                                            </li>
+                                            <li><b>jumlah</b> harus di isi menggunakan angka tanpa titik, koma
+                                                dan karakter
+                                                lain (contoh : 20)</li>
+                                            <li><b>deskripsi</b> harus diisi menggunakan string  (contoh : restock produk)</li>
                                         </ul>
                                     </div>
                                     <div class="col-md-6">
@@ -58,8 +74,9 @@
                                             <input type="file" id="excelfile" class="form-control mb-2"
                                                 name="file_excel" required>
                                             <a href="{{asset('assets/Template_import_stok.xls')}}"><i
-                                                    class="fa fa-file"></i> Download Template Import</a>
-                                           
+                                                    class="fa fa-file"></i> Download Template Import</a><br>
+                                            <a href="{{url('/backend/export-varian-produk')}}"><i
+                                                    class="fa fa-file"></i> Export Data Produk Varian</a>
                                         </div>
                                     </div>
                                 </div>

@@ -71,7 +71,7 @@
                                             <input type="hidden" name="gambar_lama" value="{{$data->gambar}}">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Level</label>
                                             <select name="level" class="form-control">
@@ -80,6 +80,15 @@
                                                 <option value="Super Admin" @if($data->level=="Super Admin") selected
                                                     @endif>Super
                                                     Admin</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Status Customer Service</label>
+                                            <select name="status_cs" class="form-control">
+                                                <option value="Non Aktif" @if($data->status_cs=="Non Aktif") selected @endif>Non Aktif</option>
+                                                <option value="Aktif" @if($data->status_cs=="Aktif") selected @endif>Aktif</option>
                                             </select>
                                         </div>
                                     </div>

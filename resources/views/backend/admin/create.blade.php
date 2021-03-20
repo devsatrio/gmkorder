@@ -63,12 +63,21 @@
                                                 required>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Level</label>
                                             <select name="level" class="form-control">
                                                 <option value="Admin">Admin</option>
                                                 <option value="Super Admin">Super Admin</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Status Customer Service</label>
+                                            <select name="status_cs" class="form-control">
+                                                <option value="Non Aktif">Non Aktif</option>
+                                                <option value="Aktif">Aktif</option>
                                             </select>
                                         </div>
                                     </div>

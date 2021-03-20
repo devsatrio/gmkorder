@@ -61,6 +61,7 @@
                                             <th class="text-right">jumlah (Pcs)</th>
                                             <th class="text-right">jumlah Akhir (Pcs)</th>
                                             <th>Tanggal</th>
+                                            <th>Keterangan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -76,6 +77,7 @@
                                             <th class="text-right">jumlah (Pcs)</th>
                                             <th class="text-right">jumlah Akhir (Pcs)</th>
                                             <th>Tanggal</th>
+                                            <th>Keterangan</th>
                                         </tr>
                                     </tfoot>
                                 </table>
