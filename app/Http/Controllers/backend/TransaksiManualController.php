@@ -56,7 +56,7 @@ class TransaksiManualController extends Controller
         $barang = DB::table('produk_varian')
         ->select(DB::raw('produk_varian.*,produk.status'))
         ->leftjoin('produk','produk.kode','=','produk_varian.produk_kode')
-        ->where([['id',$kode],['stok','>',1],['status','=','Aktif']])->get();
+        ->where([['produk_varian.id',$kode],['produk_varian.stok','>',1],['status','=','Aktif']])->get();
         return response()->json($barang);
     }
 
@@ -116,21 +116,21 @@ class TransaksiManualController extends Controller
             'subtotal'=>$request->jumlah*$harga,
         ]);
     }
-    
+
     //==================================================================
     public function getdataproduk()
     {
         $data = DB::table('thumb_transaksi_manual')->where('user_id',Auth::user()->id)->orderby('id','desc')->get();
         return response()->json($data);
     }
-    
+
     //==================================================================
     public function caridetailpelanggan($kode)
     {
         $data = DB::table('pengguna')->where('id',$kode)->get();
         return response()->json($data);
     }
-    
+
     //==================================================================
     public function hapusproduk(Request $request,$kode)
     {
@@ -223,5 +223,5 @@ class TransaksiManualController extends Controller
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
     }
-    
+
 }
