@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Session;
 
 class FrontControl extends Controller
 {
-    public function getvisitor($request){  
+    public function getvisitor($request){
         $u_agent = $_SERVER['HTTP_USER_AGENT'];
         $platform = 'Unknown';
         if (preg_match('/linux/i', $u_agent)) {
@@ -36,7 +36,7 @@ class FrontControl extends Controller
                 $data->os = $platform;
                 $data->save();
     }
-    
+
     public function index(Request $request)
     {
         $this->getvisitor($request);
@@ -51,8 +51,7 @@ class FrontControl extends Controller
                 ->leftjoin('size','size.id','=','produk_varian.size_id')
                 ->select(DB::raw('warna.nama as warna,size.nama as size,produk.nama as produk,produk_varian.id as idv ,produk_varian.*'))
                 ->where('diskon','!=','0')
-                ->where('stok','!=','0')
-                ->where('status','Aktif')
+                // ->where('stok','!=','0')
                 ->get();
         $out=[
             'kat'=>$kat,
@@ -90,7 +89,7 @@ class FrontControl extends Controller
         $data=ProdukVarianModel::leftjoin('warna','warna.id','=','produk_varian.warna_id')
             ->leftjoin('size','size.id','=','produk_varian.size_id')
             ->select(DB::raw('warna.nama as warna,size.nama as size,produk_varian.*'))
-            ->where('stok','>','0')
+            // ->where('stok','>','0')
             // ->where('status','Aktif')
             ->where('produk_kode',$id)->get();
         $ket=ProdukModel::where('kode',$id)->get();

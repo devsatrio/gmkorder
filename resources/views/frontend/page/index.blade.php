@@ -12,6 +12,8 @@
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             font-weight: bold;
         }
+        .product-discount-label,.product-new-label{color:#fff;background-color:#ef5777;font-size:15px;text-transform:uppercase;padding:4px 7px;display:block;position:absolute;top:10px;left:0}
+        .product-discount-label{background-color:#333;left:auto;right:0}
     </style>
 @endsection
 @section('content')
@@ -68,7 +70,12 @@
                     <div class="row">
                         @foreach ($promo as $pr)
                         <div class="col-md-4 col-lg-4">
-                            <div class="card"> <img src="{{asset('img/gambarproduk/'.$pr->gambar)}}" class="card-img-top" width="100%">
+                            <div class="card">
+                                @if ($pr->stok<1)
+                                <div class="product-discount-label">Barang Habis</div>
+                                @endif
+                                <div class="product-new-label">Diskon {{$pr->diskon}}%</div>
+                                <img src="{{asset('img/gambarproduk/'.$pr->gambar)}}" class="card-img-top" width="100%">
                                 <div class="card-body mt-3 pt-0 px-0">
                                     <h4>
                                         {{$pr->produk}}
@@ -101,7 +108,14 @@
                                         <input id="qty{{$pr->idv}}" class="form-control qty" type="number" value="1" min="1" max="1000" />
                                     </div>
                                     <h5 class="text-muted key pl-3">Stok Tersedia <b>{{$pr->stok}}</b></h5>
-                                    <div class="mx-3 mt-3 mb-2"><button type="button" onclick="simpanPromo('{{$pr->idv}}','{{$pr->produk.' '.$pr->warna.'-'.$pr->size}}')" class="btn btn-primary btn-block"><small> <i class="icon-basket"></i>Tambahkan</small></button></div>
+                                    <div class="mx-3 mt-3 mb-2">
+                                        @if ($pr->stok<1)
+                                            <h4 class="mb-2"><b>OUT OF STOK</b></h4>
+                                            <br>
+                                        @else
+                                        <button type="button" onclick="simpanPromo('{{$pr->idv}}','{{$pr->produk.' '.$pr->warna.'-'.$pr->size}}')" class="btn btn-primary btn-block"><small> <i class="icon-basket"></i>Tambahkan</small></button>
+                                        @endif
+                                    </div>
 
                                 </div>
                             </div>
