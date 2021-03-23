@@ -87,12 +87,12 @@
 
                                             </div>
                                         </div>
-                                        <div class="d-flex flex-column"><small class="text-muted mb-1">Diskon {{$pr->diskon}}%</small>
+                                        <div class="d-flex flex-column"><small class="text-muted mb-1">  <b>Diskon {{$pr->diskon}}% </b> </small>
                                             <div class="d-flex flex-row">
                                                 @php
                                                     $hdisk=($pr->harga)-($pr->harga*$pr->diskon)/100;
                                                 @endphp
-                                                <div class="d-flex flex-column ml-1"><b> Rp. {{number_format($hdisk)}}</b></div>
+                                                <div class="d-flex flex-column ml-1" style="color: red"><h5> <b> Rp. {{number_format($hdisk)}}</b></h5></div>
                                             </div>
                                         </div>
 
