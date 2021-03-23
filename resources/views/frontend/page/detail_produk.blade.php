@@ -38,9 +38,13 @@
                                                             // }else{
                                                                 // $hgd=$item->harga;
                                                             // }
-
                                                         @endphp
-                                                        <button type="button" onclick="setPilihan('{{$item->id}}')" class="btn btn-outline-info btn-sm">{!!$item->warna.' </br> '. $item->size!!}</button>
+                                                        @if ($item->stok<1)
+                                                            <button disabled class="btn btn-secondary btn-sm">Habis <br><strike>{!!$item->warna.' </br> '. $item->size!!}</strike></button>
+                                                        @else
+                                                            <button type="button" onclick="setPilihan('{{$item->id}}')" class="btn btn-outline-info btn-sm">{!!$item->warna.' </br> '. $item->size!!}</button>
+                                                        @endif
+
                                                         <input type="hidden" id="j{{$item->id}}" value="{!!$item->warna.' - '. $item->size!!}">
                                                         <input type="hidden" id="h{{$item->id}}" value="{{$item->harga}}">
                                                         <input type="hidden" id="s{{$item->id}}" value="{!!$item->stok!!}">
