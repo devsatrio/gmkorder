@@ -33,26 +33,8 @@
                     @endif
                     <div class="card card-dark">
                         <div class="card-header">
-                            <h3 class="card-title">List Data Produk</h3>
-                            <div class="card-tools">
-                                <a href="{{url('backend/import-export/produk')}}">
-                                    <button type="button" class="btn btn-default btn-sm"><i class="fas fa-file-excel"></i>
-                                        Import / Export
-                                    </button>
-                                </a>
-                                <a href="{{url('backend/produk/create')}}">
-                                    <button type="button" class="btn btn-default btn-sm"><i class="fas fa-plus"></i>
-                                        Tambah
-                                        Data
-                                    </button>
-                                </a>
-                                <a href="{{url('backend/produk-kosong')}}">
-                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-exclamation-triangle"></i>
-                                        Produk
-                                        Habis
-                                    </button>
-                                </a>
-                            </div>
+                            <h3 class="card-title">List Data Produk Habis</h3>
+                            
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -64,11 +46,19 @@
                                             <th>Nama</th>
                                             <th>Stok (Pcs)</th>
                                             <th class="text-center">Status</th>
-                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        @php $i=1; @endphp
+                                        @foreach($data as $row)
+                                        <tr>
+                                            <td>{{$i++}}</td>
+                                            <td>{{$row->kode}}</td>
+                                            <td>{{$row->nama}}</td>
+                                            <td>{{$row->totalstok}}</td>
+                                            <td class="text-center">{{$row->status}}</td>
+                                        </tr>
+                                        @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -77,7 +67,6 @@
                                             <th>Nama</th>
                                             <th>Stok (Pcs)</th>
                                             <th class="text-center">Status</th>
-                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -98,5 +87,9 @@
 @endpush
 
 @push('customscripts')
-<script src="{{asset('customjs/backend/produk.js')}}"></script>
+<script>
+$(function () {
+    $('#list-data').DataTable();
+});
+</script>
 @endpush

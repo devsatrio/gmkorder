@@ -5,7 +5,8 @@
         @endphp
         @foreach($datawebsetting as $dws)
         <a href="{{url('backend/dashboard')}}" class="navbar-brand">
-            <img src="{{asset('images/setting/'.$dws->logo)}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <img src="{{asset('images/setting/'.$dws->logo)}}" alt="AdminLTE Logo"
+                class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">{{$dws->nama}}</span>
         </a>
         @endforeach
@@ -23,14 +24,18 @@
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         class="nav-link dropdown-toggle">Master Data</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        @if(Auth::user()->level!='Admin')
                         <li><a href="{{url('backend/admin')}}" class="dropdown-item">Admin </a></li>
+                        @endif
                         <li><a href="{{url('backend/pengguna')}}" class="dropdown-item">Pengguna</a></li>
                         <li class="dropdown-divider"></li>
                         <li><a href="{{url('backend/kategori-produk')}}" class="dropdown-item">Kategori Produk</a></li>
                         <li><a href="{{url('backend/warna')}}" class="dropdown-item">Warna / Motif</a></li>
                         <li><a href="{{url('backend/size')}}" class="dropdown-item">Size</a></li>
                         <li><a href="{{url('backend/produk')}}" class="dropdown-item">Produk</a></li>
+                        @if(Auth::user()->level!='Admin')
                         <li><a href="{{url('backend/penyesuaian-stok')}}" class="dropdown-item">Penyesuaian Stok</a>
+                            @endif
                         </li>
                     </ul>
                 </li>
@@ -46,6 +51,7 @@
                         <li><a href="{{url('backend/list-transaksi')}}" class="dropdown-item">List Transaksi</a></li>
                     </ul>
                 </li>
+                @if(Auth::user()->level!='Admin')
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         class="nav-link dropdown-toggle">Settings</a>
@@ -56,6 +62,7 @@
                         <li><a href="{{url('backend/setting-web')}}" class="dropdown-item">Setting Web</a></li>
                     </ul>
                 </li>
+                @endif
             </ul>
         </div>
 
@@ -105,10 +112,12 @@
                     </form>
                 </div>
             </li>
+            @if(Auth::user()->level!='Admin')
             <li class="nav-item">
                 <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
                         class="far fa-file"></i></a>
             </li>
+            @endif
         </ul>
     </div>
 </nav>

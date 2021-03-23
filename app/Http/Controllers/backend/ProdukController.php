@@ -31,6 +31,18 @@ class ProdukController extends Controller
     {
         return view('backend.produk.index');
     }
+
+    //=================================================================
+    public function produkkosong()
+    {
+        $data = DB::table('produk')
+        ->select(DB::raw('produk.*,(select sum(produk_varian.stok) from produk_varian where produk_varian.produk_kode = produk.kode) as totalstok'))
+        ->leftjoin('produk_varian','produk_varian.produk_kode','=','produk.kode')
+        ->where('status','Habis')
+        ->groupby('produk.kode')
+        ->get();
+        return view('backend.produk.produkkosong',compact('data'));
+    }
     
     //=================================================================
     public function listdata(){

@@ -67,7 +67,7 @@
                     <!-- small box -->
                     <div class="small-box bg-dark">
                         <div class="inner">
-                            <h3>65</h3>
+                            <h3>{{$totalpengunjung}}</h3>
 
                             <p>Visitors</p>
                         </div>
@@ -79,7 +79,7 @@
                 <!-- ./col -->
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="card card-dark">
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between">
@@ -101,6 +101,39 @@
                                     style="display: block; height: 200px; width: 306px;" width="612"
                                     class="chartjs-render-monitor"></canvas>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-dark">
+                        <div class="card-header border-0">
+                            <h3 class="card-title">Produk Stok Kosong</h3>
+                            <div class="card-tools">
+                                <a href="#" class="btn btn-tool btn-sm">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                                <a href="#" class="btn btn-tool btn-sm">
+                                    <i class="fas fa-bars"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body table-responsive p-0" style="max-height: 215px;">
+                            <table class="table table-striped table-valign-middle">
+                                <tbody>
+                                    @foreach($produkhabis as $pdh)
+                                    <tr>
+                                        <td>
+                                            <img src="{{asset('img/produk/'.$pdh->gambar_utama)}}" alt="Product 1"
+                                                class="img-circle img-size-32 mr-2">
+                                            {{$pdh->kode}} - {{$pdh->nama}}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="{{url('backend/produk-kosong')}}" class="uppercase">Lihat {{$jumlahprodukhabis}} Produk Stok Kosong Lainya</a>
                         </div>
                     </div>
                 </div>
@@ -175,15 +208,14 @@ $(function() {
         data: {
             labels: [<?php echo $tglpengunjung; ?>],
             datasets: [{
-                    type: 'line',
-                    data: [<?php echo $jumlahpengunjung; ?>],
-                    backgroundColor: 'transparent',
-                    borderColor: '#007bff',
-                    pointBorderColor: '#007bff',
-                    pointBackgroundColor: '#007bff',
-                    fill: false
-                }
-            ]
+                type: 'line',
+                data: [<?php echo $jumlahpengunjung; ?>],
+                backgroundColor: 'transparent',
+                borderColor: '#007bff',
+                pointBorderColor: '#007bff',
+                pointBackgroundColor: '#007bff',
+                fill: false
+            }]
         },
         options: {
             maintainAspectRatio: false,

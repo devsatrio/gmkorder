@@ -120,59 +120,25 @@ class LaporanController extends Controller
         $dataadmin = DB::table('users')->where('id',$request->user)->first();
         return view('backend.laporan.viewtransaksiperadmin',compact('data','dataadmin'));
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    //==================================================================
+    public function carishiftperadmin()
     {
-        //
+        $data = DB::table('users')->get();
+        return view('backend.laporan.shiftperadmin',compact('data'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    //==================================================================
+    public function tampilshiftperadmin(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $newtgl = explode('|',$request->finaltgl);
+        $data = DB::table('log_admin')
+        ->select(DB::raw('log_admin.*,users.username'))
+        ->leftjoin('users','users.id','=','log_admin.user_id')
+        ->whereBetween('tgl', array($newtgl[0], $newtgl[1]))
+        ->where('user_id',$request->user)
+        ->get();
+        $dataadmin = DB::table('users')->where('id',$request->user)->first();
+        return view('backend.laporan.viewshiftperadmin',compact('data','dataadmin'));
     }
 }

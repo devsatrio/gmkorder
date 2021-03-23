@@ -34,6 +34,8 @@
                     Detail Transaksi</a><br>
                 <a href="{{url('backend/laporan-transaksi-peradmin')}}" class="mt-3"><i class="fa fa-file"></i> Laporan
                     Transaksi Per Admin</a><br>
+                    <a href="{{url('backend/laporan-shift-peradmin')}}" class="mt-3"><i class="fa fa-file"></i> Laporan
+                    Transaksi Per Shift</a><br>
                 <a href="{{url('backend/laporan-penjualan-perbarang')}}" class="mt-3"><i class="fa fa-file"></i> Laporan
                     Per Barang</a><br>
                 <a href="{{url('backend/laporan-detail-penjualan-perbarang')}}" class="mt-3"><i class="fa fa-file"></i>

@@ -56,7 +56,7 @@ class TransaksiManualController extends Controller
         $barang = DB::table('produk_varian')
         ->select(DB::raw('produk_varian.*,produk.status'))
         ->leftjoin('produk','produk.kode','=','produk_varian.produk_kode')
-        ->where([['produk_varian.id',$kode],['produk_varian.stok','>',1],['status','=','Aktif']])->get();
+        ->where([['produk_varian.id',$kode],['produk_varian.stok','>=',1],['status','=','Aktif']])->get();
         return response()->json($barang);
     }
 
@@ -148,9 +148,6 @@ class TransaksiManualController extends Controller
                     ->leftjoin('warna','warna.id','=','produk_varian.warna_id')
                     ->leftjoin('size','size.id','=','produk_varian.size_id')
                     ->where('produk_varian.produk_kode','like','%'.$cari.'%')
-                    ->orwhere('produk.nama','like','%'.$cari.'%')
-                    ->orwhere('warna.nama','like','%'.$cari.'%')
-                    ->orwhere('size.nama','like','%'.$cari.'%')
                     ->get();
             return response()->json($data);
         }
@@ -161,7 +158,6 @@ class TransaksiManualController extends Controller
     {
         $datapelanggan = DB::table('pengguna')->where('id',$request->pembeli)->first();
         $getdetailproduk = DB::table('thumb_transaksi_manual')->where('user_id',Auth::user()->id)->get();
-
         //kurangi stok
         $updatestok=[];
         $datanya=[];
@@ -181,6 +177,7 @@ class TransaksiManualController extends Controller
                 'subtotal'=>$produk->subtotal,
                 'tgl'=>date('Y-m-d'),
             ];
+
             $dataproduk = DB::table('produk_varian')->where('id',$produk->produk_id)->first();
             $datalog[] =[
                 'kode_produk'=>$produk->produk_kode,
@@ -198,6 +195,7 @@ class TransaksiManualController extends Controller
         $userInstance = new ProdukVarianModel;
         Batch::update($userInstance, $updatestok, $index);
         DB::table('thumb_detail_transaksi')->insert($datanya);
+        $this->checkstatusproduk(Auth::user()->id);
         DB::table('stok_log')->insert($datalog);
         DB::table('trx_umum')
         ->insert([
@@ -221,7 +219,30 @@ class TransaksiManualController extends Controller
             'admin_acc'=>Auth::user()->id,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
+            'sts_notif'=>'y'
         ]);
+    }
+
+    //==================================================================
+    public function checkstatusproduk($userid){
+        $getdetailproduk =DB::table('thumb_transaksi_manual')->where('user_id',Auth::user()->id)->get();
+        foreach($getdetailproduk as $row){
+            $detailbarang = DB::table('produk')
+            ->select(DB::raw('produk.*,(select sum(produk_varian.stok) from produk_varian where produk_varian.produk_kode = produk.kode) as totalstok'))
+            ->leftjoin('produk_varian','produk_varian.produk_kode','=','produk.kode')
+            ->where('kode',$row->produk_kode)
+            ->groupby('produk.kode')
+            ->get();
+            foreach($detailbarang as $rowdua){
+                if($rowdua->totalstok<=1){
+                    DB::table('produk')
+                    ->where('kode',$rowdua->kode)
+                    ->update([
+                        'status'=>'Habis'
+                    ]);
+                }
+            }
+        }
     }
 
 }

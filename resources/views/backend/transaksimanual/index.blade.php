@@ -210,14 +210,14 @@
                                 <div class="form-group">
                                     <label>Potongan</label>
                                     <div class="nk-int-st">
-                                        <input type="number" class="form-control" onchange="hitungtotal()"
+                                        <input type="number" class="form-control" min="0" onchange="hitungtotal()"
                                             name="potongan" id="potongan">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Ongkir</label>
                                     <div class="nk-int-st">
-                                        <input type="number" class="form-control" onchange="hitungtotal()" name="ongkir"
+                                        <input type="number" class="form-control" min="0" onchange="hitungtotal()" name="ongkir"
                                             id="ongkir">
                                     </div>
                                 </div>

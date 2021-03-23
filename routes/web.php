@@ -64,6 +64,7 @@ Route::prefix('backend')->group(function(){
     Route::get('/import-export/produk-size/export','backend\ProdukController@exportproduksize');
 
     //produk
+    Route::get('/produk-kosong','backend\ProdukController@produkkosong');
     Route::get('/data-produk','backend\ProdukController@listdata');
     Route::resource('/produk','backend\ProdukController');
 
@@ -134,4 +135,6 @@ Route::prefix('backend')->group(function(){
      Route::get('/laporan-detail-penjualan-perbarang/tampil','backend\LaporanController@tampildetailpenjualanbarang');
      Route::get('/laporan-transaksi-peradmin','backend\LaporanController@caritransaksiperadmin');
      Route::get('/laporan-transaksi-peradmin/tampil','backend\LaporanController@tampiltransaksiperadmin');
+     Route::get('/laporan-shift-peradmin','backend\LaporanController@carishiftperadmin');
+     Route::get('/laporan-shift-peradmin/tampil','backend\LaporanController@tampilshiftperadmin');
 });

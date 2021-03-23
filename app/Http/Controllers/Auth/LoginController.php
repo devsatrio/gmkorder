@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\moodels\AdminLogModel;
 use Auth;
+use DB;
 class LoginController extends Controller
 {
     /*
@@ -35,6 +37,11 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
+        DB::table('log_admin')->insert([
+            'user_id'=>Auth::user()->id,
+            'tgl'=>date('Y-m-d'),
+            'jam_login'=>date('H:i:s')
+        ]);
        return redirect()->intended($this->redirectPath())->with('status', 'Login Success, Welcome Back '.Auth::user()->level.' '.Auth::user()->name);
     }
     public function username()
@@ -45,5 +52,23 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function logout(Request $request)
+    {
+        $datalog = DB::table('log_admin')->where([['user_id','=',Auth::user()->id],['tgl','=',date('Y-m-d')]])->orderby('id','desc')->limit(1)->get();
+        foreach($datalog as $dlog){
+            DB::table('log_admin')
+            ->where('id',$dlog->id)
+            ->update([
+                'jam_logout'=>date('H:i:s'),
+            ]);
+        }
+        
+    $this->guard()->logout();
+
+    $request->session()->invalidate();
+
+    return redirect('/');
     }
 }

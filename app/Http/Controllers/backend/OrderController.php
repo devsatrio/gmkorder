@@ -58,6 +58,7 @@ class OrderController extends Controller
         Batch::update($userInstance, $updatestok, $index);
         DB::table('thumb_detail_transaksi')->where('kode_transaksi',$request->resi)->delete();
         DB::table('thumb_detail_transaksi')->insert($datanya);
+        $this->checkstatusproduk(Auth::user()->id);
         DB::table('stok_log')->insert($datalog);
         DB::table('trx_umum')
         ->where('id',$request->kodetrx)
@@ -80,6 +81,7 @@ class OrderController extends Controller
             'admin_acc'=>Auth::user()->id,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
+            'sts_notif'=>'y'
         ]);
     }
     //=================================================================
@@ -151,59 +153,25 @@ class OrderController extends Controller
         ->get();
         return view('backend.transaksi.transaksionline',compact('data','barang'));
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+   //==================================================================
+   public function checkstatusproduk($userid){
+    $getdetailproduk =DB::table('thumb_transaksi_manual')->where('user_id',Auth::user()->id)->get();
+    foreach($getdetailproduk as $row){
+        $detailbarang = DB::table('produk')
+        ->select(DB::raw('produk.*,(select sum(produk_varian.stok) from produk_varian where produk_varian.produk_kode = produk.kode) as totalstok'))
+        ->leftjoin('produk_varian','produk_varian.produk_kode','=','produk.kode')
+        ->where('kode',$row->produk_kode)
+        ->groupby('produk.kode')
+        ->get();
+        foreach($detailbarang as $rowdua){
+            if($rowdua->totalstok<=1){
+                DB::table('produk')
+                ->where('kode',$rowdua->kode)
+                ->update([
+                    'status'=>'Habis'
+                ]);
+            }
+        }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+}
 }

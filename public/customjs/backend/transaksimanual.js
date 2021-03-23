@@ -61,14 +61,28 @@ $(function () {
       type: 'GET',
       url: '/backend/transaksi-manual/cari-detail-barang/' + kode,
       success: function (data) {
-        return {
-          results: $.map(data, function (item) {
-            $("#stok").val(item.stok);
-            $("#diskon").val(item.diskon);
-            $("#harga").val(item.harga);
-            $("#harga").focus();
-          })
+        if(data.length == 0) {
+          swalWithBootstrapButtons.fire(
+            'Error!',
+            'Maaf, Produk ini memliki stok kurang dari 1 atau sedang tidak aktif',
+            'warning'
+          )
+          $('#produk').val(null).trigger('change');
+          $("#stok").val('');
+          $("#diskon").val('');
+          $("#harga").val('');
+          return;
+        }else{
+          return {
+            results: $.map(data, function (item) {
+              $("#stok").val(item.stok);
+              $("#diskon").val(item.diskon);
+              $("#harga").val(item.harga);
+              $("#harga").focus();
+            })
+          }
         }
+        
       }, complete: function () {
         $('#panelnya').loading('stop');
       }

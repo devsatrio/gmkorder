@@ -127,7 +127,9 @@
                                                 <th scope="col" class="text-center">Gambar</th>
                                                 <th scope="col">Warna / Motif</th>
                                                 <th scope="col">Size</th>
+                                                @if(Auth::user()->level!='Admin')
                                                 <th scope="col">HPP</th>
+                                                @endif
                                                 <th scope="col">Harga Jual</th>
                                                 <th scope="col">Diskon</th>
                                                 <th scope="col">Stok</th>
@@ -148,7 +150,9 @@
                                                 </th>
                                                 <th>{{$var->namawarna}}</th>
                                                 <td>{{$var->namasize}}</td>
+                                                @if(Auth::user()->level!='Admin')
                                                 <td>{{"Rp ". number_format($var->hpp,0,',','.')}}</td>
+                                                @endif
                                                 <td>{{"Rp ". number_format($var->harga,0,',','.')}}</td>
                                                 <td>{{$var->diskon}} %</td>
                                                 <td>{{$var->stok}} Pcs</td>
@@ -294,12 +298,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Diskon</label>
-                                        <input type="number" class="form-control" value="0" name="diskon" max="99" required>
+                                        <input type="number" class="form-control" value="0" name="diskon" max="99"
+                                            required>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Gambar</label>
-                                        <input type="file" accept="image/*" class="form-control"
-                                            name="gambar_warna" required>
+                                        <input type="file" accept="image/*" class="form-control" name="gambar_warna"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="modal-footer justify-content-between">
@@ -340,11 +345,16 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    @if(Auth::user()->level!='Admin')
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">HPP</label>
                                         <input type="number" class="form-control" value="{{$var->hpp}}" name="hpp"
                                             required>
                                     </div>
+                                    @else
+                                    <input type="hidden" class="form-control" value="{{$var->hpp}}" name="hpp" required>
+                                    @endif
+
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Harga Jual</label>
                                         <input type="number" class="form-control" value="{{$var->harga}}"
@@ -352,8 +362,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Diskon</label>
-                                        <input type="number" class="form-control" value="{{$var->diskon}}"
-                                            name="diskon" max="99" required>
+                                        <input type="number" class="form-control" value="{{$var->diskon}}" name="diskon"
+                                            max="99" required>
                                     </div>
                                     @if($var->gambar!='')
                                     <img src="{{asset('img/gambarproduk/'.$var->gambar)}}" alt="" class="img-thumbnail"
@@ -362,8 +372,7 @@
                                     @endif
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Gambar</label>
-                                        <input type="file" accept="image/*"  class="form-control"
-                                            name="gambar_warna">
+                                        <input type="file" accept="image/*" class="form-control" name="gambar_warna">
                                     </div>
                                 </div>
                                 <div class="modal-footer justify-content-between">
