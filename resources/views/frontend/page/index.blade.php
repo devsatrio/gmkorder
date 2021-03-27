@@ -129,6 +129,7 @@
 </main>
 
 @endsection
+
 @push('js_in')
 <script src="{{asset('frontend/assets/js/bootstrap-number-input.js')}}"></script>
     <script>
@@ -140,7 +141,7 @@
             }else{
                 loadingf();
                 $.ajax({
-                    url:'/katalog/simpan-cart/',
+                    url:'katalog/simpan-cart',
                     dataType:'json',
                     type:'post',
                     data:{id:id,qty:qty,prod:prod},

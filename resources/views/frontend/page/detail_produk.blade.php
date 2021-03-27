@@ -124,7 +124,7 @@
                 var prod=$('#prod').val();
                 var qty=$('#qty').val();
                 $.ajax({
-                    url:'/katalog/simpan-cart/',
+                    url:'/katalog/simpan-cart',
                     dataType:'json',
                     type:'post',
                     data:{id:id,qty:qty,prod:prod},
