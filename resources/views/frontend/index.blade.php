@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/jpg" href="{{asset('images/setting').'/'.CekNotif::namaWeb()->favicon}}"/>
     <title>@yield('title',CekNotif::namaWeb()->nama)</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('frontend.css')
     <style>
        sup {
@@ -65,12 +65,42 @@
 
    @include('frontend.footer')
    @include('frontend.js')
+   <script>
+       $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+   </script>
     @php
         $data=Session::get('cart');
         // dd($data);
         // Session::flush();
     @endphp
      <script>
+
+    // loading
+      function loadingf() {
+        $("#loadData").loading({
+            stoppable: true,
+            theme: "dark",
+            message: 'Proses Simpan....',
+          });
+      }
+      function loadingawal() {
+        $(".ading").loading({
+            stoppable: true,
+            theme: "dark",
+            message: 'Please Wait....',
+          });
+      }
+      function sloadingawal() {
+        $(".ading").loading('stop');
+      }
+      function stoploadingf() {
+        $("#loadData").loading('stop');
+      }
+
          $(document).ready(function(){
             loadingawal();
             $(window).on('load', function () {
