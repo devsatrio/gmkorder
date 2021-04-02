@@ -256,7 +256,7 @@ $(function () {
       });
       $.ajax({
         type: 'POST',
-        url: '/backend/transaksi-manual/add-new-pengguna/',
+        url: '/backend/transaksi-manual/add-new-pengguna',
         data: {
           '_token': $('input[name=_token]').val(),
           'nama': $('#namapelanggan').val(),

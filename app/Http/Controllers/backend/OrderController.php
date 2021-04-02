@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\ProdukVarianModel;
 use Batch;
+use Hash;
 use DataTables;
 use Auth;
 use DB;
@@ -83,6 +84,21 @@ class OrderController extends Controller
             'updated_at'=>date('Y-m-d H:i:s'),
             'sts_notif'=>'y'
         ]);
+
+        $data = DB::table('trx_umum')->where('id',$request->kodetrx)->get();
+        foreach($data as $row){
+            $telp = $row->telp;
+            $nama = $row->nama;
+            $caripengguna = DB::table('pengguna')->where('telp',$telp)->count();
+            if($caripengguna<1){
+                DB::table('pengguna')->insert([
+                    'nama'=>$nama,
+                    'username'=>$nama,
+                    'telp'=>$telp,
+                    'password'=>Hash::make($nama.'12345'),
+                ]);
+            }
+        }
     }
     //=================================================================
     public function index()
@@ -104,6 +120,20 @@ class OrderController extends Controller
     //=================================================================
     public function acctrx(Request $request, $kode)
     {
+        $data = DB::table('trx_umum')->where('id',$kode)->get();
+        foreach($data as $row){
+            $telp = $row->telp;
+            $nama = $row->nama;
+            $caripengguna = DB::table('pengguna')->where('telp',$telp)->count();
+            if($caripengguna<1){
+                DB::table('pengguna')->insert([
+                    'nama'=>$nama,
+                    'username'=>$nama,
+                    'telp'=>$telp,
+                    'password'=>Hash::make($nama.'12345'),
+                ]);
+            }
+        }
         DB::table('trx_umum')
         ->where('id',$kode)
         ->update([

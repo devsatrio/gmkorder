@@ -63,7 +63,8 @@ class TransaksiManualController extends Controller
     //==================================================================
     public function addpengguna(Request $request)
     {
-        DB::table('pengguna')->insert([
+        DB::table('pengguna')
+        ->insert([
             'nama'=>$request->nama,
             'username'=>$request->username,
             'telp'=>$request->telp,

@@ -23,9 +23,17 @@ $(function () {
                 "data": 'total',
                 "className": 'text-right',
             },
+            // {
+            //     render: function (data, type, row) {
+            //         return '<button class="btn btn-sm btn-secondary" onclick="lihatdetail(' + row['id'] + ')"><i class="fa fa-eye"></i></button> <a href="transaki-online/'+row['id']+'"><button class="btn btn-sm btn-primary" type="button"><i class="fa fa-wrench"></i></button></a> <button class="btn btn-sm btn-success" onclick="acctrx(' + row['id'] + ')"><i class="fa fa-check"></i></button> <button class="btn btn-sm btn-danger" onclick="cancel(' + row['id'] + ')"><i class="fa fa-ban"></i></button>'
+            //     },
+            //     "className": 'text-center',
+            //     "orderable": false,
+            //     "data": null,
+            // },
             {
                 render: function (data, type, row) {
-                    return '<button class="btn btn-sm btn-secondary" onclick="lihatdetail(' + row['id'] + ')"><i class="fa fa-eye"></i></button> <a href="transaki-online/'+row['id']+'"><button class="btn btn-sm btn-primary" type="button"><i class="fa fa-wrench"></i></button></a> <button class="btn btn-sm btn-success" onclick="acctrx(' + row['id'] + ')"><i class="fa fa-check"></i></button> <button class="btn btn-sm btn-danger" onclick="cancel(' + row['id'] + ')"><i class="fa fa-ban"></i></button>'
+                    return '<button class="btn btn-sm btn-secondary" onclick="lihatdetail(' + row['id'] + ')"><i class="fa fa-eye"></i></button> <button class="btn btn-sm btn-danger" onclick="cancel(' + row['id'] + ')"><i class="fa fa-ban"></i></button>'
                 },
                 "className": 'text-center',
                 "orderable": false,
