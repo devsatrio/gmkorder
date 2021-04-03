@@ -43,7 +43,11 @@ Route::prefix('backend')->group(function(){
     Route::resource('/admin','backend\AdminController');
 
     //pengguna
+    
     Route::get('/data-pengguna','backend\PenggunaController@listdata');
+    Route::get('/import-export/pengguna','backend\PenggunaController@importexport');
+    Route::get('/import-export/pengguna/export','backend\PenggunaController@exportpengguna');
+    Route::post('/import-export/pengguna/import','backend\PenggunaController@importpengguna');
     Route::resource('/pengguna','backend\PenggunaController');
 
     //kategori produk
