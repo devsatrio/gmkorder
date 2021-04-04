@@ -1,4 +1,11 @@
 
+const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: true
+  })
 $(function () {
     $('#list-data').DataTable({
         processing: true,
@@ -23,9 +30,25 @@ $(function () {
                 "data": 'total',
                 "className": 'text-right',
             },
+            // {
+            //     render: function (data, type, row) {
+            //         return '<button class="btn btn-sm btn-secondary" onclick="lihatdetail(' + row['id'] + ')"><i class="fa fa-eye"></i></button> <a href="transaki-online/'+row['id']+'"><button class="btn btn-sm btn-primary" type="button"><i class="fa fa-wrench"></i></button></a> <button class="btn btn-sm btn-success" onclick="acctrx(' + row['id'] + ')"><i class="fa fa-check"></i></button> <button class="btn btn-sm btn-danger" onclick="cancel(' + row['id'] + ')"><i class="fa fa-ban"></i></button>'
+            //     },
+            //     "className": 'text-center',
+            //     "orderable": false,
+            //     "data": null,
+            // },
             {
                 render: function (data, type, row) {
-                    return '<button class="btn btn-sm btn-secondary" onclick="lihatdetail(' + row['id'] + ')"><i class="fa fa-eye"></i></button> <a href="transaki-online/'+row['id']+'"><button class="btn btn-sm btn-primary" type="button"><i class="fa fa-wrench"></i></button></a> <button class="btn btn-sm btn-success" onclick="acctrx(' + row['id'] + ')"><i class="fa fa-check"></i></button> <button class="btn btn-sm btn-danger" onclick="cancel(' + row['id'] + ')"><i class="fa fa-ban"></i></button>'
+                    return '<button class="btn btn-sm btn-secondary" onclick="lihatdetail(' + row['id'] + ')"><i class="fa fa-eye"></i></button> <button class="btn btn-sm btn-danger" onclick="hapussatudata(' + row['id'] + ')"><i class="fa fa-trash"></i></button>'
+                },
+                "className": 'text-center',
+                "orderable": false,
+                "data": null,
+            },
+            {
+                render: function (data, type, row) {
+                    return `<input onclick="ceksatudata()" type="checkbox" name="subcheck" class="subcheck" value="`+row['id']+`">`;
                 },
                 "className": 'text-center',
                 "orderable": false,
@@ -90,20 +113,13 @@ function lihatdetail(kode) {
 window.lihatdetail = lihatdetail;
 
 //===============================================================================================
-function cancel(kode) {
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: true
-    })
+function hapussatudata(kode) {
     swalWithBootstrapButtons.fire({
-        title: 'Cancel Transaksi ?',
-        text: "Data yang di cancel tidak dapat di pulihkan kembali!",
+        title: 'Hapus Transaksi ?',
+        text: "Data yang di hapus tidak dapat di pulihkan kembali!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Ya, Cancel !',
+        confirmButtonText: 'Ya, Hapus !',
         cancelButtonText: 'Tidak',
         reverseButtons: true
     }).then((result) => {
@@ -121,8 +137,8 @@ function cancel(kode) {
                 },
                 success: function () {
                     swalWithBootstrapButtons.fire(
-                        'Canceled!',
-                        'Transaksi berhasil dicancel',
+                        'Success!',
+                        'Transaksi berhasil hapus',
                         'success'
                     )
                     $('#list-data').DataTable().ajax.reload();
@@ -131,7 +147,7 @@ function cancel(kode) {
         }
     })
 }
-window.cancel = cancel;
+window.hapussatudata = hapussatudata;
 
 //===============================================================================================
 function acctrx(kode) {
@@ -250,3 +266,72 @@ function rupiah(bilangan) {
     }
     return rupiah;
 }
+
+//===============================================================================================
+function cekaalldata() {
+    if($('#csdata').is(':checked', true)){
+        $(".subcheck").prop('checked', true);
+        $('#hapusbtn').attr('style', "display:inline");
+    }else{
+        $(".subcheck").prop('checked', false);
+        $('#hapusbtn').attr('style', "display:none");
+    }
+}
+
+//======================================================================================================================
+function ceksatudata() {
+    if ($('.subcheck').is(':checked', true)) {
+        $('#hapusbtn').attr('style', "display:inline");
+    } else {
+        $('#hapusbtn').attr('style', "display:none");
+    }
+}
+
+//======================================================================================================================
+function hapusbanyak() {
+
+    swalWithBootstrapButtons.fire({
+        title: 'Hapus Transaksi ?',
+        text: "Data yang di hapus tidak dapat di pulihkan kembali!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Hapus !',
+        cancelButtonText: 'Tidak',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.value) {
+            var id = [];
+            $('input[name="subcheck"]:checked').each(function(i){
+            id[i] = $(this).val();
+            });
+            if(id.length === 0){
+                swalWithBootstrapButtons.fire(
+                    'Error!',
+                    'Pilih minimal satu data',
+                    'error'
+                )
+            }else{
+                $.ajaxSetup({
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+                });
+                $.ajax({
+                    url:'/backend/list-order/hapus-much-data',
+                    method:'POST',
+                    data:{
+                        '_token': $('input[name=_token]').val(),
+                        id:id,
+                    },
+                    success:function(){
+                        swalWithBootstrapButtons.fire(
+                            'Sukses!',
+                            'Data berhasil dihapus',
+                            'success'
+                        )
+                        $('#list-data').DataTable().ajax.reload();
+                    }
+                });
+            }
+        }
+    })
+}
+window.hapusbanyak = hapusbanyak;

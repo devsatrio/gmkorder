@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Imports\UserImport;
 use Illuminate\Http\Request;
+use App\Exports\UserExport;
 use DataTables;
+use Session;
+use Excel;
 use Hash;
 use File;
 use DB;
@@ -63,9 +67,34 @@ class PenggunaController extends Controller
     }
 
     //=================================================================
-    public function show($id)
+    public function importexport()
     {
-        //
+        return view('backend.pengguna.importexport');
+    }
+
+    //=================================================================
+    public function exportpengguna()
+    {
+        $namafile = "Data_Pengguna.xls";   
+        return Excel::download(new UserExport(),$namafile);
+    }
+
+    //=================================================================
+    public function importpengguna(Request $request)
+    {
+        try {
+            if($request->hasFile('file_excel')){
+                $error = Excel::import(new UserImport, request()->file('file_excel'));
+                return redirect('backend/pengguna')->with('status','Berhasil Import Data');
+             }else{
+                Session::flash('errorexcel', 'error uploading data');
+                return redirect('backend/pengguna');
+             }
+        }catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+             $failures = $e->failures();
+             Session::flash('errorexcel', $failures);
+             return back();
+        }
     }
     
     //=================================================================

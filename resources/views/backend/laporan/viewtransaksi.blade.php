@@ -49,6 +49,9 @@
                                             <th>Subtotal</th>
                                             <th>Potongan</th>
                                             <th>Ongkir</th>
+                                            <th>Cash</th>
+                                            <th>Vocher</th>
+                                            <th>Transfer</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
@@ -71,11 +74,17 @@
                                             </td>
                                             <td class="text-right">{{"Rp ". number_format($row->diskon,0,',','.')}}</td>
                                             <td class="text-right">{{"Rp ". number_format($row->ongkir,0,',','.')}}</td>
+                                            <td class="text-right">
+                                                {{"Rp ". number_format($row->dibayar_cash,0,',','.')}}</td>
+                                            <td class="text-right">
+                                                {{"Rp ". number_format($row->dibayar_voucher,0,',','.')}}</td>
+                                            <td class="text-right">
+                                                {{"Rp ". number_format($row->dibayar_transfer,0,',','.')}}</td>
                                             <td class="text-right">{{"Rp ". number_format($row->total,0,',','.')}}</td>
                                         </tr>
                                         @endforeach
                                         <tr>
-                                            <td colspan="8"><b>Total</b></td>
+                                            <td colspan="11"><b>Total</b></td>
                                             <td class="text-right"><b>{{"Rp ". number_format($total,0,',','.')}}</b>
                                             </td>
                                         </tr>
@@ -105,6 +114,9 @@
                 <th style="border: 1px solid black;">Subtotal</th>
                 <th style="border: 1px solid black;">Potongan</th>
                 <th style="border: 1px solid black;">Ongkir</th>
+                <th style="border: 1px solid black;">Cash</th>
+                <th style="border: 1px solid black;">Vocher</th>
+                <th style="border: 1px solid black;">Transfer</th>
                 <th style="border: 1px solid black;">Total</th>
             </tr>
         </thead>
@@ -129,11 +141,18 @@
                 </td>
                 <td style="border: 1px solid black;" alignt="right">{{"Rp ". number_format($row->ongkir,0,',','.')}}
                 </td>
+
+                <td style="border: 1px solid black;" alignt="right">
+                    {{"Rp ". number_format($row->dibayar_cash,0,',','.')}}</td>
+                <td style="border: 1px solid black;" alignt="right">
+                    {{"Rp ". number_format($row->dibayar_voucher,0,',','.')}}</td>
+                <td style="border: 1px solid black;" alignt="right">
+                    {{"Rp ". number_format($row->dibayar_transfer,0,',','.')}}</td>
                 <td style="border: 1px solid black;" alignt="right">{{"Rp ". number_format($row->total,0,',','.')}}</td>
             </tr>
             @endforeach
             <tr style="border: 1px solid black;">
-                <td style="border: 1px solid black;" colspan="8"><b>Total</b></td>
+                <td style="border: 1px solid black;" colspan="11"><b>Total</b></td>
                 <td style="border: 1px solid black;" alignt="right"><b>{{"Rp ". number_format($total,0,',','.')}}</b>
                 </td>
             </tr>

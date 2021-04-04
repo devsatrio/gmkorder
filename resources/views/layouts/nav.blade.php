@@ -82,9 +82,9 @@
                         $notif = DB::table('trx_umum')->where('sts','belum')->orderby('id','desc')->limit(10)->get();
                         @endphp
                         @foreach($notif as $not)
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-shopping-cart mr-2"></i> {{$not->nama}} Membuat Order Baru
-                            <br><span class="text-muted text-sm">{{$not->created_at}}</span>
+                        <a href="{{url('backend/list-order')}}" class="dropdown-item">
+                            <i class="fas fa-shopping-cart mr-2"></i> <b>{{$not->nama}}</b>
+                            <br> <span class="text-muted text-sm">Membuat Order Baru {{$not->created_at}}</span>
                         </a>
                         <div class="dropdown-divider"></div>
                         @endforeach

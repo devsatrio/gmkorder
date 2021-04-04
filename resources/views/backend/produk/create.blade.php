@@ -95,6 +95,7 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        @if(Auth::user()->level!='Admin')
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">HPP</label>
@@ -102,6 +103,15 @@
                                                     required>
                                             </div>
                                         </div>
+                                        @else
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">HPP</label>
+                                                <input type="number" class="form-control" value="0" name="hpp[]"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                        @endif
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Harga Jual</label>
@@ -112,8 +122,8 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Diskon (%)</label>
-                                                <input type="number" class="form-control" value="0" max="99" name="diskon[]"
-                                                    required>
+                                                <input type="number" class="form-control" value="0" max="99"
+                                                    name="diskon[]" required>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -185,12 +195,22 @@
                 </select>
             </div>
         </div>
+        @if(Auth::user()->level!='Admin')
         <div class="col-md-2">
             <div class="form-group">
                 <label for="exampleInputEmail1">HPP</label>
                 <input type="number" class="form-control" value="0" name="hpp[]" required>
             </div>
         </div>
+        @else
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="exampleInputEmail1">HPP</label>
+                <input type="number" class="form-control" value="0" name="hpp[]" readonly>
+            </div>
+        </div>
+        @endif
+        
         <div class="col-md-2">
             <div class="form-group">
                 <label for="exampleInputEmail1">Harga Jual</label>
@@ -200,7 +220,7 @@
         <div class="col-md-2">
             <div class="form-group">
                 <label for="exampleInputEmail1">Diskon (%)</label>
-                <input type="number" class="form-control" value="0"  max="99" name="diskon[]" required>
+                <input type="number" class="form-control" value="0" max="99" name="diskon[]" required>
             </div>
         </div>
         <div class="col-md-2">

@@ -61,7 +61,7 @@ $(function () {
       type: 'GET',
       url: '/backend/transaksi-manual/cari-detail-barang/' + kode,
       success: function (data) {
-        if(data.length == 0) {
+        if (data.length == 0) {
           swalWithBootstrapButtons.fire(
             'Error!',
             'Maaf, Produk ini memliki stok kurang dari 1 atau sedang tidak aktif',
@@ -72,7 +72,7 @@ $(function () {
           $("#diskon").val('');
           $("#harga").val('');
           return;
-        }else{
+        } else {
           return {
             results: $.map(data, function (item) {
               $("#stok").val(item.stok);
@@ -82,7 +82,7 @@ $(function () {
             })
           }
         }
-        
+
       }, complete: function () {
         $('#panelnya').loading('stop');
       }
@@ -145,44 +145,56 @@ $(function () {
         'warning'
       )
     } else {
-      $('#paneldua').loading('toggle');
-      $('#panelnya').loading('toggle');
-      $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
-      $.ajax({
-        type: 'POST',
-        url: '/backend/transaksi-manual/simpan-transaksi',
-        data: {
-          '_token': $('input[name=_token]').val(),
-          'resi': $('#resi').val(),
-          'pembeli': $('#caripelanggan').val(),
-          'vocher': $('#vocher').val(),
-          'metode': $('#metode').val(),
-          'kurir': $('#kurir').val(),
-          'telppenerima': $('#telppenerima').val(),
-          'namapenerima': $('#namapenerima').val(),
-          'alamat': $('#alamat').val(),
-          'potongan': $('#potongan').val(),
-          'subtotal': $('#subtotal').val(),
-          'ongkir': $('#ongkir').val(),
-          'keterangan': $('#keterangan').val(),
-        },
-        success: function (data) {
-          var divToPrint = document.getElementById('hidden_div');
-          var newWin = window.open('', 'Print-Window');
-          newWin.document.open();
-          newWin.document.write('<html><body onload="window.print();window.close()">' + divToPrint.innerHTML + '</body></html>');
-          newWin.document.close();
-          location.reload();
-        },
-        complete: function () {
-          $('#paneldua').loading('stop');
-          $('#panelnya').loading('stop');
-        }
-      });
+      if (parseInt($('#datatotalnya').val()) == parseInt($('#datadibayarnya').val())) {
+        $('#paneldua').loading('toggle');
+        $('#panelnya').loading('toggle');
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({
+          type: 'POST',
+          url: '/backend/transaksi-manual/simpan-transaksi',
+          data: {
+            '_token': $('input[name=_token]').val(),
+            'resi': $('#resi').val(),
+            'pembeli': $('#caripelanggan').val(),
+            'vocher': $('#vocher').val(),
+            'metode': $('#metode').val(),
+            'kurir': $('#kurir').val(),
+            'telppenerima': $('#telppenerima').val(),
+            'namapenerima': $('#namapenerima').val(),
+            'alamat': $('#alamat').val(),
+            'potongan': $('#potongan').val(),
+            'subtotal': $('#subtotal').val(),
+            'ongkir': $('#ongkir').val(),
+            'keterangan': $('#keterangan').val(),
+            'cash': $('#cash').val(),
+            'vocher': $('#vocher').val(),
+            'transfer': $('#transfer').val(),
+          },
+          success: function (data) {
+            var divToPrint = document.getElementById('hidden_div');
+            var newWin = window.open('', 'Print-Window');
+            newWin.document.open();
+            newWin.document.write('<html><body onload="window.print();window.close()">' + divToPrint.innerHTML + '</body></html>');
+            newWin.document.close();
+            location.reload();
+          },
+          complete: function () {
+            $('#paneldua').loading('stop');
+            $('#panelnya').loading('stop');
+          }
+        });
+      } else {
+        swalWithBootstrapButtons.fire(
+          'Error!',
+          'Maaf, Jumlah Dibayar harus sama dengan total pembelian',
+          'warning'
+        )
+      }
+
     }
   });
   //===============================================================================================
@@ -256,7 +268,7 @@ $(function () {
       });
       $.ajax({
         type: 'POST',
-        url: '/backend/transaksi-manual/add-new-pengguna/',
+        url: '/backend/transaksi-manual/add-new-pengguna',
         data: {
           '_token': $('input[name=_token]').val(),
           'nama': $('#namapelanggan').val(),
@@ -322,7 +334,7 @@ function getproduk() {
         rows = rows + '</tr>';
 
         rowcetak = rowcetak + '<tr style="font-size:10px;">';
-        rowcetak = rowcetak + '<td>' + value.nama + ' ( '+value.varian+' )</td>';
+        rowcetak = rowcetak + '<td>' + value.nama + ' ( ' + value.varian + ' )</td>';
         rowcetak = rowcetak + '<td>' + value.jumlah + ' Pcs</td>';
         rowcetak = rowcetak + '<td class="text-left"> Rp. ' + rupiah(value.harga) + '</td>';
         rowcetak = rowcetak + '<td>' + value.diskon + ' %</td>';
@@ -363,22 +375,50 @@ function rupiah(bilangan) {
 function hitungtotal() {
   var final_ongkir = 0;
   var final_potongan = 0;
+  var final_cash = 0;
+  var final_vocher = 0;
+  var final_transfer = 0;
+  var final_subtotal = 0;
+  var dibayar = 0;
+  var totoal = 0;
   if ($('#ongkir').val() != '') {
     final_ongkir = parseInt($('#ongkir').val());
   }
   if ($('#potongan').val() != '') {
     final_potongan = parseInt($('#potongan').val());
   }
-  var total = parseInt($('#subtotal').val()) + final_ongkir - final_potongan;
+  if ($('#cash').val() != '') {
+    final_cash = parseInt($('#cash').val());
+  }
+  if ($('#vocher').val() != '') {
+    final_vocher = parseInt($('#vocher').val());
+  }
+  if ($('#transfer').val() != '') {
+    final_transfer = parseInt($('#transfer').val());
+  }
+  if ($('#subtotal').val() != '') {
+    final_subtotal = parseInt($('#subtotal').val());
+  }
+
+  total = final_subtotal + final_ongkir - final_potongan;
+  dibayar = final_cash + final_vocher + final_transfer;
+
   $('#tampilsubtotal').html('Rp. ' + rupiah($('#subtotal').val()));
   $('#tampilpotongan').html('Rp. ' + rupiah(final_potongan));
   $('#tampilongkir').html('Rp. ' + rupiah(final_ongkir));
   $('#totalakhir').html('Rp. ' + rupiah(total));
+  $('#tampildibayar').html('Rp. ' + rupiah(dibayar));
 
   $('#notasubtotal').html('Rp. ' + rupiah($('#subtotal').val()));
   $('#notapotongan').html('Rp. ' + rupiah(final_potongan));
   $('#notaongkir').html('Rp. ' + rupiah(final_ongkir));
   $('#notatotal').html('Rp. ' + rupiah(total));
+  $('#notacash').html('Rp. ' + rupiah(final_cash));
+  $('#notavocher').html('Rp. ' + rupiah(final_vocher));
+  $('#notatransfer').html('Rp. ' + rupiah(final_transfer));
+
+  $('#datatotalnya').val(total);
+  $('#datadibayarnya').val(dibayar);
 }
 window.hitungtotal = hitungtotal;
 //===============================================================================================

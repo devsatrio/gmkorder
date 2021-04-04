@@ -35,6 +35,11 @@
                         <div class="card-header">
                             <h3 class="card-title">List Data Pengguna</h3>
                             <div class="card-tools">
+                                <a href="{{url('backend/import-export/pengguna')}}">
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fas fa-file-excel"></i>
+                                        Import Export
+                                    </button>
+                                </a>
                                 <a href="{{url('backend/pengguna/create')}}">
                                     <button type="button" class="btn btn-default btn-sm"><i class="fas fa-plus"></i>
                                         Tambah

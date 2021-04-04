@@ -23,12 +23,38 @@ class LaporanController extends Controller
     public function tampiltransaksi(Request $request)
     {
         $newtgl = explode('|',$request->finaltgl);
-        $data = DB::table('trx_umum')
-        ->select(DB::raw('trx_umum.*,users.username'))
-        ->leftjoin('users','users.id','=','admin_acc')
-        ->whereBetween('tgl', array($newtgl[0], $newtgl[1]))
-        ->where('sts','sudah')
-        ->get();
+        $tipe = $request->tipe;
+
+        if($tipe=='Semua'){
+            $data = DB::table('trx_umum')
+            ->select(DB::raw('trx_umum.*,users.username'))
+            ->leftjoin('users','users.id','=','admin_acc')
+            ->whereBetween('tgl', array($newtgl[0], $newtgl[1]))
+            ->where('sts','sudah')
+            ->get();
+        }elseif($tipe=='Cash'){
+            $data = DB::table('trx_umum')
+            ->select(DB::raw('trx_umum.*,users.username'))
+            ->leftjoin('users','users.id','=','admin_acc')
+            ->whereBetween('tgl', array($newtgl[0], $newtgl[1]))
+            ->where([['sts','=','sudah'],['dibayar_cash','!=',0]])
+            ->get();
+        }elseif($tipe=='Vocher'){
+            $data = DB::table('trx_umum')
+            ->select(DB::raw('trx_umum.*,users.username'))
+            ->leftjoin('users','users.id','=','admin_acc')
+            ->whereBetween('tgl', array($newtgl[0], $newtgl[1]))
+            ->where([['sts','=','sudah'],['dibayar_voucher','!=',0]])
+            ->get();
+        }else{
+            $data = DB::table('trx_umum')
+            ->select(DB::raw('trx_umum.*,users.username'))
+            ->leftjoin('users','users.id','=','admin_acc')
+            ->whereBetween('tgl', array($newtgl[0], $newtgl[1]))
+            ->where([['sts','=','sudah'],['dibayar_transfer','!=',0]])
+            ->get();
+        }
+        
         return view('backend.laporan.viewtransaksi',compact('data'));
     }
 
@@ -42,12 +68,37 @@ class LaporanController extends Controller
     public function tampildetailtransaksi(Request $request)
     {
         $newtgl = explode('|',$request->finaltgl);
-        $data = DB::table('trx_umum')
-        ->select(DB::raw('trx_umum.*,users.username'))
-        ->leftjoin('users','users.id','=','admin_acc')
-        ->whereBetween('tgl', array($newtgl[0], $newtgl[1]))
-        ->where('sts','sudah')
-        ->get();
+        $tipe = $request->tipe;
+
+        if($tipe=='Semua'){
+            $data = DB::table('trx_umum')
+            ->select(DB::raw('trx_umum.*,users.username'))
+            ->leftjoin('users','users.id','=','admin_acc')
+            ->whereBetween('tgl', array($newtgl[0], $newtgl[1]))
+            ->where('sts','sudah')
+            ->get();
+        }elseif($tipe=='Cash'){
+            $data = DB::table('trx_umum')
+            ->select(DB::raw('trx_umum.*,users.username'))
+            ->leftjoin('users','users.id','=','admin_acc')
+            ->whereBetween('tgl', array($newtgl[0], $newtgl[1]))
+            ->where([['sts','=','sudah'],['dibayar_cash','!=',0]])
+            ->get();
+        }elseif($tipe=='Vocher'){
+            $data = DB::table('trx_umum')
+            ->select(DB::raw('trx_umum.*,users.username'))
+            ->leftjoin('users','users.id','=','admin_acc')
+            ->whereBetween('tgl', array($newtgl[0], $newtgl[1]))
+            ->where([['sts','=','sudah'],['dibayar_voucher','!=',0]])
+            ->get();
+        }else{
+            $data = DB::table('trx_umum')
+            ->select(DB::raw('trx_umum.*,users.username'))
+            ->leftjoin('users','users.id','=','admin_acc')
+            ->whereBetween('tgl', array($newtgl[0], $newtgl[1]))
+            ->where([['sts','=','sudah'],['dibayar_transfer','!=',0]])
+            ->get();
+        }
         return view('backend.laporan.viewdetailtransaksi',compact('data'));
     }
 

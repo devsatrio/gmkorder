@@ -60,6 +60,7 @@
                                             <td>{{$i++}}</td>
                                             <td>{{$row->nama}}</td>
                                             <td class="text-center">
+                                                @if($row->nama!='N/A')
                                                 <form action="{{url('backend/warna/'.$row->id)}}" method="post">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="delete">
@@ -71,6 +72,9 @@
                                                         class="btn btn-sm btn-danger"><i
                                                             class="fa fa-trash"></i></button>
                                                 </form>
+                                                @else
+                                                -
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach
