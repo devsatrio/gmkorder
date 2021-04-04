@@ -35,7 +35,7 @@
                         <div class="card-header">
                             <h3 class="card-title">List Data Order Online</h3>
                             <div class="card-tools">
-                               
+
                             </div>
                         </div>
                         <div class="card-body">
@@ -51,10 +51,12 @@
                                             <th>Kurir</th>
                                             <th>Total</th>
                                             <th class="text-center">Aksi</th>
+                                            <th class="text-center text-white">
+                                                <input type="checkbox" class="ckbloket" name="csd" id="csdata" onclick="cekaalldata()">
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -66,10 +68,13 @@
                                             <th>Kurir</th>
                                             <th>Total</th>
                                             <th class="text-center">Aksi</th>
+                                            <th class="text-center">#</th>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
+                            <button type="button" style="display: none" onclick="hapusbanyak()" id="hapusbtn"
+                                class="btn mb-2 btn-warning btn-sm float-right mt-3">Hapus</button>
                         </div>
                     </div>
                 </div>
@@ -239,7 +244,8 @@
                     </tr>
                 </table>
                 <hr style="border-top: 1px dashed;">
-                <span style="font-size:10px;">Terima kasih atas kunjungan anda <br> Barang yang telah di beli tidak bisa di tukar atau dikembalikan</span>
+                <span style="font-size:10px;">Terima kasih atas kunjungan anda <br> Barang yang telah di beli tidak bisa
+                    di tukar atau dikembalikan</span>
             </td>
         </tr>
     </table>

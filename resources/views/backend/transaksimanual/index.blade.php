@@ -210,15 +210,36 @@
                                 <div class="form-group">
                                     <label>Potongan</label>
                                     <div class="nk-int-st">
-                                        <input type="number" class="form-control" min="0" onchange="hitungtotal()"
+                                        <input type="number" class="form-control" min="0" value="0" onchange="hitungtotal()"
                                             name="potongan" id="potongan">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Ongkir</label>
                                     <div class="nk-int-st">
-                                        <input type="number" class="form-control" min="0" onchange="hitungtotal()" name="ongkir"
+                                        <input type="number" class="form-control" min="0" value="0" onchange="hitungtotal()" name="ongkir"
                                             id="ongkir">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Dibayar Cash</label>
+                                    <div class="nk-int-st">
+                                        <input type="number" class="form-control" min="0" value="0" onchange="hitungtotal()" name="cash"
+                                            id="cash">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Dibayar Vocher</label>
+                                    <div class="nk-int-st">
+                                        <input type="number" class="form-control" min="0" value="0" onchange="hitungtotal()" name="vocher"
+                                            id="vocher">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Dibayar Transfer</label>
+                                    <div class="nk-int-st">
+                                        <input type="number" class="form-control" min="0" value="0" onchange="hitungtotal()" name="transfer"
+                                            id="transfer">
                                     </div>
                                 </div>
                                 <hr>
@@ -255,11 +276,21 @@
                                         <h3><b><span id="totalakhir">RP. 0</span></b></h3>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Dibayar</label>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <h5><b><span id="tampildibayar">RP. 0</span></b></h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                     </div>
                     <div class="card-footer">
+                    <input type="hidden" name="datatotalnya" value="0" id="datatotalnya">
+                    <input type="hidden" name="datadibayarnya" value="0" id="datadibayarnya">
                         <button class="btn btn-lg btn-danger" type="button" onclick="history.go(-1)">Kembali</button>
                         <button class="btn btn-lg btn-dark" type="submit" id="simpanbtn">Simpan</button>
                     </div>
@@ -306,7 +337,7 @@
 
 
 <div id="hidden_div" style="display:none;">
-    <table width="100%">
+    <table width="50%">
         <tr>
             <td width="100%">
                 <span style="font-size:10px;">Grosir Murah Kediri</span><br>
@@ -349,6 +380,23 @@
                     <tr>
                         <td><span style="font-size:10px;">Total</span></td>
                         <td><span style="font-size:10px;" colspan="5" id="notatotal"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <hr style="border-top: 1px dashed;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-size:10px;">Dibayar Cash</span></td>
+                        <td><span style="font-size:10px;" colspan="5" id="notacash"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-size:10px;">Dibayar Vocher</span></td>
+                        <td><span style="font-size:10px;" colspan="5" id="notavocher"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-size:10px;">Dibayar Transfer</span></td>
+                        <td><span style="font-size:10px;" colspan="5" id="notatransfer"></span></td>
                     </tr>
                 </table>
                 <hr style="border-top: 1px dashed;">

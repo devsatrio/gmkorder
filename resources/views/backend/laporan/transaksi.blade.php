@@ -34,8 +34,21 @@
                                                 <i class="far fa-calendar-alt"></i>
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control float-right" id="tanggal" value="{{date('m/d/Y')}} - {{date('m/d/Y')}}">
-                                        <input type="hidden" name="finaltgl" id="finaltgl" value="{{date('Y-m-d')}}|{{date('Y-m-d')}}">
+                                        <input type="text" class="form-control float-right" id="tanggal"
+                                            value="{{date('m/d/Y')}} - {{date('m/d/Y')}}">
+                                        <input type="hidden" name="finaltgl" id="finaltgl"
+                                            value="{{date('Y-m-d')}}|{{date('Y-m-d')}}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tipe Pembayaran</label>
+                                    <div class="input-group">
+                                        <select name="tipe" class="form-control">
+                                            <option value="Semua">Semua</option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Vocher">Vocher</option>
+                                            <option value="Transfer">Transfer</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -60,12 +73,12 @@
 @push('customscripts')
 <script>
 $(function() {
-  $('#tanggal').daterangepicker({
-    "startDate": "{{date('m/d/Y')}}",
-    "endDate": "{{date('m/d/Y')}}"
-  }, function(start, end, label) {
-      $('#finaltgl').val(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD'));
-  });
+    $('#tanggal').daterangepicker({
+        "startDate": "{{date('m/d/Y')}}",
+        "endDate": "{{date('m/d/Y')}}"
+    }, function(start, end, label) {
+        $('#finaltgl').val(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD'));
+    });
 });
 </script>
 @endpush

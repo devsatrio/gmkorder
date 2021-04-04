@@ -24,7 +24,8 @@
                 <div class="col-lg-12">
                     <div class="card card-dark">
                         <div class="card-header">
-                            <h3 class="card-title">Laporan Transaksi Per Admin ({{$dataadmin->username}}) {{$_GET['finaltgl']}}</h3>
+                            <h3 class="card-title">Laporan Transaksi Per Admin ({{$dataadmin->username}})
+                                {{$_GET['finaltgl']}}</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-default btn-sm" id="printtable"><i
                                         class="fas fa-print"></i>
@@ -49,6 +50,9 @@
                                             <th>Subtotal</th>
                                             <th>Potongan</th>
                                             <th>Ongkir</th>
+                                            <th>Cash</th>
+                                            <th>Vocher</th>
+                                            <th>Transfer</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
@@ -71,11 +75,17 @@
                                             </td>
                                             <td class="text-right">{{"Rp ". number_format($row->diskon,0,',','.')}}</td>
                                             <td class="text-right">{{"Rp ". number_format($row->ongkir,0,',','.')}}</td>
+                                            <td class="text-right">
+                                                {{"Rp ". number_format($row->dibayar_cash,0,',','.')}}</td>
+                                            <td class="text-right">
+                                                {{"Rp ". number_format($row->dibayar_voucher,0,',','.')}}</td>
+                                            <td class="text-right">
+                                                {{"Rp ". number_format($row->dibayar_transfer,0,',','.')}}</td>
                                             <td class="text-right">{{"Rp ". number_format($row->total,0,',','.')}}</td>
                                         </tr>
                                         @endforeach
                                         <tr>
-                                            <td colspan="8"><b>Total</b></td>
+                                            <td colspan="11"><b>Total</b></td>
                                             <td class="text-right"><b>{{"Rp ". number_format($total,0,',','.')}}</b>
                                             </td>
                                         </tr>
@@ -97,7 +107,7 @@
     <table border="1" style="border-collapse: collapse;border: 1px solid black;">
         <thead>
             <tr style="border: 1px solid black;">
-            
+
                 <th style="border: 1px solid black;">No</th>
                 <th style="border: 1px solid black;">Faktur</th>
                 <th style="border: 1px solid black;">Tanggal</th>

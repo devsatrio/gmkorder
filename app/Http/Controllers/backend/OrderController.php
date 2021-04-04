@@ -114,7 +114,19 @@ class OrderController extends Controller
     //=================================================================
     public function canceltrx(Request $request, $kode)
     {
-        DB::table('trx_umum')->where('id',$kode)->update(['sts'=>'cancel']);
+        $dataorder = DB::table('trx_umum')->where('id',$kode)->first();
+        DB::table('thumb_detail_transaksi')->where('kode_transaksi',$dataorder->faktur)->delete();
+        DB::table('trx_umum')->where('id',$kode)->delete();
+    }
+
+    //=================================================================
+    public function hapusmuch(Request $request)
+    {
+        foreach($request->id as $id){
+            $dataorder = DB::table('trx_umum')->where('id',$id)->first();
+            DB::table('thumb_detail_transaksi')->where('kode_transaksi',$dataorder->faktur)->delete();
+            DB::table('trx_umum')->where('id',$id)->delete();
+        }
     }
 
     //=================================================================

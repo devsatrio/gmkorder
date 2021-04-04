@@ -220,7 +220,10 @@ class TransaksiManualController extends Controller
             'admin_acc'=>Auth::user()->id,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
-            'sts_notif'=>'y'
+            'sts_notif'=>'y',
+            'dibayar_cash'=>$request->cash,
+            'dibayar_voucher'=>$request->vocher,
+            'dibayar_transfer'=>$request->transfer,
         ]);
     }
 

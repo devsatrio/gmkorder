@@ -21,11 +21,11 @@ Route::get('sukses-page','frontend\FrontControl@suksesPage')->name('sukses');
 // cari produk
 Route::get('cari-produk','frontend\FrontControl@cariProduk')->name('cari-produk');
 //==================================================================================auth
-Auth::routes();
-Route::get('user-login','Auth\PenggunaLoginController@showLoginForm');
-Route::post('user-login', ['as' => 'pengguna-login', 'uses' => 'Auth\PenggunaLoginController@login']);
-Route::get('user-register', 'Auth\PenggunaLoginController@showRegisterPage');
-Route::post('user-register', 'Auth\PenggunaLoginController@register')->name('pengguna.register');
+Auth::routes(['register' => false]);
+// Route::get('user-login','Auth\PenggunaLoginController@showLoginForm');
+// Route::post('user-login', ['as' => 'pengguna-login', 'uses' => 'Auth\PenggunaLoginController@login']);
+// Route::get('user-register', 'Auth\PenggunaLoginController@showRegisterPage');
+// Route::post('user-register', 'Auth\PenggunaLoginController@register')->name('pengguna.register');
 
 //==================================================================================frontend
 Route::get('/profil-saya', 'frontend\HomeController@profilsaya')->name('profil-saya');
@@ -124,6 +124,7 @@ Route::prefix('backend')->group(function(){
     Route::get('/list-order','backend\OrderController@index');
     Route::get('/transaki-online/{kode}','backend\OrderController@edittrx');
     Route::get('/data-list-order','backend\OrderController@listdata');
+    Route::post('/list-order/hapus-much-data','backend\OrderController@hapusmuch');
     Route::post('/data-list-order/cancel-trx/{kode}','backend\OrderController@canceltrx');
     Route::post('/data-list-order/acc-trx/{kode}','backend\OrderController@acctrx');
     Route::post('/transaksi-online/simpan-transaksi','backend\OrderController@simpantransaksi');

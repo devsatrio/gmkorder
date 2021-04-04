@@ -38,6 +38,17 @@
                                         <input type="hidden" name="finaltgl" id="finaltgl" value="{{date('Y-m-d')}}|{{date('Y-m-d')}}">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label>Tipe Pembayaran</label>
+                                    <div class="input-group">
+                                        <select name="tipe" class="form-control">
+                                            <option value="Semua">Semua</option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Vocher">Vocher</option>
+                                            <option value="Transfer">Transfer</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="reset" onclick="history.go(-1)" class="btn btn-danger">Kembali</button>
