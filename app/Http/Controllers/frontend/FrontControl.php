@@ -91,11 +91,20 @@ class FrontControl extends Controller
             ->select(DB::raw('warna.nama as warna,size.nama as size,produk_varian.*'))
             // ->where('stok','>','0')
             // ->where('status','Aktif')
+            ->orderBy('stok',"DESC")
             ->where('produk_kode',$id)->get();
         $ket=ProdukModel::where('kode',$id)->get();
+        $prev=ProdukVarianModel::leftjoin('warna','warna.id','=','produk_varian.warna_id')
+            ->leftjoin('size','size.id','=','produk_varian.size_id')
+            ->select(DB::raw('warna.nama as warna,size.nama as size,produk_varian.*'))
+            // ->where('stok','>','0')
+            // ->where('status','Aktif')
+            ->orderBy('stok',"DESC")
+            ->where('produk_kode',$id)->first();
         $print=[
             'data'=>$data,
             'ket'=>$ket,
+            'prev'=>$prev
         ];
         // dd($data);
         return view('frontend.page.detail_produk',$print);

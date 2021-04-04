@@ -55,7 +55,7 @@ $urlwa='https://api.whatsapp.com/send?phone='.CekNotif::getNoTelp()->telp.'&text
     <script src="{{asset('frontend/assets/js/jquery.min.js')}}"></script>
     <script>
         $(document).ready(function(){
-            window.open('<?php echo $urlwa  ?>')
+            location.href='<?php echo $urlwa  ?>';
         });
     </script>
     <body>
