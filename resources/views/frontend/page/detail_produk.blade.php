@@ -29,7 +29,7 @@
                                     <h3>Pilihan Varian : <div class="badge badge-warning" id="pil"></div></h3>
                                     <div class="row">
                                         @foreach ($data as $item)
-                                            <div class="col-md-2 col-lg-2 col-4">
+                                            <div class="col-md-3 col-lg-3 col-4">
                                                 @if ($item->stok<1)
                                                     <span > <div class="badge badge-danger">Habis</div> <br><strike>{!!$item->warna.' </br> '. $item->size!!}</strike></span>
                                                 @else
