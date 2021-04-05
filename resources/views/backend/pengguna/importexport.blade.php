@@ -30,12 +30,6 @@
                                                         aria-controls="custom-tabs-two-home" aria-selected="false">Cara
                                                         Import Produk</a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="custom-tabs-two-profile-tab"
-                                                        data-toggle="pill" href="#custom-tabs-two-profile" role="tab"
-                                                        aria-controls="custom-tabs-two-profile"
-                                                        aria-selected="true">Cara Import Varian Produk</a>
-                                                </li>
                                             </ul>
                                         </div>
                                         <div class="card-body">
@@ -44,79 +38,35 @@
                                                     role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
                                                     <h3><b>Cara Import</b></h3>
                                                     <ol class="pl-4">
-                                                        <li>Download Data kategori dengan tekan link <b>Export Data
-                                                                Kategori
-                                                                Produk</b></li>
                                                         <li>Download template import dengan menekan link <b>Download
-                                                                Template
-                                                                Import Produk</b> </li>
+                                                                Template Import Pengguna</b> </li>
                                                         <li>Isi semua data di template import sesuai ketentuan.</li>
                                                         <li>Upload template import yang telah di isi di inputan
-                                                            <b>Import File
-                                                                Produk Excel</b>
+                                                            <b>Import File Excel</b>
                                                         </li>
                                                         <li>Klik <b>simpan</b> untuk menyimpan data</li>
                                                     </ol>
                                                     <h5><b>Ketentuan Pengisian Data</b></h5>
                                                     <ul class="pl-4">
-                                                        <li><b>Kode</b> harus diisi dan unik / berbeda dari kode produk
-                                                            lain</li>
                                                         <li><b>Nama</b> harus di isi dan jangan menggunakan karater
                                                             spesial selain
                                                             string</li>
-                                                        <li><b>Kategori_id</b> harus di isi dan sesuai dengan id
-                                                            kategori yang
-                                                            berasal dari file <b>Export Data Kategori Produk</b></li>
-                                                        <li><b>Deskripsi</b> harus di isi dan jangan menggunakan karater
-                                                            spesial
-                                                            selain string</li>
-
-                                                        <li><b>status</b> harus di isi dan memilih salah satu opsi
-                                                            status yaitu :
-                                                            <b>Aktif</b>, <b>Non Aktif</b>, <b>Habis</b>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
-                                                    aria-labelledby="custom-tabs-two-profile-tab">
-                                                    <h3><b>Cara Import</b></h3>
-                                                    <ol class="pl-4">
-                                                        <li>Download Data Warna & Size dengan tekan link <b>Export Data
-                                                                Warna Produk</b> & <b>Export Data Size Produk</b></li>
-                                                        <li>Download template import dengan menekan link <b>Download
-                                                                Template
-                                                                Import Varian Produk</b> </li>
-                                                        <li>Isi semua data di template import sesuai ketentuan.</li>
-                                                        <li>Upload template import yang telah di isi di inputan
-                                                            <b>Import File
-                                                                Varian Produk Excel</b>
-                                                        </li>
-                                                        <li>Klik <b>simpan</b> untuk menyimpan data</li>
-                                                    </ol>
-                                                    <h5><b>Ketentuan Pengisian Data</b></h5>
-                                                    <ul class="pl-4">
-                                                        <li><b>kode_produk</b> isikan sesuai dengan kode produk yang
-                                                            akan di tambah variannya</li>
-                                                        <li><b>warna_id</b> harus di isi dan sesuai dengan id
-                                                            warana yang berasal dari file <b>Export Data Warna
-                                                                Produk</b></li>
-                                                        <li><b>size_id</b> harus di isi dan sesuai dengan id
-                                                            warana yang berasal dari file <b>Export Data Size Produk</b>
-                                                        </li>
-                                                        <li><b>hpp</b> harus di isi menggunakan angka tanpa titik, koma
-                                                            dan karakter
-                                                            lain (contoh : 25000)</li>
-                                                        <li><b>diskon</b> harus diisi presentase diskon antaran 0 sampai
-                                                            99</li>
-                                                        <li><b>harga_jual</b> harus di isi menggunakan angka tanpa
-                                                            titik, koma dan
-                                                            karakter lain (contoh : 25000)</li>
-
+                                                        <li><b>Username</b> harus di isi dan jangan menggunakan karater
+                                                            spesial selain
+                                                            string</li>
+                                                        <li><b>Email</b> harus di isi dan jangan menggunakan karater
+                                                            spesial selain
+                                                            string</li>
+                                                        <li><b>Telp</b> harus di isi dan jangan menggunakan karater
+                                                            spesial selain
+                                                            Numeric</li>
+                                                        <li><b>Alamat</b> harus di isi dan jangan menggunakan karater
+                                                            spesial selain
+                                                            string</li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- /.card -->
                                     </div>
 
                                 </div>
@@ -140,7 +90,7 @@
                                         method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Import File Produk Excel</label>
+                                            <label for="exampleInputEmail1">Import File Excel</label>
                                             <input type="file" id="excelfile" class="form-control mb-2"
                                                 name="file_excel" required>
                                             <a href="{{asset('assets/Template_Import_Pengguna.xls')}}"><i

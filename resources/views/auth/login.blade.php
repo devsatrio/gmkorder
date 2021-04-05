@@ -11,6 +11,15 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <style>
+    .text-center {
+        text-align: center;
+    }
+
+    .g-recaptcha {
+        display: inline-block;
+    }
+</style>
 </head>
 
 <body class="hold-transition login-page">
@@ -20,7 +29,7 @@
         </div>
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Masukan username dan password anda sebaga admin</p>
+                <p class="login-box-msg text-danger">Maaf, Pastikan username, password dan captcha diisi dengan benar</p>
 
                 <form action="{{ route('login') }}" method="post">
                 @csrf
@@ -55,17 +64,14 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+                    <div class="mt-3 mb-3 text-center">
+                    {!! NoCaptcha::display() !!}
+                    </div>
                     <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                        {{ old('remember') ? 'checked' : '' }}>
-                                <label for="remember">
-                                    Remember Me
-                                </label>
-                            </div>
+                        <div class="col-6">
+                        <button type="button" onclick="history.go(-1)" class="btn btn-danger btn-block">Kembali</button>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6">
                             <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </div>
                     </div>
@@ -76,6 +82,7 @@
     <script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
+    {!! NoCaptcha::renderJs() !!}
 
 </body>
 
