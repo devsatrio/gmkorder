@@ -19,7 +19,7 @@
     .g-recaptcha {
         display: inline-block;
     }
-</style>
+    </style>
 </head>
 
 <body class="hold-transition login-page">
@@ -29,13 +29,14 @@
         </div>
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg text-danger">Maaf, Pastikan username, password dan captcha diisi dengan benar</p>
+                <p class="login-box-msg">Masukan Username & Password Anda</p>
 
-                <form action="{{ route('login') }}" method="post">
-                @csrf
+                <form action="{{ route('login') }}" method="post" onsubmit="return callValidation()">
+                    @csrf
                     <div class="input-group mb-3">
                         <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
-                            name="username" value="{{ old('username') }}" required autocomplete="new-username" autofocus>
+                            name="username" value="{{ old('username') }}" required autocomplete="new-username"
+                            autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -65,11 +66,19 @@
                     </span>
                     @enderror
                     <div class="mt-3 mb-3 text-center">
-                    {!! NoCaptcha::display() !!}
+                        {!! NoCaptcha::display() !!}
+                    </div>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alertcap"
+                        style="display:none;">
+                        Please click the reCAPTCHA checkbox
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                        <button type="button" onclick="history.go(-1)" class="btn btn-danger btn-block">Kembali</button>
+                            <button type="button" onclick="history.go(-1)"
+                                class="btn btn-danger btn-block">Kembali</button>
                         </div>
                         <div class="col-6">
                             <button type="submit" class="btn btn-primary btn-block">Login</button>
@@ -83,6 +92,16 @@
     <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
     {!! NoCaptcha::renderJs() !!}
+    <script type="text/javascript">
+    function callValidation() {
+        if (grecaptcha.getResponse().length == 0) {
+            $('#alertcap').show();
+            return false;
+        }
+        return true;
+    }
+    </script>
+
 
 </body>
 
