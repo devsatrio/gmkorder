@@ -22,7 +22,12 @@
 
 <body id="loadData">
     @include('frontend.nav')
-    @yield('content')
+    {{-- <div class="row"> --}}
+        {{-- <div class="col-12"> --}}
+            @yield('content')
+        {{-- </div> --}}
+    {{-- </div> --}}
+
     <div class="row fixed-bottom" id="basket" style="display: none">
         <div class="navbar justify-content-center bg-white">
             <div class="col-12 col-md-12 col-lg-12">

@@ -20,7 +20,7 @@
                                             <img class="img-fluid d-block mx-auto image" src="{{asset('img/gambarproduk/'.$item['gambar'])}}">
                                         </div>
                                         <div class="col-4 col-md-4 ">{{$item['prod'].' - '.$item['varian']}}</div>
-                                        <div class="col-2 col-md-2 "><input readonly type="number" id="number" class="form-control quantity-input" value="{{$item['qty']}}"></div>
+                                        <div class="col-2 col-md-2 ">{{$item['qty']}}</div>
                                         <div class="col-2 col-md-2"><span>Rp. {{number_format($item['total'])}}</span></div>
                                         <div class="col-2 col-md-2"><span><a href="#" onclick="hapusItem('{{$key}}')"><i class="fa fa-trash fa-sm"></i></a></span></div>
                                     </div>

@@ -6,4 +6,5 @@
     <link rel="stylesheet" href="{{asset('frontend/assets/css/smoothproducts.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/assets/fontawesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/assets/swal/sweetalert2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/assets/css/menu.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/loading/loader.css')}}">

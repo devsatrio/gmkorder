@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\frontend\FrontControl;
 use Illuminate\Support\Facades\Route;
 //==================================================================================index
 Route::get('/', 'frontend\FrontControl@index')->name('beranda');
@@ -20,6 +21,8 @@ Route::get('sukses-page','frontend\FrontControl@suksesPage')->name('sukses');
 // Route::get('gen-fk','frontend\FrontControl@genFK');
 // cari produk
 Route::get('cari-produk','frontend\FrontControl@cariProduk')->name('cari-produk');
+// cari by filter
+Route::get("/cari-filter",'frontend\FrontControl@cariFilter')->name('filtering');
 //==================================================================================auth
 Auth::routes(['register' => false]);
 // Route::get('user-login','Auth\PenggunaLoginController@showLoginForm');
@@ -43,7 +46,7 @@ Route::prefix('backend')->group(function(){
     Route::resource('/admin','backend\AdminController');
 
     //pengguna
-    
+
     Route::get('/data-pengguna','backend\PenggunaController@listdata');
     Route::get('/import-export/pengguna','backend\PenggunaController@importexport');
     Route::get('/import-export/pengguna/export','backend\PenggunaController@exportpengguna');
@@ -128,7 +131,7 @@ Route::prefix('backend')->group(function(){
     Route::post('/data-list-order/cancel-trx/{kode}','backend\OrderController@canceltrx');
     Route::post('/data-list-order/acc-trx/{kode}','backend\OrderController@acctrx');
     Route::post('/transaksi-online/simpan-transaksi','backend\OrderController@simpantransaksi');
-   
+
      //Laporan
      Route::get('/laporan-transaksi','backend\LaporanController@index');
      Route::get('/laporan-transaksi/tampil','backend\LaporanController@tampiltransaksi');

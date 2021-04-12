@@ -20,6 +20,7 @@
 <main class="page catalog-page">
     <section class="clean-block clean-catalog dark">
         <div class="container">
+            @include('frontend.panelcari')
             <div class="block-heading">
                 <div class="carousel slide" data-ride="carousel" id="carousel-1">
                     <div class="carousel-inner">

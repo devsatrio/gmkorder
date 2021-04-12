@@ -17,6 +17,64 @@ use Illuminate\Support\Facades\Session;
 
 class FrontControl extends Controller
 {
+    // Filtering ===============================================
+    public function cariFilter(Request $request)
+    {
+        $pil=$request->rd;
+        $cari=$request->carifg;
+        $token=$request->_token;
+        if($pil=='murah'){
+            $data=ProdukVarianModel::leftjoin('produk','produk.kode','=','produk_varian.produk_kode')
+            ->leftjoin('warna','warna.id','=','produk_varian.warna_id')
+            ->leftjoin('size','size.id','=','produk_varian.size_id')
+            ->where('produk.nama','like','%'.$cari.'%')
+            ->select(DB::raw('warna.nama as warna,size.nama as size,produk.nama as produk,produk_varian.id as idv ,produk_varian.*'))
+            ->where('diskon','!=','0')
+            ->orderBy('produk_varian.harga','ASC')
+            // ->where('stok','!=','0')
+            ->paginate(30);
+        }else if($pil=="laris"){
+            $data=ProdukVarianModel::leftjoin('produk','produk.kode','=','produk_varian.produk_kode')
+            ->leftjoin('warna','warna.id','=','produk_varian.warna_id')
+            ->leftjoin('size','size.id','=','produk_varian.size_id')
+            ->where('produk.nama','like','%'.$cari.'%')
+            ->select(DB::raw('warna.nama as warna,size.nama as size,produk.nama as produk,produk_varian.id as idv ,produk_varian.*'))
+            ->where('diskon','!=','0')
+            ->orderBy(DB::raw('RAND(1234)'))
+            // ->where('stok','!=','0')
+            ->paginate(30);
+        }else if($pil=="mahal"){
+            $data=ProdukVarianModel::leftjoin('produk','produk.kode','=','produk_varian.produk_kode')
+            ->leftjoin('warna','warna.id','=','produk_varian.warna_id')
+            ->leftjoin('size','size.id','=','produk_varian.size_id')
+            ->where('produk.nama','like','%'.$cari.'%')
+            ->select(DB::raw('warna.nama as warna,size.nama as size,produk.nama as produk,produk_varian.id as idv ,produk_varian.*'))
+            ->where('diskon','!=','0')
+            ->orderBy('produk_varian.harga','ASC')
+            // ->where('stok','!=','0')
+            ->paginate(30);
+        }else{
+            $data=ProdukVarianModel::leftjoin('produk','produk.kode','=','produk_varian.produk_kode')
+            ->leftjoin('warna','warna.id','=','produk_varian.warna_id')
+            ->leftjoin('size','size.id','=','produk_varian.size_id')
+            ->where('produk.nama','like','%'.$cari.'%')
+            ->select(DB::raw('warna.nama as warna,size.nama as size,produk.nama as produk,produk_varian.id as idv ,produk_varian.*'))
+            ->where('diskon','!=','0')
+            ->orderBy(DB::raw('RAND(1234)'))
+            // ->where('stok','!=','0')
+            ->paginate(30);
+        }
+        $data->appends([
+            '_token'=>$token,
+            'carifg'=>$cari,
+            'rd'=>$pil
+        ]);
+        $print=[
+            'data'=>$data,
+        ];
+        return view("frontend.page.cariproduk",$print);
+    }
+    // =========================================================
     public function getvisitor($request){
         $u_agent = $_SERVER['HTTP_USER_AGENT'];
         $platform = 'Unknown';
@@ -91,11 +149,20 @@ class FrontControl extends Controller
             ->select(DB::raw('warna.nama as warna,size.nama as size,produk_varian.*'))
             // ->where('stok','>','0')
             // ->where('status','Aktif')
+            ->orderBy('stok',"DESC")
             ->where('produk_kode',$id)->get();
         $ket=ProdukModel::where('kode',$id)->get();
+        $prev=ProdukVarianModel::leftjoin('warna','warna.id','=','produk_varian.warna_id')
+            ->leftjoin('size','size.id','=','produk_varian.size_id')
+            ->select(DB::raw('warna.nama as warna,size.nama as size,produk_varian.*'))
+            // ->where('stok','>','0')
+            // ->where('status','Aktif')
+            ->orderBy('stok',"DESC")
+            ->where('produk_kode',$id)->first();
         $print=[
             'data'=>$data,
             'ket'=>$ket,
+            'prev'=>$prev
         ];
         // dd($data);
         return view('frontend.page.detail_produk',$print);
