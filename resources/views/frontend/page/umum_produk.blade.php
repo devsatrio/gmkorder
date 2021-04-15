@@ -13,7 +13,7 @@
                                 <div class="card">
                                     <div class="gallery">
                                         {{-- <div class="sp-wrap"> --}}
-                                            <img class="card-img-top img-fluid d-block mx-auto w-100"  src="{{asset('img/produk/'.$p->gambar_utama)}}">
+                                            <img class="lazy card-img-top img-fluid d-block mx-auto w-100"  src="{{asset('assets/img/loader.gif')}}"  data-src="{{asset('img/produk/'.$p->gambar_utama)}}">
                                         {{-- </div> --}}
                                     </div>
                                     <div class="card-body">
@@ -65,4 +65,13 @@
         }
     </script>
 @endsection
+@push('js_in')
+    <script>
+        (function () {
+        var ll = new LazyLoad({
+          threshold: 0,
+        });
+      })();
+    </script>
+@endpush
 

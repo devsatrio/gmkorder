@@ -6,7 +6,7 @@
 <script src="{{asset('frontend/assets/js/theme.js')}}"></script>
 <script src="{{asset('frontend/assets/swal/sweetalert2.min.js')}}"></script>
 <script src="{{asset('frontend/loading/jquery.loading.js')}}"></script>
+<script src="{{asset('assets/dist/js/lazyload.min.js')}}"></script>
 <script>
-
 
 </script>

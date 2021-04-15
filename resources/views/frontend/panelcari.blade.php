@@ -5,35 +5,18 @@
                 <form action="{{route('filtering')}}" method="get">
                     @csrf
                     <div class="row justify-content-center">
-                        <div class="col-md-3 col-lg-3 col-12 mb-3">
-                            <input type="text" class="form-control form-control-sm" name="carifg" placeholder="Cari Barang Mu ">
+                        <div class="col-md-6 col-lg-6 col-12 mb-3">
+                            <input type="text" class="form-control form-control" name="carifg" placeholder="Cari Barang Mu ">
                         </div>
-                        <div class="col-4 col-md-2 col-lg-2 mb-3">
-                            <div class="form-check mr-2">
-                                <input class="form-check-input" name="rd" type="radio" value="laris" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
-                                  Terlaris
-                                </label>
-                            </div>
+                        <div class="col-12 col-md-4 col-lg-4 mb-3">
+                            <select name="rd" class="form-control">
+                                <option value="murah">Termurah</option>
+                                <option value="laris">Terlaris</option>
+                                <option value="mahal">Termahal</option>
+                            </select>
                         </div>
-                        <div class="col-4 col-md-2 col-lg-2">
-                            <div class="form-check mr-2">
-                                <input class="form-check-input" name="rd" type="radio" value="murah" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
-                                  Termurah
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-4 col-md-2 col-lg-2">
-                            <div class="form-check mr-2">
-                                <input class="form-check-input" name="rd" type="radio" value="mahal" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
-                                  Termahal
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-12">
-                            <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="fa fa-search"></i> Cari</button>
+                        <div class="col-md-2 col-lg-2 col-12">
+                            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-search"></i> Cari</button>
                         </div>
                     </div>
                 </form>

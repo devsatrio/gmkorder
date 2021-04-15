@@ -55,7 +55,7 @@
                             @endphp
                             <a href="{{route('produk',[$k->id,$link])}}" class="link">
                                 <div class="card">
-                                    <img class="lazy card-img-top w-100 round-image d-block" src="{{asset('assets/img/noimage.png')}}" data-src="{{asset('img/kategoriproduk/'.$k->gambar)}}">
+                                    <img class="lazy card-img-top w-100 round-image d-block" src="{{asset('assets/img/loader.gif')}}" data-src="{{asset('img/kategoriproduk/'.$k->gambar)}}">
                                 </div>
                             </a>
                         </div>
@@ -76,7 +76,7 @@
                                 <div class="product-discount-label">Barang Habis</div>
                                 @endif
                                 <div class="product-new-label">Diskon {{$pr->diskon}}%</div>
-                                <img src="{{asset('assets/img/noimage.png')}}" data-src="{{asset('img/gambarproduk/'.$pr->gambar)}}" class="lazy card-img-top" width="100%">
+                                <img src="{{asset('assets/img/loader.gif')}}" data-src="{{asset('img/gambarproduk/'.$pr->gambar)}}" class="lazy card-img-top" width="100%">
                                 <div class="card-body mt-3 pt-0 px-0">
                                     <h4>
                                         {{$pr->produk}}
@@ -133,7 +133,6 @@
 
 @push('js_in')
 <script src="{{asset('frontend/assets/js/bootstrap-number-input.js')}}"></script>
-<script src="{{asset('assets/dist/js/lazyload.min.js')}}"></script>
     <script>
           $('.qty').bootstrapNumber();
           function simpanPromo(id,prod) {

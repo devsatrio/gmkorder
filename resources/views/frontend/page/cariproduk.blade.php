@@ -14,8 +14,10 @@
                                 @if ($pr->stok<1)
                                 <div class="product-discount-label">Barang Habis</div>
                                 @endif
-                                <div class="product-new-label">Diskon {{$pr->diskon}}%</div>
-                                <img src="{{asset('img/gambarproduk/'.$pr->gambar)}}" class="card-img-top" width="100%">
+                                @if ($pr->diskon !="0")
+                                    <div class="product-new-label">Diskon {{$pr->diskon}}%</div>
+                                @endif
+                                <img src="{{asset('assets/img/loader.gif')}}" data-src="{{asset('img/gambarproduk/'.$pr->gambar)}}" class="lazy card-img-top" width="100%">
                                 <div class="card-body mt-3 pt-0 px-0">
                                     <h4>
                                         {{$pr->produk}}
@@ -34,15 +36,16 @@
 
                                             </div>
                                         </div>
-                                        <div class="d-flex flex-column"><small class="text-muted mb-1">  <b>Diskon {{$pr->diskon}}% </b> </small>
-                                            <div class="d-flex flex-row">
-                                                @php
-                                                    $hdisk=($pr->harga)-($pr->harga*$pr->diskon)/100;
-                                                @endphp
-                                                <div class="d-flex flex-column ml-1" style="color: red"><h5> <b> Rp. {{number_format($hdisk)}}</b></h5></div>
+                                        @if ($pr->diskon !="0")
+                                            <div class="d-flex flex-column"><small class="text-muted mb-1">  <b>Diskon {{$pr->diskon}}% </b> </small>
+                                                <div class="d-flex flex-row">
+                                                    @php
+                                                        $hdisk=($pr->harga)-($pr->harga*$pr->diskon)/100;
+                                                    @endphp
+                                                    <div class="d-flex flex-column ml-1" style="color: red"><h5> <b> Rp. {{number_format($hdisk)}}</b></h5></div>
+                                                </div>
                                             </div>
-                                        </div>
-
+                                        @endif
                                     </div>
                                     <div class="form-group">
                                         <input id="qty{{$pr->idv}}" class="form-control qty" type="number" value="1" min="1" max="1000" />
@@ -70,3 +73,47 @@
         </div>
     </div>
 @endsection
+@push('js_in')
+<script src="{{asset('frontend/assets/js/bootstrap-number-input.js')}}"></script>
+    <script>
+         $('.qty').bootstrapNumber();
+         function simpanPromo(id,prod) {
+            var qty=$('#qty'+id).val();
+            if(qty==''||qty<1){
+
+            }else{
+                loadingf();
+                $.ajax({
+                    url:'katalog/simpan-cart',
+                    dataType:'json',
+                    type:'post',
+                    data:{id:id,qty:qty,prod:prod},
+                    success:function(response){
+                        if(response.sts=='1'){
+                            $('#basket').attr('style','display:inherit');
+                            Toast.fire({
+                                type: 'success',
+                                title: response.msg
+                            });
+                            countCt(response.item);
+                            $('#totalbl').html("Rp. "+numberFormatComma(response.ttal));
+                            $('#subttl').html("Rp. "+numberFormatComma(response.ttal));
+                            $('#ttl').html("Rp. "+numberFormatComma(response.ttal));
+                            stoploadingf();
+                        }else{
+                            Toast.fire({
+                                type: 'warning',
+                                title: 'Gagal Menambah Item'
+                            });
+                        }
+                    }
+                });
+            }
+          }
+        (function () {
+        var ll = new LazyLoad({
+          threshold: 0,
+        });
+      })();
+    </script>
+@endpush

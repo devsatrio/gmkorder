@@ -29,7 +29,7 @@ class FrontControl extends Controller
             ->leftjoin('size','size.id','=','produk_varian.size_id')
             ->where('produk.nama','like','%'.$cari.'%')
             ->select(DB::raw('warna.nama as warna,size.nama as size,produk.nama as produk,produk_varian.id as idv ,produk_varian.*'))
-            ->where('diskon','!=','0')
+            // ->where('diskon','!=','0')
             ->orderBy('produk_varian.harga','ASC')
             // ->where('stok','!=','0')
             ->paginate(30);
@@ -39,7 +39,7 @@ class FrontControl extends Controller
             ->leftjoin('size','size.id','=','produk_varian.size_id')
             ->where('produk.nama','like','%'.$cari.'%')
             ->select(DB::raw('warna.nama as warna,size.nama as size,produk.nama as produk,produk_varian.id as idv ,produk_varian.*'))
-            ->where('diskon','!=','0')
+            // ->where('diskon','!=','0')
             ->orderBy(DB::raw('RAND(1234)'))
             // ->where('stok','!=','0')
             ->paginate(30);
@@ -49,7 +49,7 @@ class FrontControl extends Controller
             ->leftjoin('size','size.id','=','produk_varian.size_id')
             ->where('produk.nama','like','%'.$cari.'%')
             ->select(DB::raw('warna.nama as warna,size.nama as size,produk.nama as produk,produk_varian.id as idv ,produk_varian.*'))
-            ->where('diskon','!=','0')
+            // ->where('diskon','!=','0')
             ->orderBy('produk_varian.harga','ASC')
             // ->where('stok','!=','0')
             ->paginate(30);
@@ -59,7 +59,7 @@ class FrontControl extends Controller
             ->leftjoin('size','size.id','=','produk_varian.size_id')
             ->where('produk.nama','like','%'.$cari.'%')
             ->select(DB::raw('warna.nama as warna,size.nama as size,produk.nama as produk,produk_varian.id as idv ,produk_varian.*'))
-            ->where('diskon','!=','0')
+            // ->where('diskon','!=','0')
             ->orderBy(DB::raw('RAND(1234)'))
             // ->where('stok','!=','0')
             ->paginate(30);

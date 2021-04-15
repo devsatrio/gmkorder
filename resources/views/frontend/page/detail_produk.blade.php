@@ -7,7 +7,6 @@
                     @foreach ($ket as $k)
                     <h2 class="text-info">{{$k->nama}}</h2>
                     <input type="hidden" id="prod" value="{{$k->nama}}">
-                    <p>{{$k->deskripsi}}</p>
                     @endforeach
                 </div>
                 <div class="block-content">
@@ -79,6 +78,13 @@
                             </div>
 
                         </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Deskripsi Produk : </h3>
+                        <hr>
+                        @foreach ($ket as $k)
+                         <p>{{$k->deskripsi}}</p>
+                        @endforeach
                     </div>
                 </div>
             </div>
