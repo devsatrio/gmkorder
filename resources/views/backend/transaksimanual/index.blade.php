@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row mb-2 mt-3">
             <div class="col-sm-12 text-center">
-                <h1 class="m-0 text-dark"> Transaksi Manual</h1>
+                <h1 class="m-0 text-dark"> Kasir</h1>
             </div>
         </div>
     </div>

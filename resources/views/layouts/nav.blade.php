@@ -43,7 +43,7 @@
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         class="nav-link dropdown-toggle">Transaksi</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        <li><a href="{{url('backend/transaksi-manual')}}" class="dropdown-item">Transaksi Manual </a>
+                        <li><a href="{{url('backend/transaksi-manual')}}" class="dropdown-item">Kasir </a>
                         </li>
                         <li class="dropdown-divider"></li>
                         <li><a href="{{url('backend/list-order')}}" class="dropdown-item">List Order</a></li>
@@ -79,7 +79,7 @@
                     <div class="dropdown-divider"></div>
                     <div id="listnotif">
                         @php
-                        $notif = DB::table('trx_umum')->where('sts','belum')->orderby('id','desc')->limit(10)->get();
+                        $notif = DB::table('trx_umum')->where('sts','belum')->orderby('id','desc')->limit(6)->get();
                         @endphp
                         @foreach($notif as $not)
                         <a href="{{url('backend/list-order')}}" class="dropdown-item">

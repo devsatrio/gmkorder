@@ -20,8 +20,8 @@ function cektransaksibaru() {
         success: function (data) {
             var rows='';
             $.each(data['datanew'], function (key, value) {
-                rows = rows + '<a href="/backend/list-order" class="dropdown-item"><i class="fas fa-shopping-cart mr-2"></i>';
-                rows = rows + value.nama+'  <br> <span class="text-muted text-sm">Membuat Order Baru '+value.created_at+'</span>';
+                rows = rows + '<a href="/backend/list-order" class="dropdown-item"><i class="fas fa-shopping-cart mr-2"></i><b>';
+                rows = rows + value.nama+'</b>  <br> <span class="text-muted text-sm">Membuat Order Baru '+value.created_at+'</span>';
                 rows = rows + '</a><div class="dropdown-divider"></div>';
             });
             $('#listnotif').html(rows);

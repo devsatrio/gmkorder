@@ -69,7 +69,7 @@ class HomeController extends Controller
     //==================================================================
     public function cektransaksi(){
         $datanotif = DB::table('trx_umum')->where('sts_notif','n')->orderby('id','desc')->get();
-        $datanew = DB::table('trx_umum')->where('sts','belum')->orderby('id','desc')->limit(10)->get();
+        $datanew = DB::table('trx_umum')->where('sts','belum')->orderby('id','desc')->limit(6)->get();
         $data=[
             'datanotif'=>$datanotif,
             'datanew'=>$datanew,
