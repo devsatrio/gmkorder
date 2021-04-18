@@ -55,6 +55,11 @@
                                         class="form-control textarea">{!!$row->deskripsi!!}</textarea>
                                 </div>
                                 <div class="form-group">
+                                    <label>Promo</label>
+                                    <textarea name="promot"
+                                        class="form-control textarea">{!!$row->promo!!}</textarea>
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputEmail1">Motto</label>
                                     <textarea name="moto" class="form-control">{{$row->moto}}</textarea>
                                 </div>
