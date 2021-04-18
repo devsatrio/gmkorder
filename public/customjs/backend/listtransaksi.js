@@ -69,6 +69,10 @@ function lihatdetail(kode){
                 $('#tampilongkir').html('Rp. '+rupiah(value.ongkir));
                 $('#tampilpotongan').html('Rp. '+rupiah(value.diskon));
                 $('#tampiltotal').html('Rp. '+rupiah(value.total));
+                $('#tampilcash').html('Rp. '+rupiah(value.dibayar_cash));
+                $('#tampilvocher').html('Rp. '+rupiah(value.dibayar_voucher));
+                $('#tampiltransfer').html('Rp. '+rupiah(value.dibayar_transfer));
+                $('#tampilkembalian').html('Rp. '+rupiah(value.kembalian));
             });
             var rows ='';
             $.each(data['detail'],function(key, value){

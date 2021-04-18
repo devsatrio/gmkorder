@@ -10,7 +10,7 @@
 @section('content')
 <div class="content-wrapper">
     <div class="content-header">
-        <div class="container">
+        <div class="pl-2 pr-2">
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1 class="m-0 text-dark"> Laporan Transaksi Per Admin</h1>
@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="content">
-        <div class="container">
+        <div class="pl-2 pr-2">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card card-dark">
@@ -53,6 +53,7 @@
                                             <th>Cash</th>
                                             <th>Vocher</th>
                                             <th>Transfer</th>
+                                            <th>Kembalian</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
@@ -81,11 +82,13 @@
                                                 {{"Rp ". number_format($row->dibayar_voucher,0,',','.')}}</td>
                                             <td class="text-right">
                                                 {{"Rp ". number_format($row->dibayar_transfer,0,',','.')}}</td>
+                                            <td class="text-right">
+                                            {{"Rp ". number_format($row->kembalian,0,',','.')}}</td>
                                             <td class="text-right">{{"Rp ". number_format($row->total,0,',','.')}}</td>
                                         </tr>
                                         @endforeach
                                         <tr>
-                                            <td colspan="11"><b>Total</b></td>
+                                            <td colspan="12"><b>Total</b></td>
                                             <td class="text-right"><b>{{"Rp ". number_format($total,0,',','.')}}</b>
                                             </td>
                                         </tr>
@@ -104,7 +107,7 @@
 </div>
 <div id="cetaktabel" style="display:none;">
     <h5>Laporan Transaksi Per Admin ({{$dataadmin->username}}) {{$_GET['finaltgl']}}</h5>
-    <table border="1" style="border-collapse: collapse;border: 1px solid black;">
+    <table border="1" style="border-collapse: collapse;border: 1px solid black;" width="100%">
         <thead>
             <tr style="border: 1px solid black;">
 
@@ -116,6 +119,10 @@
                 <th style="border: 1px solid black;">Subtotal</th>
                 <th style="border: 1px solid black;">Potongan</th>
                 <th style="border: 1px solid black;">Ongkir</th>
+                <th style="border: 1px solid black;">Cash</th>
+                <th style="border: 1px solid black;">Vocher</th>
+                <th style="border: 1px solid black;">Transfer</th>
+                <th style="border: 1px solid black;">Kembalian</th>
                 <th style="border: 1px solid black;">Total</th>
             </tr>
         </thead>
@@ -140,11 +147,19 @@
                 </td>
                 <td style="border: 1px solid black;" alignt="right">{{"Rp ". number_format($row->ongkir,0,',','.')}}
                 </td>
+                <td style="border: 1px solid black;" alignt="right">
+                    {{"Rp ". number_format($row->dibayar_cash,0,',','.')}}</td>
+                <td style="border: 1px solid black;" alignt="right">
+                    {{"Rp ". number_format($row->dibayar_voucher,0,',','.')}}</td>
+                <td style="border: 1px solid black;" alignt="right">
+                    {{"Rp ". number_format($row->dibayar_transfer,0,',','.')}}</td>
+                <td style="border: 1px solid black;" alignt="right">
+                {{"Rp ". number_format($row->kembalian,0,',','.')}}</td>
                 <td style="border: 1px solid black;" alignt="right">{{"Rp ". number_format($row->total,0,',','.')}}</td>
             </tr>
             @endforeach
             <tr style="border: 1px solid black;">
-                <td style="border: 1px solid black;" colspan="8"><b>Total</b></td>
+                <td style="border: 1px solid black;" colspan="12"><b>Total</b></td>
                 <td style="border: 1px solid black;" alignt="right"><b>{{"Rp ". number_format($total,0,',','.')}}</b>
                 </td>
             </tr>

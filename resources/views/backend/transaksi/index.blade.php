@@ -148,7 +148,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-6">
+                            <hr>
+                                <div class="col-md-4">
                                     <p id="tampilketerangan" class="text-muted well well-sm shadow-none"
                                         style="margin-top: 10px;">
                                         Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning
@@ -157,7 +158,7 @@
                                         dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
                                     </p>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-4">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <tbody>
@@ -170,12 +171,36 @@
                                                     <td id="tampilongkir"></td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Potongan / Diskon:</th>
+                                                    <th>Potongan:</th>
                                                     <td id="tampilpotongan"></td>
                                                 </tr>
                                                 <tr>
                                                     <th>Total:</th>
                                                     <td><b><span id="tampiltotal"></span></b></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th style="width:50%">Cash:</th>
+                                                    <td id="tampilcash"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Vocher:</th>
+                                                    <td id="tampilvocher"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Transfer:</th>
+                                                    <td id="tampiltransfer"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Kembalian:</th>
+                                                    <td><b><span id="tampilkembalian"></span></b></td>
                                                 </tr>
                                             </tbody>
                                         </table>

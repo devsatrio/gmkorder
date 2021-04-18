@@ -148,7 +148,8 @@ class TransaksiManualController extends Controller
                     ->leftjoin('produk','produk.kode','=','produk_varian.produk_kode')
                     ->leftjoin('warna','warna.id','=','produk_varian.warna_id')
                     ->leftjoin('size','size.id','=','produk_varian.size_id')
-                    ->where('produk_varian.produk_kode','like','%'.$cari.'%')
+                    ->where('produk.nama','like','%'.$cari.'%')
+                    ->orwhere('produk_varian.produk_kode','like','%'.$cari.'%')
                     ->get();
             return response()->json($data);
         }
@@ -224,6 +225,7 @@ class TransaksiManualController extends Controller
             'dibayar_cash'=>$request->cash,
             'dibayar_voucher'=>$request->vocher,
             'dibayar_transfer'=>$request->transfer,
+            'kembalian'=>$request->kembalian,
         ]);
     }
 

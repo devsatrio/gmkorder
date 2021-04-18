@@ -42,7 +42,7 @@ class LoginController extends Controller
             'tgl'=>date('Y-m-d'),
             'jam_login'=>date('H:i:s')
         ]);
-       return redirect()->intended($this->redirectPath())->with('status', 'Login Success, Welcome Back '.Auth::user()->level.' '.Auth::user()->name);
+       return redirect()->intended($this->redirectPath())->with('status', 'Login Success, Welcome Back '.Auth::user()->level.' '.Auth::user()->name.', jangan lupa logout setelah ganti shift agar transaksi tercatat di laporan per shift');
     }
     public function username()
     {

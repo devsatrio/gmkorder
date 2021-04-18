@@ -284,6 +284,14 @@
                                         <h5><b><span id="tampildibayar">RP. 0</span></b></h5>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Kembalian</label>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <h5><b><span id="tampilkembalian">RP. 0</span></b></h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -291,6 +299,7 @@
                     <div class="card-footer">
                     <input type="hidden" name="datatotalnya" value="0" id="datatotalnya">
                     <input type="hidden" name="datadibayarnya" value="0" id="datadibayarnya">
+                    <input type="hidden" name="datakembalian" value="0" id="datakembalian">
                         <button class="btn btn-lg btn-danger" type="button" onclick="history.go(-1)">Kembali</button>
                         <button class="btn btn-lg btn-dark" type="submit" id="simpanbtn">Simpan</button>
                     </div>
@@ -397,6 +406,9 @@
                     <tr>
                         <td><span style="font-size:10px;">Dibayar Transfer</span></td>
                         <td><span style="font-size:10px;" colspan="5" id="notatransfer"></span></td>
+                    </tr><tr>
+                        <td><span style="font-size:10px;">Kembalian</span></td>
+                        <td><span style="font-size:10px;" colspan="5" id="notakembalian"></span></td>
                     </tr>
                 </table>
                 <hr style="border-top: 1px dashed;">

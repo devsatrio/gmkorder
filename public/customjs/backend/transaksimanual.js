@@ -34,7 +34,7 @@ $(function () {
 
   //===============================================================================================
   $('#produk').select2({
-    placeholder: 'Cari Data Produk',
+    placeholder: 'Cari Berdasarkan Nama / Kode Produk',
     ajax: {
       url: '/backend/transaksi-manual/cari-produk',
       dataType: 'json',
@@ -145,7 +145,7 @@ $(function () {
         'warning'
       )
     } else {
-      if (parseInt($('#datatotalnya').val()) == parseInt($('#datadibayarnya').val())) {
+      if (parseInt($('#datatotalnya').val()) <= parseInt($('#datadibayarnya').val())) {
         $('#paneldua').loading('toggle');
         $('#panelnya').loading('toggle');
         $.ajaxSetup({
@@ -173,6 +173,7 @@ $(function () {
             'cash': $('#cash').val(),
             'vocher': $('#vocher').val(),
             'transfer': $('#transfer').val(),
+            'kembalian':$('#datakembalian').val()
           },
           success: function (data) {
             var divToPrint = document.getElementById('hidden_div');
@@ -190,7 +191,7 @@ $(function () {
       } else {
         swalWithBootstrapButtons.fire(
           'Error!',
-          'Maaf, Jumlah Dibayar harus sama dengan total pembelian',
+          'Maaf, Jumlah Dibayar Kurang',
           'warning'
         )
       }
@@ -380,7 +381,8 @@ function hitungtotal() {
   var final_transfer = 0;
   var final_subtotal = 0;
   var dibayar = 0;
-  var totoal = 0;
+  var total = 0;
+  var kembalian =0;
   if ($('#ongkir').val() != '') {
     final_ongkir = parseInt($('#ongkir').val());
   }
@@ -403,11 +405,16 @@ function hitungtotal() {
   total = final_subtotal + final_ongkir - final_potongan;
   dibayar = final_cash + final_vocher + final_transfer;
 
+  if(dibayar>=total){
+    kembalian = dibayar-total;
+  }
+
   $('#tampilsubtotal').html('Rp. ' + rupiah($('#subtotal').val()));
   $('#tampilpotongan').html('Rp. ' + rupiah(final_potongan));
   $('#tampilongkir').html('Rp. ' + rupiah(final_ongkir));
   $('#totalakhir').html('Rp. ' + rupiah(total));
   $('#tampildibayar').html('Rp. ' + rupiah(dibayar));
+  $('#tampilkembalian').html('Rp. ' + rupiah(kembalian));
 
   $('#notasubtotal').html('Rp. ' + rupiah($('#subtotal').val()));
   $('#notapotongan').html('Rp. ' + rupiah(final_potongan));
@@ -416,9 +423,11 @@ function hitungtotal() {
   $('#notacash').html('Rp. ' + rupiah(final_cash));
   $('#notavocher').html('Rp. ' + rupiah(final_vocher));
   $('#notatransfer').html('Rp. ' + rupiah(final_transfer));
+  $('#notakembalian').html('Rp. ' + rupiah(kembalian));
 
   $('#datatotalnya').val(total);
   $('#datadibayarnya').val(dibayar);
+  $('#datakembalian').val(kembalian);
 }
 window.hitungtotal = hitungtotal;
 //===============================================================================================
