@@ -57,7 +57,7 @@
                                 <div class="form-group">
                                     <label>Promo</label>
                                     <textarea name="promot"
-                                        class="form-control textarea">{!!$row->promo!!}</textarea>
+                                        class="form-control">{!!$row->promo!!}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Motto</label>

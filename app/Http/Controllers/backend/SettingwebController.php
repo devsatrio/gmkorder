@@ -57,6 +57,7 @@ class SettingwebController extends Controller
                 'link_iphone'=>$request->link_iphone,
                 'link_youtube'=>$request->link_youtube,
                 'logo'=>$namelogo,
+                'promo'=>$request->promot,
                 'favicon'=>$namefavicon,
             ]);
 
@@ -64,7 +65,7 @@ class SettingwebController extends Controller
             $data = SettingwebModel::where('id',$request->kode)->first();
             if($data->logo != ''){
                 File::delete('images/setting/'.$data->logo);
-            } 
+            }
 
             $image = $request->file('logo');
             $input['imagename'] = time().'-'.$image->getClientOriginalName();
@@ -88,12 +89,13 @@ class SettingwebController extends Controller
                 'link_iphone'=>$request->link_iphone,
                 'link_youtube'=>$request->link_youtube,
                 'logo'=>$input['imagename'],
+                'promo'=>$request->promot,
             ]);
         }elseif($request->hasFile('favicon')){
             $data = SettingwebModel::where('id',$request->kode)->first();
             if($data->favicon != ''){
                 File::delete('images/setting/'.$data->favicon);
-            } 
+            }
 
             $image = $request->file('favicon');
             $input['imagename'] = time().'-'.$image->getClientOriginalName();
@@ -117,6 +119,7 @@ class SettingwebController extends Controller
                 'link_iphone'=>$request->link_iphone,
                 'link_youtube'=>$request->link_youtube,
                 'favicon'=>$input['imagename'],
+                'promo'=>$request->promot,
             ]);
         }else{
             SettingwebModel::where('id',$request->kode)
@@ -134,10 +137,11 @@ class SettingwebController extends Controller
                 'link_android'=>$request->link_android,
                 'link_iphone'=>$request->link_iphone,
                 'link_youtube'=>$request->link_youtube,
+                'promo'=>$request->promot,
             ]);
         }
         return redirect('backend/setting-web')->with('status','Berhasil memperbarui setting web');
     }
 
-    
+
 }

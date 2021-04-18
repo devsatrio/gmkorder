@@ -9,7 +9,7 @@ $nama=Session::get('pembeli');
 $telp=Session::get('telp');
 $al=Session::get('alamat');
 
-$snd=$fk.'%0D%0A'. implode(" ",$lst).'%0D%0A'.'%0D%0A'.'Nama : '.$nama.'%0D%0A'.'Telp: '.$telp.'%0D%0A'.'Pengiriman: '.$al;
+$snd=$fk.'%0D%0A'. implode(" ",$lst).'%0D%0A'.'%0D%0A'.'Nama : '.$nama.'%0D%0A'.'Telp: '.$telp.'%0D%0A'.'Pengiriman: '.$al.'%0D%0A'.'%0D%0A'.'PROMO GMK'.'%0D%0A'.'%0D%0A'.CekNotif::namaWeb()->promo;
 //   dd($snd);
 $urlwa='https://api.whatsapp.com/send?phone='.CekNotif::getNoTelp()->telp.'&text='.$snd;
 @endphp
